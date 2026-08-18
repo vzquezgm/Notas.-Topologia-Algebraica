@@ -78,5 +78,5 @@ jobs:
             echo "No hay cambios en ejercicios.tex para Overleaf"
           else
             git commit -m "Actualizar ejercicios automáticamente"
-            git push origin master
+            git push origin HEAD
           fi
