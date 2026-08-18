@@ -1,0 +1,44 @@
+%%%%%%%%%
+\begin{center}
+    \section{Introducción}
+\end{center}
+En el siglo XVII, Leibnitz consideró necesario crear una geometría que no fiera cuantitativa, sino cualitativa y a esta rama le puso \textit{Analysis Situs}. Como ejemplo, Euler (XVIII) encontró una fórmula que relaciona vértices, aristas y caras de un \textit{poliedro}, por ejemplo los llamados platónicos de dimensión 2, la cuál queda expresada de la siguiente manera
+\[
+v-a+c=2
+\]
+a la cuál llamaremos \textit{fórmula de Euler}. En el caso del poliedro no platónico
+%%%%%%%
+%%%%%%
+$v-a+c=3$ la fórmula de Euler no vale. 
+
+La primera prueba rigurosa de la fórmula de Euler la dio Cristian von Stoudt (1847). En 1860, Arthur Cayley y Johan Listing (alumno de Gauss) se dieron cuenta de que la fórmula de Euler es un \textit{invariante topológico}. Fue  Listing quien acuñó el término \textit{topología} para sustituir al de {Analysis Situs}, además de ser el primero en describir las superficies no orientables.
+
+La fórmula de Euler es válida para poliedros homeomorfos a $S^2,$ en esté curso vamos a generalizar está fórmula para \textit{espacios triangulados} de la siguiente manera:
+
+Se definirá un $q$-simplejo como la generalización de un triángulo (2-simplejo), arista (1-simplejo), vértice (0-simplejo). En este caso, un 3-simplejo es un tetraedro \textit{lleno}.
+%%%%%%%%
+
+%%%%%%%
+Con los $q$-simplejos vamos a formar un espacio que se llama \textit{complejo simplicial geométrico} el cual es la unión de simplejos de diferentes dimensiones. Un \textit{espacio triangulable} es un espacio homeomorfo a un complejo simplicial geométrico. En particular,  si el número de simplejos que forman el complejo es finito diremos que es un espacio triangulado \textit{finito}. A lo largo del curso pro- baremos, para estos espacios, que
+\begin{equation}
+\label{Formua genral de Euler}
+    \sum_{q=0}^n(-1)^q\alpha_q
+\end{equation}
+es un invariante topológico, donde $\alpha_q$ es el número de $q$-simplejos. 
+
+La idea para probar este resultado es definir los \textit{grupos de homología}, que serán nuestros invariantes topológicos. A estos grupos les vamos a asignar un número relacionado con la cantidad de $q$-simplejos, de manera que su suma alternada nos dé exactamente \ref{Formua genral de Euler}.
+
+En el caso del cubo o del dodecaedro, vamos a definir los \textit{complejos CW} (creados por J.H. Constantine Whitehead a finales de los 40's) que son espacios que se obtienen \textit{pegando} $q$-bolas $D^q\subseteq \R^q$ y cuando el número de bolas es finito, la formula es 
+\begin{equation}
+\label{Formua genral de Euler 2}
+    \sum_{q=0}^n(-1)^q\beta_q
+\end{equation}
+es un invariante topológico, donde $\beta_q$ es el número de $q$-\textit{celdas}, que son \textit{"las bolas que ya pegamos"} y entonces las $q$-celdas pueden no ser homeomorfas a las $q$-bolas.
+\begin{definicion}
+    La \textit{característica de Euler} de un simplejo de un complejo simplicial geométrico o una complejo simplicial CW de un espacio $X$ se denota por $\upchi(X)$ y es igual a \ref{Formua genral de Euler} o \ref{Formua genral de Euler 2}, res- pectivamente.
+    \begin{nota}
+        Los complejos CW se pueden definir de dos maneras
+        \item Complejos CW, con $\beta_q$ el número de $q$-bolas con las se construye el CW
+        \item  Cuando tenemos un espacio $X$ y queremos darlse, se es posible, una estructura de complejo CW, con $\beta_q$ el número de $q$-\textit{celdas} de la estructura CW.
+    \end{nota}
+\end{definicion}

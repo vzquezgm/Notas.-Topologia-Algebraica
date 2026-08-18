@@ -1,0 +1,298 @@
+\documentclass{article}
+%\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphicx}
+%\usepackage{float}
+%\usepackage[spanish]{babel}
+%\usepackage{ stmaryrd }
+\usepackage{xfrac}
+%\usepackage[inline]{enumitem}
+%\usepackage{svg}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\usepackage{ upgreek }
+\usepackage{kpfonts}
+\usepackage{mathalfa}
+
+
+%%%%%%%%%%%%%%%%%%%%
+\usepackage[mathscr]{euscript}
+\usepackage{stackrel}
+\usepackage{enumitem}
+
+\setlist[enumerate]{label=(\roman*)}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{xcolor}
+\usepackage{nicematrix}
+\usepackage{nicefrac}
+
+\usepackage{bm}
+%\renewcommand{\refname}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- Definición manual del alfabeto Boondox ---
+\DeclareFontFamily{U}{BOONDOX-calo}{\skewchar\font=45 }
+\DeclareFontShape{U}{BOONDOX-calo}{m}{n}{
+  <-> s*[1.05] BOONDOX-r-calo
+}{}
+\DeclareMathAlphabet{\mathboon}{U}{BOONDOX-calo}{m}{n}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\sop}{\mathrm{sop}}
+\newcommand{\C}{\mathcal{C}}
+\renewcommand{\D}{\mathcal{D}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\U}{\mathscr{U}}
+\newcommand{\F}{\mathscr{F}}
+\newcommand{\A}{\mathscr{A}}
+\newcommand{\B}{\mathscr{B}}
+\newcommand{\Obj}{\mathrm{Ob}}
+\newcommand{\Dom}{\mathrm{Dom}}
+\newcommand{\Cod}{\mathrm{Cod}}
+\newcommand{\M}{\mathrm{Mat}}
+\newcommand{\Aut}{\mathrm{Aut}}
+\newcommand{\Mx}{\mathrm{M}}
+\newcommand{\RE}{\overline{\mathbb{R}}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\im}{\mathrm{Im}}
+\newcommand{\End}{\mathrm{End}}
+\newcommand{\Hom}{\mathrm{Hom}}
+\newcommand{\Mor}{\mathrm{Mor}}
+\newcommand{\Bil}{\mathrm{Bil}}
+\newcommand{\In}{\mathrm{in}}
+\newcommand{\preimg}[2]{{#1}^{\leftarrow}[#2]}
+
+\newcommand{\bigpreim}[2]{{#1}^{\leftarrow}\big[#2\big]}
+
+\newcommand{\biggpreim}[2]{{#1}^{\leftarrow}\bigg[#2\bigg]}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\numberwithin{equation}{subsection}
+
+\newcommand{\cdstack}[2]{\begin{matrix}#1\\#2\end{matrix}}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\usepackage{tikz,tikz-cd}
+\usepackage{tikz}
+\usetikzlibrary{fit}
+\usetikzlibrary{calc}
+\usepackage{nicematrix}
+\usetikzlibrary{decorations.markings, arrows.meta}
+
+%\usepackage{mathabx}
+%\usetikzlibrary{arrows}
+%\usetikzlibrary{arrows.meta}
+
+\tikzcdset{arrow style=tikz, diagrams={>={Stealth[round,length=4pt,width=4.95pt,inset=2.75pt]}}}
+
+\usepackage{mathrsfs}
+%\usetikzlibrary{arrows}
+%\pagestyle{empty}
+\usepackage[letterpaper]{geometry}
+%\usepackage{pst-all}
+\usepackage{pstricks-add}
+
+\usepackage{bbm}
+%\pagenumbering{gobble}
+
+%\hyphenation{des-cri-tos}
+%\usepackage{cancel}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Especificar autor como                                        
+% "EquipoX \\ Alumno1 \\ Alumno2"
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Recuerda que la solución a cada ejercicio se debe realizar en el
+% ambiente /solucion/ 
+%\usetikzlibrary{arrows,arrows.meta}
+%\tikzcdset{arrow style=tikz, diagrams={>=latex}}
+%\tikzcdset{every label/.append style = {font = \small}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%
+\usepackage{titlesec}
+\titleformat{\section}
+{\large\mdseries\scshape\center}
+{\thesection.}
+{0.5em}
+{}
+\titlespacing{\section}{0pt}{\bigskipamount}{0em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% --- DEFINICIÓN DE ESTILOS PERSONALIZADOS ---
+
+% 1. Estilo para Proposiciones (Título Azul, Texto en Cursiva)
+\newtheoremstyle{estilo-proposicion-azul}
+  {10pt}        % Espacio arriba
+  {10pt}        % Espacio abajo
+  {\itshape}    % Fuente del cuerpo (Cursiva para matemáticas)
+  {}            % Indentación
+  {\bfseries\color{blue}} % Fuente del título (Negrita y AZUL)
+  {.}           % Puntuación después del título
+  {0.5em}       % Espacio después del título
+  {\thmname{#1} \thmnumber{#2}\thmnote{ (#3)}}            % Especificación manual (dejar vacío)
+
+% 2. Estilo para Ejemplos/Ejercicios (Título Azul, Texto Normal)
+\newtheoremstyle{estilo-ejemplo-azul}
+  {10pt}        % Espacio arriba
+  {10pt}        % Espacio abajo
+  {\upshape}    % Fuente del cuerpo (Texto normal, no cursiva)
+  {}            % Indentación
+  {\bfseries\color{blue}} % Fuente del título (Negrita y AZUL)
+  {.}           % Puntuación después del título
+  {0.5em}       % Espacio después del título
+  {\thmname{#1} \thmnumber{#2}\thmnote{ (#3)}}           % Especificación manual
+
+% --- ASIGNACIÓN DE ENTORNOS ---
+
+\newtheoremstyle{estilo-nota-azul}
+  {10pt}        % Espacio arriba
+  {10pt}        % Espacio abajo
+  {\upshape}    % Fuente del cuerpo (Texto normal, no cursiva)
+  {}            % Indentación
+  {\itshape\color{blue}} % Fuente del título (Cursiva y AZUL)
+  {.}           % Puntuación después del título
+  {0.5em}       % Espacio después del título
+  {\thmname{#1} \thmnumber{#2}\thmnote{ (#3)}} % Orden exacto: Nombre + Número + (Nota)
+  
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usetikzlibrary{decorations.pathmorphing}
+
+
+\newcommand{\op}{\mathrm{op}}
+\newcommand{\PX}{\textsf{P\textit{X}}}
+\newcommand{\HTop}{\textsf{HTop}}
+\newcommand{\CMor}{\textsf{Mor}}
+\newcommand{\Path}{\mathrm{Path}}
+\newcommand{\Mat}{\textsf{Mat}}
+\newcommand{\GrpTop}{\textsf{GrpTop}}
+\newcommand{\Meas}{\textsf{Meas}}
+\newcommand{\Man}{\textsf{Man}}
+\newcommand{\Po}{\textsf{Po}}
+\newcommand{\Nat}{\mathrm{Nat}}
+\newcommand{\Set}{\textsf{Set}}
+\newcommand{\Mon}{\textsf{Mon}}
+\newcommand{\Grp}{\textsf{Grp}}
+\newcommand{\Grupoid}{\textsf{Groupoid}}
+\newcommand{\Ab}{\textsf{Ab}}
+\newcommand{\Field}{\textsf{Field}}
+\newcommand{\Graph}{\textsf{Graph}}
+\newcommand{\Poset}{\textsf{Poset}}
+\newcommand{\Proset}{\textsf{Proset}}
+\newcommand{\Lat}{\textsf{Lat}}
+\newcommand{\Metu}{\textsf{Met}_\textsf{u}}
+\newcommand{\Metc}{\textsf{Met}_\textsf{c}}
+\renewcommand{\Top}{\textsf{Top}}
+\newcommand{\Haus}{\textsf{Haus}}
+\newcommand{\Ring}{\textsf{Ring}}
+\newcommand{\CRing}{\textsf{CRing}}
+\newcommand{\Rel}{\textsf{Rel}}
+\newcommand{\Ret}{\textsf{Ret}}
+\newcommand{\Fin}{\textsf{Fin}}
+\newcommand{\Finiso}{\textsf{Fin}_{\textsf{iso}}}
+
+
+\newcommand{\Htpy}{\textsf{Htpy}}
+\newcommand{\SemiGrp}{\textsf{SemiGrp}}
+\newcommand{\FinIso}{\textsf{Fin}_{\textsf{iso}}}
+\newcommand{\AffSch}{\textsf{AffSch}}
+
+\newcommand{\Cat}{\textsf{Cat}}
+
+\NewDocumentCommand{\Vect}{o}{%
+    \IfNoValueTF{#1}{%
+        K\text{-}\textsf{Vect} % Caso sin argumento
+    }{%
+        #1\text{-}\textsf{Vect} % Caso con argumento
+    }%
+}
+\NewDocumentCommand{\Mod}{o}{%
+    \IfNoValueTF{#1}{%
+        R\hspace{0.5mm}\text{-}\hspace{0.5mm}\textsf{Mod} % Caso sin argumento
+    }{%
+        #1\hspace{0.5mm}\text{-}\hspace{0.5mm}\textsf{Mod} % Caso con argumento
+    }%
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\swapnumbers
+\theoremstyle{plain}
+\newtheorem{teorema}{Teorema}[subsection]
+\newtheorem{lema}[teorema]{Lema}
+\newtheorem{prop}[teorema]{Proposición}
+\newtheorem{coro}[teorema]{Corolario}
+%\newtheorem{ejercicio}[teorema]{Ejercicio}
+\theoremstyle{definition}
+\newtheorem{definicion}[teorema]{Definición}
+\newtheorem{notacion}[teorema]{Notación}
+\newtheorem{convencion}[teorema]{Convención}
+\newtheorem{recordatorio}[teorema]{Recordatorio}
+\newtheorem{ejemplo}[teorema]{Ejemplo}
+\theoremstyle{remark}
+\newtheorem{obs}[teorema]{Observación}
+\newtheorem{nota}[teorema]{Nota}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{estilo-proposicion-azul}
+\newtheorem{proposicion1}[teorema]{Proposición}
+\newtheorem{prop1}[teorema]{Proposición}
+\newtheorem{blueprop}[teorema]{Proposición}
+
+\theoremstyle{estilo-ejemplo-azul}
+\newtheorem{ejercicio}[teorema]{Ejercicio}
+
+\theoremstyle{estilo-nota-azul}
+\newtheorem{bluenota}[teorema]{Nota}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\qedsymbol}{$\blacksquare$}
+\newenvironment{solucion}
+  {\begin{proof}[Solución]}
+  {\end{proof}}
+
+\newenvironment{demostracion}
+  {\begin{proof}[Demostración]}
+  {\end{proof}}
+  
+\newenvironment{dem}
+  {\begin{proof}[Demostración]}
+  {\end{proof}}
+\usepackage[english]{babel}
+\addto\captionsenglish{
+  \renewcommand{\contentsname}
+    {Índice} % ToC will show "Index" instead of "Content"
+}
+
+\author{ } 
+\title{Topología Algebraica}
+\author{Gustavo Vázquez Monroy}
+\date{\today}
+\begin{document}
+\maketitle
+\pagenumbering{roman}
+\tableofcontents
+\pagenumbering{arabic}
+\include{0.Introducción}
+\include{1.Grupo fundamental}
+%\include{2.Topología}
+\include{Referencias}
+\end{document}

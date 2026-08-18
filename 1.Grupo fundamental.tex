@@ -1,0 +1,283 @@
+\begin{center}
+    \section{Grupo fundamental}
+\end{center}
+\subsection{Homotopía}
+
+
+Queremos asociar a cada espacio topológico $X$ un conjunto $h(X)$ que de preferencia tenga una estructura algebraica como grupo, grupo abeliano, $R$-módulo, etc., de modo que $h$ sea un invariante topológico, i.e., si tenemos espacios homeomorfos $X\cong Y$, entonces $h(X)\cong (Y)$ (isomorfos). Además, dada una función continua $f:X\to Y$, tenemos un homeomorfismo asociado $h(f):h(X)\to h(Y)$; con las siguientes propiedades
+\begin{itemize}
+    \item[(1)] $h(\id_X)=\id_{h(X)}$,
+    \item[(2)] Si $\begin{tikzcd}[column sep=0.5cm,row sep=1.25cm]  
+                    X \ar[r,"f"] & Y \ar[r,"g"] & Z
+                \end{tikzcd}$
+            son funciones continuas, entonces $h(g\circ f)=h(f)\circ h(g)$,
+\end{itemize}
+\begin{nota}
+    Si $h$ satisface (1) y (2), entonces $h$ es un invariante topológico, ya que si $X\cong Y$, entonces existe $f:X\to Y$, $g:Y\to X$ continuas tal que
+    \[
+    g\circ f=\id_X\;\text{ y }\; f\circ g=\id_Y,
+    \]
+    entonces por (1) y (2), tenemos
+    \begin{equation*}
+        h(g)\circ h(f)=h(g\circ f)=h(\id_X)=\id_{h(X)}
+    \end{equation*}
+    y también 
+    \begin{equation*}
+        h(f)\circ h(g)=h(f\circ g)=h(\id_Y)=\id_{h(Y)},
+    \end{equation*}
+    entonces $h(f)$ es un isomorfismo con inversa $h(g)$.
+
+    Por otro lado, necesitamos métodos para calcular $h(X)$ y $h(f)$ para $f$ una función continua. Los invariantes básicos que se nos puede ocurrir es hablar de las componentes conexas, conectable por trayectoría, etc. En general, estos invariantes no tienen estructura de grupo, pero existen casos especiales en los que si resultan serlo, aunque no son triviales y por lo regular son \textit{muy difícil} de calcularlos.
+
+    Por lo que respecta a este curso, solo hablaremos de componentes por trayectoría.
+\end{nota}
+\begin{definicion}
+\label{rel:homo}
+    Sea $X$ un espacio topológico. Definimos una relación en $X$ como sigue: sean $x,x'\in X$, decimos que $x\sim x'$ si existe $\sigma:I\to X$ (una trayectoria, con $I=[0,1]$) continua tal que $\sigma(x)=0$ y $\sigma(x')=1$.
+\end{definicion}
+
+Veamos que está relación es de equivalencia. (1) Notemos que $x\sim x$, ya que $i:I\to X$ tal que $i(t)=x$, para toda $t\in I$, cumple con la definición $\ref{rel:homo}$. (2) Supongamos que $x\sim x'$, entonces existe una trayectoría continua $\sigma:I\to X$ tal que $\sigma(0)=x$ y $\sigma(1)=x'$. Consideremos la trayectoría $\overline{\sigma}:I\to X$ tal que $\overline{\sigma}(t)=\sigma(1-t)$, entonces $\overline{\sigma}$ es continua  y
+\begin{align*}
+    &\overline{\sigma}(0)=\sigma(1)=x',\\
+    &\overline{\sigma}(1)=\sigma(0)=x,
+\end{align*}
+por lo tanto, $\overline{\sigma}$ es testigo de que $x'\sim x$. (3) Supongamos que $x_1\sim x_2$ y $x_2\sim x_3$, 
+\[
+\begin{tikzpicture}[x=1.5cm, y=0.7cm, font=\large]
+  % Define point coordinates
+  \coordinate (x1) at (0,0);
+  \coordinate (x2) at (1.5,0);
+  \coordinate (x3) at (3.5,0);
+
+  % Draw horizontal ruled paper lines for context (optional, but good for positioning)
+  %\foreach \i in {-1,0,1} \draw[lightgray, dashed] (-0.5,\i) -- (4,\i);
+
+  % Draw the points (dots)
+  \fill (x1) circle (1.8pt) node[below=3pt] {$x_1$};
+  \fill (x2) circle (1.8pt) node[right=5pt] {$x_2$};
+  \fill (x3) circle (1.8pt) node[right=3pt] {$x_3$};
+
+  % Label for the terminal point
+  %\node at (x3) {$x_3$};
+
+  % Draw the path sigma (σ)
+  \draw[thick, -, >=stealth] (x1) to[bend left=60] node[midway, yshift=1.5ex] {$\sigma$} (x2);
+
+  % Draw the path tau (τ) - a wavy S-curve using explicit control points
+  \draw[thick, -, >=stealth] (x2) .. controls ++(1,-2) and ++(-0.7, 1) .. (x3)
+    node[near end, below=2pt, xshift=-1ex] {$\tau$};
+
+\end{tikzpicture}
+\]
+tenemos entonces
+\begin{equation*}
+    \sigma(0)=x_1,\;\; \sigma(1)=\tau(0)=x_2\; \text{ y }\; \tau(1)=x_3.
+\end{equation*}
+Definamos $\sigma*\tau:I\to X$ como 
+\begin{equation}
+\label{producto entre trayectorias}
+(\sigma * \tau)(t) = 
+\begin{cases} 
+\sigma(2t), & \text{si } 0 \leq t \leq \nicefrac{1}{2} \\[1ex]
+\tau(2t - 1), & \text{si } \nicefrac{1}{2} \leq t \leq 1 
+\end{cases}
+\end{equation}
+Notemos que $(\sigma*\tau)(\nicefrac{1}{2})=\sigma(1)=\tau(0)=x_2$, por lo que $\sigma*\tau$ está bien definida y además $I_1=[0,\nicefrac{1}{2}],\; I_2=[\nicefrac{1}{2},1]$ son conjuntos cerrados tal que $I=I_1\cup I_2$, por el lema del pegado, $\sigma*\tau$ es con- tinua. Finalmente 
+\begin{align*}
+    &(\sigma*\tau)(0)=\sigma(0)=x_1,\\
+    &(\sigma*\tau)(1)=\tau(1)=x_3,
+\end{align*}
+por lo tanto, $\sigma*\tau$ es testigo de que $x_1\sim x_3$. 
+
+%%% Comentario: La relación $\sim$ es de equivalencia, y denotamos por $[x]$ la clase de equivalencia de $x\in X$. El conjunto de todas las clases de equivalencia se denota por $\pi_0(X)$ y se llama el conjunto de componentes conexas por trayectorias de $X$.
+
+%%% Más comentarios.
+\begin{definicion}
+    Denotamos por $\Pi_0(X)$ el conjunto de clases de equivalencia que son las \textit{componentes por trayectoria} de $X$. Dado $x\in X$, su clase de equivalencia la pon $\langle x\rangle \in \Pi_0$(X). 
+\end{definicion}
+\begin{definicion}
+    Sea $f:X\to Y$ una función continua, definimos $\Pi_0(f)*:\Pi_0(X)\to \Pi_0(Y)$ tal que $\Pi_0(f)(\langle x\rangle)=\langle f(x)\rangle$. Denotemos a $\Pi_0(f)$ simplemente por $f_*$.
+\end{definicion}
+\begin{ejercicio}
+    Mostrar que $f_*$ está bien definida y que satisface    que
+    \begin{itemize}
+        \item [(1)] ${\id_X}_*=\id_{\Pi_0(x)}.$
+        \item [(2)] Para cualquier $f:X\to Y$ y $g:Y\to Z$ funciones continuas, entonces $(g\circ f)_*=g_*\circ f_*$
+    \end{itemize}
+\end{ejercicio}
+\begin{coro}
+    $\Pi_0$ es un invariante topológico.
+\end{coro}
+\begin{definicion}
+    Sea $X$ un espacio topológico y $x_0\in X$. Al par $(X,x_0)$ lo llamaremos \textit{espacio basado en} $x_0$.
+\end{definicion}
+\begin{definicion}
+    Sea $X$ un espacio basado en $x_0$. Un \textit{lazo} con base en $x_0$ es una trayectoria continua $\alpha:I\to X$ tal que $\alpha(0)=\alpha(1)=x_0.$ Al conjunto de lazos en $X$ basado en $x_0$ lo denotamos por $\Omega(X,x_0).$
+\end{definicion}
+La deformación de lazos está dada por medio de una función continua $H:I\times I\to X$ llamada \textit{homotopía}, donde la primera coordenada del conjunto $I\times I$ denota el dominio de los lazos y la segunda coordenada denota el parámetro de la deformación que la podemos pensar como si fuese el \textit{tiempo}.
+\begin{definicion}
+    Sea $\alpha,\beta\in \Omega(X,x_0)$, decimos que $\alpha$ se puede \textit{deformar} en $\beta$ o que $\alpha$ es \textit{homotópico} a $\beta$ y se denota por $\alpha \simeq\beta$ rel $\{0,1\}$,  si existe una \textit{homotopía} $H:I\times I\to X$ que satisface lo siguiente:
+    \begin{enumerate}
+        \item $H(s,0)=\alpha(s)$, $H(s,1)=\beta(s)$.
+        \item $H(0,t)=H(1,t)=x_0$.
+    \end{enumerate}
+\end{definicion}
+
+La condición rel \{0,1\} es que los puntos $0,1\in I$ van a dar al mismo punto $x_0\in X$.
+
+\begin{center}
+\begin{tikzpicture}[
+    scale=0.7, transform shape,
+    % --- DEFINICIÓN DE ESTILOS ---
+    % Estilo para poner una flecha en la parte superior del lazo
+    midarrow/.style={postaction={decorate}, decoration={markings, mark=at position 0.32 with {\arrow{Stealth[length=2.5mm]}}}},
+    % Estilos para los lazos
+    alpha/.style={thick, blue!80!black, midarrow},
+    beta/.style={thick, red!80!black, midarrow},
+    % Estilo para los lazos intermedios
+    inter/.style={thick, black, midarrow}
+]
+
+    % ==========================================
+    % LADO IZQUIERDO: EL DOMINIO (Cuadrado I x I, tamaño 4 x 4)
+    % ==========================================
+    % Se ajustó el shift a (-8.0, -1.75) para que no choque con la flecha H al crecer
+    \begin{scope}[shift={(-8.0, -1.75)}]
+        
+        % 4 Líneas horizontales simétricamente distribuidas (cada 0.8)
+        \foreach \y in {0.8, 1.6, 2.4, 3.2} {
+            \draw[inter] (0,\y) -- (4,\y);
+        }
+
+        % Bordes laterales (sin s=0 ni s=1)
+        \draw[thick] (0,0) -- (0,4);
+        \draw[thick] (4,0) -- (4,4);
+        
+        % Lazo alfa en el dominio (t=0)
+        \draw[alpha] (0,0) -- (4,0) node[midway, below=2mm, font=\large, text=blue!80!black] {$t=0 \ (\alpha)$};
+        
+        % Lazo beta en el dominio (t=1)
+        \draw[beta] (0,4) -- (4,4) node[midway, above=2mm, font=\large, text=red!80!black] {$t=1 \ (\beta)$};
+
+        % Nombre del dominio en la parte superior, alineado perfectamente al nuevo centro
+        \node[font=\Large] at (2, 5.5) {$I \times I$};
+    \end{scope}
+
+    % ==========================================
+    % PARTE SUPERIOR: EL MAPEO HOMOTÓPICO (Flecha H)
+    % ==========================================
+    \draw[-{Stealth[length=3mm]}, thick] (-3.5, 2.5) to[bend left=20] node[above, yshift=1mm, font=\large] {$H$} (-1.2, 2.5);
+
+    % ==========================================
+    % LADO DERECHO: EL CODOMINIO (Espacio X)
+    % ==========================================
+    \begin{scope}[shift={(-0.7, 0)}]
+        \node[font=\Large, text=black] at (2.5, 4.3) {$X$};
+        % Frontera de X: Recorrida a la derecha (0.3 unidades), abrazando de cerca a los lazos pero respetando x_0
+        \draw[thick, draw=black] (0.7, 0)
+                                 .. controls (0.7, 1.8) and (-0.1, 3.8) .. (2.7, 3.8)
+                                 .. controls (5.1, 3.8) and (5.7, 1.8) .. (5.7, 0)
+                                 .. controls (5.7, -1.8) and (5.1, -3.8) .. (2.7, -3.8)
+                                 .. controls (-0.1, -3.8) and (0.7, -1.8) .. cycle;
+
+        \begin{scope}[shift={(1,0)}]
+            
+            % DIBUJAMOS DEL MÁS GRANDE AL MÁS CHICO
+            
+            % 1. Lazo beta (i=5) - El más externo y grande (ROJO)
+            \pgfmathsetmacro{\L}{1.5 + 5*0.55}   % Longitud horizontal 
+            \pgfmathsetmacro{\cx}{0.6 + 5*0.15}  % x del primer control
+            \pgfmathsetmacro{\cy}{0.2 + 5*0.42}  % y del primer control
+            \pgfmathsetmacro{\bx}{\L + 0.1 + 5*0.05} % x del segundo control
+            \pgfmathsetmacro{\by}{0.9 + 5*0.7}   % y del segundo control 
+            
+            % Etiqueta \beta hacia AFUERA y abajo
+            \draw[beta] (0,0) .. controls (\cx, \cy) and (\bx, \by) .. (\L, 0) 
+                             .. controls (\bx, -\by) and (\cx, -\cy) .. (0,0) 
+                             node[pos=0.5, right=6mm, yshift=4.5mm, font=\Large, text=red!80!black] {$\beta$};
+
+            % 2. Lazos intermedios (i=4, 3, 2, 1) - (NEGROS)
+            \foreach \i in {4, 3, 2, 1} {
+                \pgfmathsetmacro{\L}{1.5 + \i*0.55}
+                \pgfmathsetmacro{\cx}{0.6 + \i*0.15}
+                \pgfmathsetmacro{\cy}{0.2 + \i*0.42}
+                \pgfmathsetmacro{\bx}{\L + 0.1 + \i*0.05}
+                \pgfmathsetmacro{\by}{0.9 + \i*0.7}
+
+                \draw[inter] (0,0) .. controls (\cx, \cy) and (\bx, \by) .. (\L, 0) 
+                                  .. controls (\bx, -\by) and (\cx, -\cy) .. (0,0);
+            }
+
+            % 3. Lazo alfa (i=0) - El más interno y pequeño (AZUL)
+            \pgfmathsetmacro{\L}{1.5 + 0*0.55}
+            \pgfmathsetmacro{\cx}{0.6 + 0*0.15}
+            \pgfmathsetmacro{\cy}{0.2 + 0*0.42}
+            \pgfmathsetmacro{\bx}{\L + 0.1 + 0*0.05}
+            \pgfmathsetmacro{\by}{0.9 + 0*0.7}
+            
+            % Etiqueta \alpha
+            \draw[alpha] (0,0) .. controls (\cx, \cy) and (\bx, \by) .. (\L, 0) 
+                              .. controls (\bx, -\by) and (\cx, -\cy) .. (0,0) 
+                              node[pos=0.5, right=3.5mm, font=\large, text=blue!80!black] {$\alpha$};
+
+            % 4. Dibujar el punto x_0 por encima de todas las líneas para limpiar el origen
+            \fill (0,0) circle (2.5pt) node[yshift=-0.5cm, font=\large] {$x_0$};
+            
+        \end{scope}
+    \end{scope}
+
+\end{tikzpicture}
+\end{center}
+\begin{ejercicio}
+    Mostrar que la relación de homotopía en el conjunto $\Omega(X,x_0)$ es una relación de equivalencia.
+\end{ejercicio}
+\begin{definicion}
+    El conjunto de clases de homotopía de lazos en $X$ basado en $x_0$ lo denotamos por $\Pi_1(X,x_0)=\Omega(X,x_0)/\simeq\text{rel }\{0,1\}$.
+\end{definicion}
+Vamos a definir un producto en $\Pi_1(X,x_0)$ de manera que se vuelva un grupo, aunque en general no será abeliano.
+\begin{definicion}
+    Sea $X$ un espacio basado en $x_0$.
+    Definimos $*:\Omega(X,x_0)\times \Omega(X,x_0)\to \Omega(X,x_0)$ tal que $\alpha*\beta:I\to X$ es la trayectoria continua definida en \ref{producto entre trayectorias}, i.e.,
+    \[
+(\alpha * \beta)(s) = 
+\begin{cases} 
+\alpha(2s), & \text{si } 0 \leq t \leq \nicefrac{1}{2} \\[1ex]
+\beta(2s - 1), & \text{si } \nicefrac{1}{2} \leq t \leq 1 
+\end{cases}
+\]
+\end{definicion}
+Notemos que $(\alpha*\beta)(0)=(\alpha*\beta)(1)=\alpha(0)=\beta(1)=x_0$, i.e., $\alpha*\beta$ es un lazo, por lo tanto, $*$ está bien definida. Además, tenemos una función 
+\begin{equation}
+    \begin{split}
+        \overline{(-)}:\Omega(X,x_0)&\to\Omega(X,x_0)\\
+    \alpha&\mapsto \overline{\alpha}
+    \end{split}
+\end{equation}
+donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to X$ tal que $c_{x_0}(s)=x_0$, para toda $s\in I$.
+    \begin{nota}
+        Notemos que, por lo general $\alpha* c_{x_0}\cdot \alpha \neq \alpha$, i.e., $*$ no define un grupo en $\Omega(X,x_0)$.
+    \end{nota}
+    \begin{definicion}
+        Sea $f:(X,x_0)\to(Y,y_0)$ una función continua \textit{basada en} $f(x_0)=y_0$, definimos $\Pi_1(f):\Pi_1(X,x_0)\to(Y,y_0)$ como $\Pi_1(f)([ \alpha])=[f\circ \alpha]$. Esto tiene sentido, ya que 
+        $$(f\circ\alpha)(0)=(f\circ\alpha)(1)=f(x_0)=y_0.$$ 
+        Denotamos a $\Pi_1(f)$ simplemente por $f_\#$.
+    \end{definicion}
+    \begin{prop}
+        Sea $f:(X,x_0)\to(Y,y_0)$ una función continua \textit{basada en} $f(x_0)=y_0$. Entonces la función $f_\#$ está bien definida, i.e., no depende del representante.
+    \end{prop}
+    \begin{dem}
+        
+    \end{dem}
+    Podemos deformar funciones continuas arbitrarias de la siguiente manera 
+    \begin{definicion}
+        Sea $f,g:X\to Y$ continuas, decimos que $f$ es \textit{homotópica} a $g$ (o que $f$ \textit{se deforma a} $g$) y lo denotamos por $f\simeq g$, si existe una función continua $H:I\times X\to Y$ llamada \textit{homotopía} tal que $H(x,0)=f(x)$ y $H(x,1)=g(x)$. Para cada $t\in I$ tenemos la función continua $H_t:X\to Y$ dada por $H_t(x)=H(x,t)$.
+    \end{definicion}
+    \begin{nota}
+        
+    \end{nota}
+    \begin{ejercicio}
+        Mostrar que la homotopía es una relación de equivalencia en el conjunto $\text{Map}(X,Y)$ de funciones continuas de $X$ en $Y$
+    \end{ejercicio}
+    \begin{definicion}
+        Sea $X,Y$ espacios topológicos. Denotamos por $[X,Y]$ como el conjunto de clases de homotopía. Para cada $f\in \text{Map}(X,Y)$, denotamos por $[f]\in [X,Y]$ su clase de homotopía.
+    \end{definicion}
