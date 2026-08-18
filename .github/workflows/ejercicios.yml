@@ -25,6 +25,10 @@ jobs:
       - name: Extraer ejercicios
         run: python extraer_ejercicios.py
 
+      # =========================
+      # ACTUALIZAR GITHUB B
+      # =========================
+
       - name: Clonar Proyecto B
         uses: actions/checkout@v4
         with:
@@ -49,4 +53,30 @@ jobs:
           else
             git commit -m "Actualizar ejercicios automáticamente"
             git push
+          fi
+
+      # =========================
+      # ACTUALIZAR OVERLEAF B
+      # =========================
+
+      - name: Clonar repositorio de Overleaf B
+        run: |
+          git clone https://git:${{ secrets.OVERLEAF_TOKEN }}@git.overleaf.com/6a840b7e222828e4c0e48fec overleaf-b
+
+      - name: Actualizar ejercicios en Overleaf B
+        run: |
+          cp ejercicios.tex overleaf-b/ejercicios.tex
+
+          cd overleaf-b
+
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git add ejercicios.tex
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios en ejercicios.tex para Overleaf"
+          else
+            git commit -m "Actualizar ejercicios automáticamente"
+            git push origin master
           fi
