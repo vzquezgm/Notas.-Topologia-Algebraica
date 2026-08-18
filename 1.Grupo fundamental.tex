@@ -33,7 +33,7 @@ Queremos asociar a cada espacio topológico $X$ un conjunto $h(X)$ que de prefer
 \end{nota}
 \begin{definicion}
 \label{rel:homo}
-    Sea $X$ un espacio topológico. Definimos una relación en $X$ como sigue: sean $x,x'\in X$, decimos que $x\sim x'$ si existe $\sigma:I\to X$ (una trayectoria, con $I=[0,1]$) continua tal que $\sigma(x)=0$ y $\sigma(x')=1$.
+    Sea $X$ un espacio topológico. Definimos una relación en $X$ como sigue: sean $x,x'\in X$, decimos que $x\sim x'$ si existe $\sigma:I\to X$ (una trayectoria, con $I=[0,1]$) continua tal que $\sigma(0)=x$ y $\sigma(1)=x'$.
 \end{definicion}
 
 Veamos que está relación es de equivalencia. (1) Notemos que $x\sim x$, ya que $i:I\to X$ tal que $i(t)=x$, para toda $t\in I$, cumple con la definición $\ref{rel:homo}$. (2) Supongamos que $x\sim x'$, entonces existe una trayectoría continua $\sigma:I\to X$ tal que $\sigma(0)=x$ y $\sigma(1)=x'$. Consideremos la trayectoría $\overline{\sigma}:I\to X$ tal que $\overline{\sigma}(t)=\sigma(1-t)$, entonces $\overline{\sigma}$ es continua  y
@@ -105,7 +105,7 @@ por lo tanto, $\sigma*\tau$ es testigo de que $x_1\sim x_3$.
         \item [(2)] Para cualquier $f:X\to Y$ y $g:Y\to Z$ funciones continuas, entonces $(g\circ f)_*=g_*\circ f_*$
     \end{itemize}
 \begin{dem}
-    Supongamos $x\simeq y$, entonces existe una trayectoría continua $\alpha:I\to X$ tal que
+    Supongamos $x\simeq y$, entonces existe una trayectoría continua $\sigma:I\to X$ tal que $\sigma(0)=x$ y $\sigma(1)=y$.
 \end{dem}
 \end{ejercicio}
 \begin{coro}
