@@ -10,17 +10,43 @@ on:
       - '.github/workflows/ejercicios.yml'
 
 jobs:
-  extraer:
+  extraer-y-enviar:
     runs-on: ubuntu-latest
 
     steps:
       - name: Obtener Proyecto A
         uses: actions/checkout@v4
 
-      - name: Ejecutar extractor
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Extraer ejercicios
         run: python extraer_ejercicios.py
 
-      - name: Mostrar resultado
+      - name: Clonar Proyecto B
+        uses: actions/checkout@v4
+        with:
+          repository: vzquezgm/Ejercicios.-Topologia-Algebraica
+          token: ${{ secrets.PROJECT_B_TOKEN }}
+          path: proyecto-b
+
+      - name: Copiar ejercicios a Proyecto B
         run: |
-          echo "Ejercicios extraídos:"
-          cat ejercicios.tex
+          cp ejercicios.tex proyecto-b/ejercicios.tex
+
+      - name: Actualizar Proyecto B
+        working-directory: proyecto-b
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add ejercicios.tex
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios en ejercicios.tex"
+          else
+            git commit -m "Actualizar ejercicios automáticamente"
+            git push
+          fi
