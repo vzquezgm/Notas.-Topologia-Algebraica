@@ -1,0 +1,26 @@
+name: Actualizar ejercicios
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.tex'
+      - 'extraer_ejercicios.py'
+      - '.github/workflows/ejercicios.yml'
+
+jobs:
+  extraer:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Obtener Proyecto A
+        uses: actions/checkout@v4
+
+      - name: Ejecutar extractor
+        run: python extraer_ejercicios.py
+
+      - name: Mostrar resultado
+        run: |
+          echo "Ejercicios extraídos:"
+          cat ejercicios.tex
