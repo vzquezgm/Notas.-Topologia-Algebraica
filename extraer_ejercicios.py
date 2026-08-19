@@ -1,26 +1,33 @@
 from pathlib import Path
 import re
 
-# Carpeta raíz del Proyecto A
 PROYECTO = Path(".")
-
-# Archivo que generaremos
 SALIDA = PROYECTO / "ejercicios.tex"
+
+PATRON_EJERCICIO = re.compile(
+    r"\\begin\{ejercicio\}.*?\\end\{ejercicio\}",
+    re.DOTALL
+)
+
+PATRON_ID = re.compile(
+    r"%\s*ID:\s*(\d+)"
+)
 
 
 def numero_archivo(archivo):
     """
-    Obtiene el número inicial del nombre del archivo.
+    Ordena los archivos por el número inicial de su nombre.
 
-    Ejemplos:
-        0.Introduccion.tex        -> 0
-        1.Grupo-fundamental.tex   -> 1
-        10.Homologia.tex          -> 10
-
-    Los archivos que no comiencen con un número
-    se colocan al final.
+    Ejemplo:
+        0.Introduccion.tex  -> 0
+        1.Grupo.tex         -> 1
+        10.Homologia.tex    -> 10
     """
-    coincidencia = re.match(r"^\s*(\d+)", archivo.stem)
+
+    coincidencia = re.match(
+        r"^\s*(\d+)",
+        archivo.stem
+    )
 
     if coincidencia:
         return int(coincidencia.group(1))
@@ -28,68 +35,162 @@ def numero_archivo(archivo):
     return float("inf")
 
 
-def extraer_ejercicios(archivo):
+def obtener_archivos_tex():
     """
-    Extrae todos los entornos:
-
-        \\begin{ejercicio}
-        ...
-        \\end{ejercicio}
-
-    conservando íntegramente su contenido.
+    Obtiene todos los archivos .tex del proyecto,
+    ordenados numéricamente.
     """
-    texto = archivo.read_text(encoding="utf-8")
 
-    patron = re.compile(
-        r"\\begin\{ejercicio\}.*?\\end\{ejercicio\}",
-        re.DOTALL
+    archivos = list(
+        PROYECTO.rglob("*.tex")
     )
 
-    return patron.findall(texto)
+    archivos = [
+        archivo
+        for archivo in archivos
+        if archivo.resolve() != SALIDA.resolve()
+    ]
+
+    archivos.sort(
+        key=numero_archivo
+    )
+
+    return archivos
 
 
-def main():
+def extraer_ejercicios_de_texto(texto):
+    """
+    Extrae los entornos ejercicio de un texto.
+    """
+
+    return PATRON_EJERCICIO.findall(texto)
+
+
+def extraer_ejercicios_de_archivo(archivo):
+    """
+    Extrae los ejercicios de un archivo.
+    """
+
+    texto = archivo.read_text(
+        encoding="utf-8"
+    )
+
+    return extraer_ejercicios_de_texto(texto)
+
+
+def obtener_id(ejercicio):
+    """
+    Obtiene el ID contenido dentro de un ejercicio.
+
+    Ejemplo:
+
+        \\begin{ejercicio}
+            % ID: 7
+            ...
+        \\end{ejercicio}
+    """
+
+    coincidencia = PATRON_ID.search(
+        ejercicio
+    )
+
+    if coincidencia:
+        return int(
+            coincidencia.group(1)
+        )
+
+    return None
+
+
+def obtener_ejercicios_actuales():
+    """
+    Devuelve todos los ejercicios actuales de A,
+    en el orden en que aparecen en las notas.
+
+    Cada elemento es un diccionario con:
+
+        archivo
+        contenido
+        id
+    """
 
     ejercicios = []
 
-    # Buscar todos los archivos .tex
-    archivos = list(PROYECTO.rglob("*.tex"))
+    for archivo in obtener_archivos_tex():
 
-    # Ordenarlos por el número inicial del nombre
-    archivos.sort(key=numero_archivo)
+        encontrados = (
+            extraer_ejercicios_de_archivo(
+                archivo
+            )
+        )
 
-    for archivo in archivos:
+        for ejercicio in encontrados:
 
-        # No procesar el archivo de salida
-        if archivo.resolve() == SALIDA.resolve():
-            continue
-
-        encontrados = extraer_ejercicios(archivo)
-
-        if encontrados:
-            print(
-                f"{archivo}: "
-                f"{len(encontrados)} ejercicio(s)"
+            ejercicios.append(
+                {
+                    "archivo": archivo,
+                    "contenido": ejercicio,
+                    "id": obtener_id(ejercicio)
+                }
             )
 
-            ejercicios.extend(encontrados)
+    return ejercicios
 
-    # Crear el contenido final
-    contenido = "\n\n".join(ejercicios)
 
-    # Escribir ejercicios.tex
+def leer_ejercicios_generados():
+    """
+    Lee el archivo ejercicios.tex anterior.
+
+    Devuelve los ejercicios que tenía B/A
+    en la ejecución anterior.
+    """
+
+    if not SALIDA.exists():
+        return []
+
+    texto = SALIDA.read_text(
+        encoding="utf-8"
+    )
+
+    ejercicios = (
+        extraer_ejercicios_de_texto(texto)
+    )
+
+    return [
+        {
+            "contenido": ejercicio,
+            "id": obtener_id(ejercicio)
+        }
+        for ejercicio in ejercicios
+    ]
+
+
+def obtener_orden_anterior():
+    """
+    Devuelve únicamente los IDs del estado anterior.
+    """
+
+    ejercicios = leer_ejercicios_generados()
+
+    return [
+        ejercicio["id"]
+        for ejercicio in ejercicios
+        if ejercicio["id"] is not None
+    ]
+
+
+def generar_ejercicios_tex(ejercicios):
+    """
+    Genera ejercicios.tex usando el orden actual.
+    """
+
+    contenido = "\n\n".join(
+        ejercicio["contenido"]
+        for ejercicio in ejercicios
+    )
+
     SALIDA.write_text(
         contenido + "\n",
         encoding="utf-8"
     )
-
-    print()
-    print(
-        f"Total de ejercicios encontrados: "
-        f"{len(ejercicios)}"
-    )
-    print(f"Archivo generado: {SALIDA}")
-
-
-if __name__ == "__main__":
-    main()
+    
