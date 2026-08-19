@@ -34,7 +34,7 @@ jobs:
       - name: Clonar Proyecto B
         uses: actions/checkout@v4
         with:
-          repository: https://github.com/vzquezgm/Ejercicios.-Topologia-Algebraica
+          repository: vzquezgm/Ejercicios.-Topologia-Algebraica
           token: ${{ secrets.PROJECT_B_TOKEN }}
           path: proyecto-b
 
