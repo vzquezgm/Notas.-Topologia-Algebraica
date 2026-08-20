@@ -119,4 +119,137 @@ jobs:
           AUTH=$(printf 'git:%s' "$OVERLEAF_TOKEN" | base64 -w 0)
 
           git -c "http.extraheader=Authorization: Basic $AUTH" \
-              push --force overleaf HEAD:main
+              push --force overleaf HEAD:mainname: Actualizar ejercicios
+
+permissions:
+  contents: write
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.tex'
+      - '*.py'
+      - '.github/workflows/ejercicios.yml'
+
+jobs:
+  sincronizar:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # ======================================================
+      # PROYECTO A
+      # ======================================================
+
+      - name: Obtener Proyecto A
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # ======================================================
+      # PROYECTO B EN GITHUB
+      # ======================================================
+
+      - name: Clonar Proyecto B
+        uses: actions/checkout@v4
+        with:
+          repository: Ejercicios.-Topologia-Algebraica
+          token: ${{ secrets.PROJECT_B_TOKEN }}
+          path: proyecto-b
+
+      # ======================================================
+      # EJECUTAR SINCRONIZADOR
+      # ======================================================
+
+      - name: Ejecutar sincronizador
+        env:
+          PROYECTO_B: proyecto-b
+        run: |
+          python main.py
+
+      # ======================================================
+      # GUARDAR IDS Y CAMBIOS EN PROYECTO A
+      # ======================================================
+
+      - name: Actualizar Proyecto A
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add '*.tex'
+          git add '*.py'
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios en Proyecto A"
+          else
+            git commit -m "Asignar IDs a ejercicios [skip ci]"
+            git push
+          fi
+
+      # ======================================================
+      # GUARDAR CAMBIOS EN GITHUB B
+      # ======================================================
+
+      - name: Actualizar GitHub B
+        working-directory: proyecto-b
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add .
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios en Proyecto B"
+          else
+            git commit -m "Actualizar ejercicios automáticamente"
+            git push
+          fi
+
+      # ======================================================
+      # CLONAR HISTORIA ACTUAL DE OVERLEAF B
+      # ======================================================
+
+      - name: Clonar Overleaf B
+        env:
+          OVERLEAF_TOKEN: ${{ secrets.OVERLEAF_TOKEN }}
+        run: |
+          git clone \
+            "https://git:${OVERLEAF_TOKEN}@git.overleaf.com/6a840b7e222828e4c0e48fec" \
+            overleaf-b
+
+      # ======================================================
+      # COPIAR SOLO LOS EJERCICIOS A OVERLEAF B
+      # ======================================================
+
+      - name: Actualizar archivos de ejercicios en Overleaf B
+        run: |
+          mkdir -p overleaf-b/ejercicios
+
+          rm -rf overleaf-b/ejercicios/*
+          cp -r proyecto-b/ejercicios/* overleaf-b/ejercicios/
+
+      # ======================================================
+      # GUARDAR CAMBIOS EN OVERLEAF B
+      # ======================================================
+
+      - name: Publicar en Overleaf B
+        working-directory: overleaf-b
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git add ejercicios
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios en Overleaf B"
+          else
+            git commit -m "Actualizar ejercicios automáticamente"
+            git push origin HEAD:main
+          fi
