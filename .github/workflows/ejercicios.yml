@@ -33,7 +33,7 @@ jobs:
           python-version: '3.x'
 
       # ======================================================
-      # PROYECTO B
+      # PROYECTO B EN GITHUB
       # ======================================================
 
       - name: Clonar Proyecto B
@@ -54,7 +54,7 @@ jobs:
           python main.py
 
       # ======================================================
-      # GUARDAR CAMBIOS EN PROYECTO A
+      # GUARDAR IDS Y CAMBIOS DE A
       # ======================================================
 
       - name: Actualizar Proyecto A
@@ -83,10 +83,10 @@ jobs:
           git diff --stat
 
       # ======================================================
-      # GUARDAR CAMBIOS EN PROYECTO B
+      # GUARDAR CAMBIOS EN GITHUB B
       # ======================================================
 
-      - name: Actualizar Proyecto B
+      - name: Actualizar GitHub B
         working-directory: proyecto-b
         run: |
           git config user.name "github-actions[bot]"
@@ -100,3 +100,29 @@ jobs:
             git commit -m "Actualizar ejercicios automáticamente"
             git push
           fi
+
+      # ======================================================
+      # ACTUALIZAR OVERLEAF B
+      # ======================================================
+
+      - name: Actualizar Overleaf B
+        working-directory: proyecto-b
+        env:
+          OVERLEAF_TOKEN: ${{ secrets.OVERLEAF_TOKEN }}
+        run: |
+
+          # URL Git de Overleaf B
+          OVERLEAF_URL="https://git.overleaf.com/6a840b7e222828e4c0e48fec"
+
+          # Crear remoto temporal de Overleaf
+          git remote remove overleaf 2>/dev/null || true
+          git remote add overleaf "https://git@git.overleaf.com/6a840b7e222828e4c0e48fec"
+
+          # Crear encabezado de autenticación sin poner
+          # el token directamente en la URL.
+          AUTH=$(printf 'git:%s' "$OVERLEAF_TOKEN" | base64 -w 0)
+
+          # Enviar exactamente el estado actual de B
+          # a la rama main de Overleaf.
+          git -c "http.extraheader=Authorization: Basic $AUTH" \
+              push overleaf HEAD:main
