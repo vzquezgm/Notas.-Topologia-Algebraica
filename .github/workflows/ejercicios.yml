@@ -54,10 +54,11 @@ jobs:
           python main.py
 
       # ======================================================
-      # GUARDAR IDS Y CAMBIOS EN PROYECTO A
+      # GUARDAR CAMBIOS EN PROYECTO A
       # ======================================================
 
-      - name: Actualizar Proyecto A
+      - name: Preparar cambios de Proyecto A
+        id: cambios-a
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -66,8 +67,15 @@ jobs:
           git add '*.py'
 
           if git diff --cached --quiet; then
+            echo "hay_cambios=false" >> "$GITHUB_OUTPUT"
             echo "No hay cambios en Proyecto A"
           else
+            echo "hay_cambios=true" >> "$GITHUB_OUTPUT"
+
+            echo "Archivos .tex modificados:"
+            git diff --cached --name-only -- '*.tex' > /tmp/archivos_a.txt
+            cat /tmp/archivos_a.txt
+
             git commit -m "Asignar IDs a ejercicios [skip ci]"
             git push
           fi
@@ -104,7 +112,7 @@ jobs:
             overleaf-b
 
       # ======================================================
-      # COPIAR SOLO LOS EJERCICIOS A OVERLEAF B
+      # ACTUALIZAR OVERLEAF B
       # ======================================================
 
       - name: Actualizar ejercicios en Overleaf B
@@ -113,10 +121,6 @@ jobs:
 
           rm -rf overleaf-b/ejercicios/*
           cp -r proyecto-b/ejercicios/* overleaf-b/ejercicios/
-
-      # ======================================================
-      # PUBLICAR EN OVERLEAF B
-      # ======================================================
 
       - name: Publicar en Overleaf B
         working-directory: overleaf-b
@@ -130,5 +134,54 @@ jobs:
             echo "No hay cambios en Overleaf B"
           else
             git commit -m "Actualizar ejercicios automáticamente"
+            git push origin HEAD:main
+          fi
+
+      # ======================================================
+      # CLONAR OVERLEAF A
+      # ======================================================
+
+      - name: Clonar Overleaf A
+        env:
+          OVERLEAF_TOKEN: ${{ secrets.OVERLEAF_TOKEN }}
+        run: |
+          git clone \
+            "https://git:${OVERLEAF_TOKEN}@git.overleaf.com/6a7c13c05b0b3f3b7f7aba18" \
+            overleaf-a
+
+      # ======================================================
+      # ACTUALIZAR OVERLEAF A
+      # ======================================================
+
+      - name: Actualizar archivos modificados de A
+        if: steps.cambios-a.outputs.hay_cambios == 'true'
+        run: |
+          while IFS= read -r archivo; do
+            if [ -z "$archivo" ]; then
+              continue
+            fi
+
+            mkdir -p "overleaf-a/$(dirname "$archivo")"
+            cp "$archivo" "overleaf-a/$archivo"
+
+          done < /tmp/archivos_a.txt
+
+      # ======================================================
+      # PUBLICAR EN OVERLEAF A
+      # ======================================================
+
+      - name: Publicar en Overleaf A
+        if: steps.cambios-a.outputs.hay_cambios == 'true'
+        working-directory: overleaf-a
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git add '*.tex'
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios en Overleaf A"
+          else
+            git commit -m "Actualizar IDs de ejercicios automáticamente"
             git push origin HEAD:main
           fi
