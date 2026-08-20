@@ -101,7 +101,7 @@ jobs:
             git push
           fi
 
-      # ======================================================
+            # ======================================================
       # ACTUALIZAR OVERLEAF B
       # ======================================================
 
@@ -111,18 +111,12 @@ jobs:
           OVERLEAF_TOKEN: ${{ secrets.OVERLEAF_TOKEN }}
         run: |
 
-          # URL Git de Overleaf B
-          OVERLEAF_URL="https://git.overleaf.com/6a840b7e222828e4c0e48fec"
-
-          # Crear remoto temporal de Overleaf
           git remote remove overleaf 2>/dev/null || true
-          git remote add overleaf "https://git@git.overleaf.com/6a840b7e222828e4c0e48fec"
 
-          # Crear encabezado de autenticación sin poner
-          # el token directamente en la URL.
+          git remote add overleaf \
+            "https://git@git.overleaf.com/6a840b7e222828e4c0e48fec"
+
           AUTH=$(printf 'git:%s' "$OVERLEAF_TOKEN" | base64 -w 0)
 
-          # Enviar exactamente el estado actual de B
-          # a la rama main de Overleaf.
           git -c "http.extraheader=Authorization: Basic $AUTH" \
-              push overleaf HEAD:main
+              push --force overleaf HEAD:main
