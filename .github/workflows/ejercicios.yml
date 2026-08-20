@@ -32,6 +32,7 @@ jobs:
         with:
           python-version: '3.x'
 
+
       # ======================================================
       # PROYECTO B EN GITHUB
       # ======================================================
@@ -43,6 +44,7 @@ jobs:
           token: ${{ secrets.PROJECT_B_TOKEN }}
           path: proyecto-b
 
+
       # ======================================================
       # EJECUTAR SINCRONIZADOR
       # ======================================================
@@ -53,12 +55,12 @@ jobs:
         run: |
           python main.py
 
+
       # ======================================================
       # GUARDAR CAMBIOS EN PROYECTO A
       # ======================================================
 
-      - name: Preparar cambios de Proyecto A
-        id: cambios-a
+      - name: Actualizar Proyecto A
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -67,18 +69,12 @@ jobs:
           git add '*.py'
 
           if git diff --cached --quiet; then
-            echo "hay_cambios=false" >> "$GITHUB_OUTPUT"
             echo "No hay cambios en Proyecto A"
           else
-            echo "hay_cambios=true" >> "$GITHUB_OUTPUT"
-
-            echo "Archivos .tex modificados:"
-            git diff --cached --name-only -- '*.tex' > /tmp/archivos_a.txt
-            cat /tmp/archivos_a.txt
-
             git commit -m "Asignar IDs a ejercicios [skip ci]"
             git push
           fi
+
 
       # ======================================================
       # GUARDAR CAMBIOS EN GITHUB B
@@ -99,6 +95,7 @@ jobs:
             git push
           fi
 
+
       # ======================================================
       # CLONAR OVERLEAF B
       # ======================================================
@@ -111,8 +108,9 @@ jobs:
             "https://git:${OVERLEAF_TOKEN}@git.overleaf.com/6a840b7e222828e4c0e48fec" \
             overleaf-b
 
+
       # ======================================================
-      # ACTUALIZAR OVERLEAF B
+      # ACTUALIZAR EJERCICIOS EN OVERLEAF B
       # ======================================================
 
       - name: Actualizar ejercicios en Overleaf B
@@ -120,7 +118,15 @@ jobs:
           mkdir -p overleaf-b/ejercicios
 
           rm -rf overleaf-b/ejercicios/*
-          cp -r proyecto-b/ejercicios/* overleaf-b/ejercicios/
+
+          if [ -d "proyecto-b/ejercicios" ]; then
+            cp -r proyecto-b/ejercicios/* overleaf-b/ejercicios/
+          fi
+
+
+      # ======================================================
+      # PUBLICAR EN OVERLEAF B
+      # ======================================================
 
       - name: Publicar en Overleaf B
         working-directory: overleaf-b
@@ -137,6 +143,7 @@ jobs:
             git push origin HEAD:main
           fi
 
+
       # ======================================================
       # CLONAR OVERLEAF A
       # ======================================================
@@ -149,29 +156,31 @@ jobs:
             "https://git:${OVERLEAF_TOKEN}@git.overleaf.com/6a7c13c05b0b3f3b7f7aba18" \
             overleaf-a
 
+
       # ======================================================
-      # ACTUALIZAR OVERLEAF A
+      # SINCRONIZAR LOS .TEX DE A CON OVERLEAF A
       # ======================================================
 
-      - name: Actualizar archivos modificados de A
-        if: steps.cambios-a.outputs.hay_cambios == 'true'
+      - name: Actualizar archivos de A en Overleaf A
         run: |
           while IFS= read -r archivo; do
+
             if [ -z "$archivo" ]; then
               continue
             fi
 
             mkdir -p "overleaf-a/$(dirname "$archivo")"
+
             cp "$archivo" "overleaf-a/$archivo"
 
-          done < /tmp/archivos_a.txt
+          done < <(git ls-files '*.tex')
+
 
       # ======================================================
       # PUBLICAR EN OVERLEAF A
       # ======================================================
 
       - name: Publicar en Overleaf A
-        if: steps.cambios-a.outputs.hay_cambios == 'true'
         working-directory: overleaf-a
         run: |
           git config user.name "GitHub Actions"
