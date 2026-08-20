@@ -1,11 +1,26 @@
 from pathlib import Path
+import os
 import re
 
-PROYECTO = Path(".")
+
+# ============================================================
+# CONFIGURACIÓN
+# ============================================================
+
+# Directorio del Proyecto A
+PROYECTO = Path(__file__).resolve().parent
+
+# Archivo generado
 SALIDA = PROYECTO / "ejercicios.tex"
 
+
+# ============================================================
+# PATRONES
+# ============================================================
+
 PATRON_EJERCICIO = re.compile(
-    r"\\begin\{ejercicio\}.*?\\end\{ejercicio\}",
+    r"\\begin\{ejercicio\}.*?"
+    r"\\end\{ejercicio\}",
     re.DOTALL
 )
 
@@ -14,15 +29,75 @@ PATRON_ID = re.compile(
 )
 
 
-def numero_archivo(archivo):
-    """
-    Ordena los archivos por el número inicial de su nombre.
+# ============================================================
+# EXCLUSIONES
+# ============================================================
 
-    Ejemplo:
-        0.Introduccion.tex  -> 0
-        1.Grupo.tex         -> 1
-        10.Homologia.tex    -> 10
+def obtener_directorios_excluidos():
     """
+    Obtiene los directorios que no deben ser recorridos.
+
+    En GitHub Actions, Proyecto B se clona dentro
+    del mismo workspace que Proyecto A, por lo que
+    debemos excluirlo explícitamente.
+    """
+
+    excluidos = []
+
+    proyecto_b = os.environ.get(
+        "PROYECTO_B"
+    )
+
+    if proyecto_b:
+
+        ruta_b = Path(
+            proyecto_b
+        )
+
+        if not ruta_b.is_absolute():
+            ruta_b = (
+                Path.cwd()
+                / ruta_b
+            )
+
+        excluidos.append(
+            ruta_b.resolve()
+        )
+
+    return excluidos
+
+
+def esta_excluido(
+    archivo,
+    directorios_excluidos
+):
+    """
+    Comprueba si un archivo está dentro
+    de un directorio excluido.
+    """
+
+    archivo = archivo.resolve()
+
+    for directorio in directorios_excluidos:
+
+        try:
+            archivo.relative_to(
+                directorio
+            )
+
+            return True
+
+        except ValueError:
+            pass
+
+    return False
+
+
+# ============================================================
+# ORDEN DE LOS ARCHIVOS
+# ============================================================
+
+def numero_archivo(archivo):
 
     coincidencia = re.match(
         r"^\s*(\d+)",
@@ -30,26 +105,41 @@ def numero_archivo(archivo):
     )
 
     if coincidencia:
-        return int(coincidencia.group(1))
+        return int(
+            coincidencia.group(1)
+        )
 
     return float("inf")
 
 
 def obtener_archivos_tex():
     """
-    Obtiene todos los archivos .tex del proyecto,
-    ordenados numéricamente.
+    Obtiene únicamente los .tex del Proyecto A.
+
+    Excluye ejercicios.tex y, cuando corresponde,
+    el Proyecto B.
     """
 
-    archivos = list(
-        PROYECTO.rglob("*.tex")
+    directorios_excluidos = (
+        obtener_directorios_excluidos()
     )
 
-    archivos = [
-        archivo
-        for archivo in archivos
-        if archivo.resolve() != SALIDA.resolve()
-    ]
+    archivos = []
+
+    for archivo in PROYECTO.rglob("*.tex"):
+
+        if archivo.resolve() == SALIDA.resolve():
+            continue
+
+        if esta_excluido(
+            archivo,
+            directorios_excluidos
+        ):
+            continue
+
+        archivos.append(
+            archivo
+        )
 
     archivos.sort(
         key=numero_archivo
@@ -58,43 +148,48 @@ def obtener_archivos_tex():
     return archivos
 
 
-def extraer_ejercicios_de_texto(texto):
-    """
-    Extrae los entornos ejercicio de un texto.
-    """
+# ============================================================
+# EXTRAER EJERCICIOS
+# ============================================================
 
-    return PATRON_EJERCICIO.findall(texto)
+def extraer_ejercicios_de_texto(
+    texto
+):
+
+    return PATRON_EJERCICIO.findall(
+        texto
+    )
 
 
-def extraer_ejercicios_de_archivo(archivo):
-    """
-    Extrae los ejercicios de un archivo.
-    """
+def extraer_ejercicios_de_archivo(
+    archivo
+):
 
     texto = archivo.read_text(
         encoding="utf-8"
     )
 
-    return extraer_ejercicios_de_texto(texto)
+    return (
+        extraer_ejercicios_de_texto(
+            texto
+        )
+    )
 
 
-def obtener_id(ejercicio):
-    """
-    Obtiene el ID contenido dentro de un ejercicio.
+# ============================================================
+# OBTENER ID
+# ============================================================
 
-    Ejemplo:
-
-        \\begin{ejercicio}
-            % ID: 7
-            ...
-        \\end{ejercicio}
-    """
+def obtener_id(
+    ejercicio
+):
 
     coincidencia = PATRON_ID.search(
         ejercicio
     )
 
     if coincidencia:
+
         return int(
             coincidencia.group(1)
         )
@@ -102,17 +197,11 @@ def obtener_id(ejercicio):
     return None
 
 
+# ============================================================
+# EJERCICIOS ACTUALES
+# ============================================================
+
 def obtener_ejercicios_actuales():
-    """
-    Devuelve todos los ejercicios actuales de A,
-    en el orden en que aparecen en las notas.
-
-    Cada elemento es un diccionario con:
-
-        archivo
-        contenido
-        id
-    """
 
     ejercicios = []
 
@@ -130,20 +219,20 @@ def obtener_ejercicios_actuales():
                 {
                     "archivo": archivo,
                     "contenido": ejercicio,
-                    "id": obtener_id(ejercicio)
+                    "id": obtener_id(
+                        ejercicio
+                    )
                 }
             )
 
     return ejercicios
 
 
-def leer_ejercicios_generados():
-    """
-    Lee el archivo ejercicios.tex anterior.
+# ============================================================
+# LEER ESTADO ANTERIOR
+# ============================================================
 
-    Devuelve los ejercicios que tenía B/A
-    en la ejecución anterior.
-    """
+def leer_ejercicios_generados():
 
     if not SALIDA.exists():
         return []
@@ -153,24 +242,27 @@ def leer_ejercicios_generados():
     )
 
     ejercicios = (
-        extraer_ejercicios_de_texto(texto)
+        extraer_ejercicios_de_texto(
+            texto
+        )
     )
 
     return [
         {
             "contenido": ejercicio,
-            "id": obtener_id(ejercicio)
+            "id": obtener_id(
+                ejercicio
+            )
         }
         for ejercicio in ejercicios
     ]
 
 
 def obtener_orden_anterior():
-    """
-    Devuelve únicamente los IDs del estado anterior.
-    """
 
-    ejercicios = leer_ejercicios_generados()
+    ejercicios = (
+        leer_ejercicios_generados()
+    )
 
     return [
         ejercicio["id"]
@@ -179,10 +271,13 @@ def obtener_orden_anterior():
     ]
 
 
-def generar_ejercicios_tex(ejercicios):
-    """
-    Genera ejercicios.tex usando el orden actual.
-    """
+# ============================================================
+# GENERAR ejercicios.tex
+# ============================================================
+
+def generar_ejercicios_tex(
+    ejercicios
+):
 
     contenido = "\n\n".join(
         ejercicio["contenido"]
@@ -193,4 +288,3 @@ def generar_ejercicios_tex(ejercicios):
         contenido + "\n",
         encoding="utf-8"
     )
-    
