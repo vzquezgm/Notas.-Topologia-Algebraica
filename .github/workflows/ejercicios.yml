@@ -21,6 +21,8 @@ jobs:
 
       - name: Obtener Proyecto A
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -39,7 +41,7 @@ jobs:
           path: proyecto-b
 
       # ======================================================
-      # EJECUTAR NUESTRO SISTEMA
+      # EJECUTAR SINCRONIZADOR
       # ======================================================
 
       - name: Ejecutar sincronizador
@@ -49,20 +51,39 @@ jobs:
           python main.py
 
       # ======================================================
-      # MOSTRAR ESTADO DE B
+      # GUARDAR CAMBIOS EN PROYECTO A
       # ======================================================
 
-      - name: Revisar cambios en Proyecto B
+      - name: Actualizar Proyecto A
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add '*.tex'
+          git add '*.py'
+
+          if git diff --cached --quiet; then
+            echo "No hay cambios en Proyecto A"
+          else
+            git commit -m "Asignar IDs a ejercicios [skip ci]"
+            git push
+          fi
+
+      # ======================================================
+      # REVISAR PROYECTO B
+      # ======================================================
+
+      - name: Revisar Proyecto B
         working-directory: proyecto-b
         run: |
           git status
           git diff --stat
 
       # ======================================================
-      # ENVIAR CAMBIOS A GITHUB B
+      # GUARDAR CAMBIOS EN PROYECTO B
       # ======================================================
 
-      - name: Actualizar GitHub B
+      - name: Actualizar Proyecto B
         working-directory: proyecto-b
         run: |
           git config user.name "github-actions[bot]"
