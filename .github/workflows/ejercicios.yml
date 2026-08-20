@@ -1,5 +1,9 @@
 name: Actualizar ejercicios
 
+permissions:
+  contents: write
+  contents: write
+
 on:
   push:
     branches:
