@@ -163,18 +163,14 @@ jobs:
 
       - name: Actualizar archivos de A en Overleaf A
         run: |
-          while IFS= read -r archivo; do
-
-            if [ -z "$archivo" ]; then
-              continue
-            fi
+          git -c core.quotePath=false ls-files -z '*.tex' |
+          while IFS= read -r -d '' archivo; do
 
             mkdir -p "overleaf-a/$(dirname "$archivo")"
 
             cp "$archivo" "overleaf-a/$archivo"
 
-          done < <(git ls-files '*.tex')
-
+          done
 
       # ======================================================
       # PUBLICAR EN OVERLEAF A
