@@ -1,7 +1,7 @@
 name: Actualizar ejercicios
 
 permissions:
-  contents: writegit add .github/workflows/ejercicios.yml
+  contents: write
 
 on:
   push:
