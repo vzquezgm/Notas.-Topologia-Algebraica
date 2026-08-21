@@ -298,3 +298,150 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
     % ID: 4
         Muestra que si $X\cong Y$ (homeomorfos), entonces $X\simeq Y$. (El regreso no es cierto en general).
     \end{ejercicio}
+    \begin{definicion}
+        Decimos que un espacio $X$ es contraible si $X\simeq \{*\}$.
+    \end{definicion}
+    \begin{ejercicio}
+        Mostrar que un espacio $X$ es contraible si y sólo si existe una homotopía $H:X\times I\to X$ tal que $H(-,0)=\id_X$ y $H(-,1)=c_{x_0}$, para toda $x\in X$.
+    \end{ejercicio}
+    \begin{ejercicio}
+        Ver que $\R^n$ y $D^n$ son contraibles.
+    \end{ejercicio}
+    \begin{prop}
+        Sean $X,Y,Z$ espacios topológicos y consideremos funciones continuas
+        \begin{center}
+            \begin{tikzcd}[]
+    X \arrow[r, "f", shift left=0.6ex] 
+      \arrow[r, "g"', shift right=0.6ex] 
+    & Y \arrow[r, "f'", shift left=0.6ex] 
+        \arrow[r, "g'"', shift right=0.6ex] 
+    & Z
+\end{tikzcd}
+        \end{center}
+        tal que $f\simeq g$ y $f'\simeq g'$. Entonces $f\circ f'\simeq g\circ g'$. 
+    \end{prop}
+    \begin{dem}
+        Sea $H,H'$ homotopías de $f$ a $g$ y $f'$ a $g'$ respectivamente. Consideremos la composición 
+        \begin{center}
+            \begin{tikzcd}
+            X\times I \arrow[r, "\Tilde{H}"] & Y\times I \arrow[r, "H'"] & Z
+        \end{tikzcd}
+        \end{center}
+        donde $\Tilde{H}(x,t)=(H(x,t),t)$. Sea $G=H'\circ \Tilde{H}$ que es continua. Entonces
+        \begin{align*}
+            G(x,0)&=H'\circ \Tilde{H}(x,0)\\
+            &=H'(H(x,0),0)\\
+            &=H'(f(x,0),0)\\
+            &=f'(f(x))
+        \end{align*}
+        de manera similar
+        \begin{align*}
+            G(x,1)&=H'\circ \Tilde{H}(x,1)\\
+            &=H'(H(x,1),1)\\
+            &=H'(g(x,1),1)\\
+            &=g'(g(x)),
+        \end{align*}
+        por lo tanto, $G$ es testigo de que $f\circ f'\simeq g\circ g'$. 
+    \end{dem}
+    \begin{obs}
+        La proposición anterior muestra que la relación de homotopía es \textit{compatible} con la composición.
+    \end{obs}
+    \begin{ejercicio}
+        Sean 
+        \begin{center}
+            \begin{tikzcd}
+            (X,x_0) \arrow[r, "f"] & (Y,y_0)\arrow[r, "g"] & (Z,z_0)
+        \end{tikzcd}
+        \end{center}
+        funciones continuas basadas. Mostrar que
+        \begin{enumerate}
+            \item [(1)] ${(g\circ f)}_{\#}=g_{\#}\circ f_{\#}$ y
+            \item[(2)] ${\id_{(X,x_0)}}_{\#}=\id_{\Pi_1(X,x_0)}.$ 
+        \end{enumerate}
+    \end{ejercicio}
+    \begin{coro}
+        $\Pi_1$ es un invariante topológico.
+    \end{coro}
+    \begin{prop}
+        \label{prop:homotopia convexa}
+        Sea $X$ un espacio topológico y $Y\subseteq\R^n$. Sean $f,g:X\to Y$ continuas tal que para cada $x\in X$ los puntos $f(x)$ y $g(x)$ se pueden unir por un punto, entonces $f\simeq g$.
+    \end{prop}
+    \begin{dem}
+        Sea $H:X\times I\to Y$ tal que $H(x,t)=(1-t)f(x)+tg(x).$ Veamos que $H$ es continua.
+    Notemos que el siguiente diagrama conmuta
+    \begin{center}
+        \begin{tikzcd}[row sep=1.25cm, column sep=large]
+        H\times I\arrow[r, "H"]\arrow[d, "(F\mathbin{,}G)"] & Y\\
+        (\R\times\R^n)\times(\R\times\R^n)\arrow[r, "(\cdot\mathbin{,} \cdot)"] & \R^n\times\R^n\arrow[u,"+"]
+        \end{tikzcd}
+    \end{center}
+    donde $F(x,t)=(1-t,f(x))$ y $G(x,t)=(t,g(x)).$ Dado que $F,G$ y la suma y multiplicación por escalar son continuas, se sigue que $H$ es continua y tal que $H(0,x)=f(x)$ y $H(1,x)=g(x)$, por lo tanto, $H$ es testigo de que $f\simeq g$.
+    \end{dem}
+    \begin{ejercicio}
+        Verificar que la multiplicación por escalar y la suma en $\R^n$ son continuas.
+    \end{ejercicio}
+    \begin{nota}
+        Si hay puntos $x_0,x_1\in X$ tal que $f(x_0)=g(x_0)$ y $f(x_1)=g(x_1)$, entonces la homotopía $H$ de la proposición \ref{prop:homotopia convexa} es relativa a $\{x_0,x_1\}$ ya que 
+        \begin{align*}
+            H(x_0,t)&=(1-t)f(x_0)+tg(x_0)\\
+            &=f(x_0)=g(x_0).
+        \end{align*}
+        y de manera análoga $H(x_1,t)=f(x_1)=g(x_1).$
+    \end{nota}
+    \begin{lema}
+        Sea $X$ un espacio topológico, $\alpha,\alpha':I\to X$ trayectorias de $x_0$ a $x_1$, $\beta,\beta':I\to X$ trayectorias de $x_1$ a $x_2$ tal que $\alpha\simeq\alpha'$ rel $\{0,1\}$ y $\beta\simeq\beta'$ rel $\{0,1\}$. Entonces $\alpha*\beta\simeq \alpha'*\beta'$ rel $\{0,1\}.$
+    \end{lema}
+    \begin{dem}
+        Tenemos 
+        \begin{align*}
+            \alpha(0)=\alpha'(0)=x_0,&\; \alpha(1)=\alpha'(1)=x_1,\\
+            \beta(0)=\beta'(0)=x_1,&\;\hspace{0.5mm}
+            \beta(1)=\beta'(1)=x_2.
+        \end{align*}
+        y también tenemos que
+        \begin{align*}
+            F(s,0)=\alpha(s),\; F(s,1)=\alpha'(s),&\; F(0,t)=x_0 \text{ y } F(1,t)=x_1,\\
+            G(s,0)=\beta(s),\; G(s,1)=\beta'(s),&\; G(0,t)=x_1 \text{ y } G(1,t)=x_2.\\
+        \end{align*}
+        Definamos $H:I\times I\to X$ tal que 
+    \begin{equation*}
+        H(s,t)  =
+    \begin{cases} 
+        F(2s,t), & \text{si } s\in [0,\nicefrac{1}{2}] \\[1ex]
+        G(2s-1,t), & \text{si } s \in [\nicefrac{1}{2},1]
+    \end{cases}
+    \end{equation*}
+        Notemos que $H(-,t)=F(-,t)*G(-,t)$. Se sigue que 
+        \begin{align*}
+        H(s,0) &= 
+     \begin{cases} 
+        F(2s,0), & \text{si } s\in [0,\nicefrac{1}{2}] \\[1ex]
+        G(2s-1,0), & \text{si } s \in [\nicefrac{1}{2},1]
+    \end{cases}\\
+    &= 
+     \begin{cases} 
+        \alpha(2s), & \text{si } s\in [0,\nicefrac{1}{2}] \\[1ex]
+       \beta(2s-1), & \text{si } s \in [\nicefrac{1}{2},1]
+    \end{cases}\\
+    &=(\alpha*\beta)(s).
+    \end{align*}
+    De manera análoga, se concluye que $H(s,1)=(\alpha'*\beta')(s)$. Además
+    \begin{align*}
+        &H(0,t)=F(0,t)=x_0,\\
+        &H(1,t)=G(1,t)=x_2,
+    \end{align*}
+    y, como $H$ es continua, por el lema del pegado, $H$ es testigo de que $\alpha*\beta\simeq \alpha'*\beta'$ rel $\{0,1\}$.
+    \end{dem}
+    \begin{coro}
+        Sea $X$ un espacio basado en $x_0$. Definamos 
+        \begin{align*}
+            *:\Pi_1(X,x_0)\times \Pi_1(X,x_0)&\to \Pi_1(X,x_0)
+        \end{align*}
+    tal que 
+    $$[\alpha]*[\beta]=[\alpha*\beta].$$
+    Entonces $*$ está bien definida en las clases de homotopía relativa.
+    \end{coro}
+    \begin{lema}
+        
+    \end{lema}
+    
