@@ -281,7 +281,7 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
         Sea $f,g:X\to Y$ continuas, decimos que $f$ es \textit{homotópica} a $g$ (o que $f$ \textit{se deforma a} $g$) y lo denotamos por $f\simeq g$, si existe una función continua $H:I\times X\to Y$ llamada \textit{homotopía} tal que $H(x,0)=f(x)$ y $H(x,1)=g(x)$. Para cada $t\in I$ tenemos la función continua $H_t:X\to Y$ dada por $H_t(x)=H(x,t)$.
     \end{definicion}
     \begin{nota}
-        
+        Cuando $f,g:X\to Y$ tengan algunas \textit{propiedades extras} siempre vamos a pedir que una homotopía $H$ entre $f$ y $g$ cumpla que, para cada $t\in I$, $H_t:X\to Y$ tenga esa propiedad también. Por ejemplo, si $f,g$ son funciones basadas, entonces $H_t$ debe ser una función basada.
     \end{nota}
     \begin{ejercicio}
     % ID: 3
@@ -290,3 +290,10 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
     \begin{definicion}
         Sea $X,Y$ espacios topológicos. Denotamos por $[X,Y]$ como el conjunto de clases de homotopía. Para cada $f\in \text{Map}(X,Y)$, denotamos por $[f]\in [X,Y]$ su clase de homotopía.
     \end{definicion}
+    \begin{definicion}
+        Sea $X,Y$ espacios topológicos, decimos que $X$ \textit{tiene el mismo tipo de homotopía que} $Y$ ó que $X$ \textit{es homotópicamente equivalente a} $Y$, si existe funciones continuas $f:X\to Y$ y $g:Y\to X$ tal que $g\circ f\simeq \id_X$ y $f\circ g\simeq \id_Y$. En esté caso decimos que $f$ es una \textit{equivalencia ho- motópica} con \textit{inverso homotópico} $g$. Cuando esto sucede escribimos $X\simeq Y.$
+    \end{definicion}
+    La definición anterior también se puede dar en los espacios basados, pidiendo funciones continuas basadas $f:(X,x_0)\to (Y,y_0)$ y $g:(Y,y_0)\to (X,x_0)$ tal que $g\circ f\simeq \id_X$ y $f\circ g\simeq \id_Y$ \textit{homotópicos como funciones basados}. En este caso, escribimos $(X,x_0)\simeq (Y,y_0).$
+    \begin{ejercicio}
+        Muestra que si $X\cong Y$ (homeomorfos), entonces $X\simeq Y$. (El regreso no es cierto en general).
+    \end{ejercicio}
