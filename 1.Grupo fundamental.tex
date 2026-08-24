@@ -120,7 +120,8 @@ por lo tanto, $\sigma*\tau$ es testigo de que $x_1\sim x_3$.
 \end{definicion}
 La deformación de lazos está dada por medio de una función continua $H:I\times I\to X$ llamada \textit{homotopía}, donde la primera coordenada del conjunto $I\times I$ denota el dominio de los lazos y la segunda coordenada denota el parámetro de la deformación que la podemos pensar como si fuese el \textit{tiempo}.
 \begin{definicion}
-    Sea $\alpha,\beta\in \Omega(X,x_0)$, decimos que $\alpha$ se puede \textit{deformar} en $\beta$ o que $\alpha$ es \textit{homotópico} a $\beta$ y se denota por $\alpha \simeq\beta$ rel $\{0,1\}$,  si existe una \textit{homotopía} $H:I\times I\to X$ que satisface lo siguiente:
+\label{def:homotopia_relativa_lazos}
+    Sea $\alpha,\beta\in \Omega(X,x_0)$, decimos que $\alpha$ se puede \textit{deformar} en $\beta$ o que $\alpha$ es \textit{homotópico} a $\beta$ y se denota por $\alpha \simeq\beta \rel$,  si existe una \textit{homotopía} $H:I\times I\to X$ que satisface lo siguiente:
     \begin{enumerate}
         \item $H(s,0)=\alpha(s)$, $H(s,1)=\beta(s)$.
         \item $H(0,t)=H(1,t)=x_0$.
@@ -240,7 +241,7 @@ La condición rel \{0,1\} es que los puntos $0,1\in I$ van a dar al mismo punto 
     \end{dem}
 \end{ejercicio}
 \begin{definicion}
-    El conjunto de clases de homotopía de lazos en $X$ basado en $x_0$ lo denotamos por $\Pi_1(X,x_0)=\Omega(X,x_0)/\simeq\text{rel }\{0,1\}$.
+    El conjunto de clases de homotopía de lazos en $X$ basado en $x_0$ lo denotamos por $\Pi_1(X,x_0)=\Omega(X,x_0)/\simeq\rel$.
 \end{definicion}
 Vamos a definir un producto en $\Pi_1(X,x_0)$ de manera que se vuelva un grupo, aunque en general no será abeliano.
 \begin{definicion}
@@ -261,7 +262,7 @@ Notemos que $(\alpha*\beta)(0)=(\alpha*\beta)(1)=\alpha(0)=\beta(1)=x_0$, i.e., 
     \alpha&\mapsto \overline{\alpha}
     \end{split}
 \end{equation}
-donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to X$ tal que $c_{x_0}(s)=x_0$, para toda $s\in I$.
+donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_{x_0}:I\to X$ tal que $c_{x_0}(s)=x_0$, para toda $s\in I$.
     \begin{nota}
         Notemos que, por lo general $\alpha* c_{x_0}\cdot \alpha \neq \alpha$, i.e., $*$ no define un grupo en $\Omega(X,x_0)$.
     \end{nota}
@@ -281,11 +282,13 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
         Sea $f,g:X\to Y$ continuas, decimos que $f$ es \textit{homotópica} a $g$ (o que $f$ \textit{se deforma a} $g$) y lo denotamos por $f\simeq g$, si existe una función continua $H:I\times X\to Y$ llamada \textit{homotopía} tal que $H(x,0)=f(x)$ y $H(x,1)=g(x)$. Para cada $t\in I$ tenemos la función continua $H_t:X\to Y$ dada por $H_t(x)=H(x,t)$.
     \end{definicion}
     \begin{nota}
-        Cuando $f,g:X\to Y$ tengan algunas \textit{propiedades extras} siempre vamos a pedir que una homotopía $H$ entre $f$ y $g$ cumpla que, para cada $t\in I$, $H_t:X\to Y$ tenga esa propiedad también. Por ejemplo, si $f,g$ son funciones basadas, entonces $H_t$ debe ser una función basada.
+        Cuando $f,g:X\to Y$ tengan algunas \textit{propiedades extras} siempre vamos a pedir que una homotopía $H$ entre $f$ y $g$ cumpla que, para cada $t\in I$, $H_t:X\to Y$ tenga esa propiedad también. Como ejemplo se tiene lo siguiente:
+        
+        Si $f,g:(X,x_0)\to (Y,y_0)$ son funciones basadas, entonces $H_t:(X,x_0)\to(Y,y_0)$ debe ser una función basada y se escribe $f\simeq g\rel$. Notemos que si $f,g$ son lazos, entonces se obtiene la definición en \ref{def:homotopia_relativa_lazos}.
     \end{nota}
     \begin{ejercicio}
     % ID: 3
-        Mostrar que la homotopía es una relación de equivalencia en el conjunto $\text{Map}(X,Y)$ de funciones continuas de $X$ en $Y$
+        Mostrar que la homotopía es una relación de equivalencia en el conjunto de funciones continuas de $X$ en $Y$, denotado por $\text{Map}(X,Y)$.
     \end{ejercicio}
     \begin{definicion}
         Sea $X,Y$ espacios topológicos. Denotamos por $[X,Y]$ como el conjunto de clases de homotopía. Para cada $f\in \text{Map}(X,Y)$, denotamos por $[f]\in [X,Y]$ su clase de homotopía.
@@ -310,6 +313,7 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
         Ver que $\R^n$ y $D^n$ son contraibles.
     \end{ejercicio}
     \begin{prop}
+    \label{prop:homotopia_compatible_composicion}
         Sean $X,Y,Z$ espacios topológicos y consideremos funciones continuas
         \begin{center}
             \begin{tikzcd}[]
@@ -333,8 +337,8 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
         \begin{align*}
             G(x,0)&=H'\circ \Tilde{H}(x,0)\\
             &=H'(H(x,0),0)\\
-            &=H'(f(x,0),0)\\
-            &=f'(f(x))
+            &=H'(f(x),0)\\
+            &=f'(f(x)),
         \end{align*}
         de manera similar
         \begin{align*}
@@ -346,16 +350,28 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
         por lo tanto, $G$ es testigo de que $f\circ f'\simeq g\circ g'$. 
     \end{dem}
     \begin{obs}
+    \label{obs:homo_rel_compatible}
+        Si $f,g:(X,x_0)\to(Y,y_0)$ y $f',g':(Y,y_0)\to(Z,z_0)$ son funciones basadas tal que $f\simeq g\rel$ y $f'\simeq g'\rel$, entonces $G_t:(X,x_0)\to(Z,z_0)$ es basasada, pues
+        \begin{align*}
+            G(x_0,t)&=H'\circ \Tilde{H}(x_0,t)\\
+            &=H'(H(x_0,t),t)\\
+            &=H'(y_0,0)\\
+            &=z_0,
+        \end{align*}
+        por lo tanto, $f\circ f'\simeq g\circ g'\rel$.
+    \end{obs}
+    \begin{obs}
         La proposición anterior muestra que la relación de homotopía es \textit{compatible} con la composición.
     \end{obs}
+    \vspace*{-1.5em}
     \begin{ejercicio}
     % ID: 7
         Sean 
-        \begin{center}
-            \begin{tikzcd}
+        $
+            \begin{tikzcd}[column sep=0.65cm]
             (X,x_0) \arrow[r, "f"] & (Y,y_0)\arrow[r, "g"] & (Z,z_0)
         \end{tikzcd}
-        \end{center}
+        $
         funciones continuas basadas. Mostrar que
         \begin{enumerate}
             \item [(1)] ${(g\circ f)}_{\#}=g_{\#}\circ f_{\#}$ y
@@ -373,7 +389,7 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
         Sea $H:X\times I\to Y$ tal que $H(x,t)=(1-t)f(x)+tg(x).$ Veamos que $H$ es continua.
     Notemos que el siguiente diagrama conmuta
     \begin{center}
-        \begin{tikzcd}[row sep=1.25cm, column sep=large]
+        \begin{tikzcd}[row sep=1.5cm, column sep=1.5cm]
         H\times I\arrow[r, "H"]\arrow[d, "(F\mathbin{,}G)"] & Y\\
         (\R\times\R^n)\times(\R\times\R^n)\arrow[r, "(\cdot\mathbin{,} \cdot)"] & \R^n\times\R^n\arrow[u,"+"]
         \end{tikzcd}
@@ -385,7 +401,8 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
         Verificar que la multiplicación por escalar y la suma en $\R^n$ son continuas.
     \end{ejercicio}
     \begin{nota}
-        Si hay puntos $x_0,x_1\in X$ tal que $f(x_0)=g(x_0)$ y $f(x_1)=g(x_1)$, entonces la homotopía $H$ de la proposición \ref{prop:homotopia convexa} es relativa a $\{x_0,x_1\}$ ya que 
+    \label{nota:homotopia_convexa}
+        Si hay puntos $x_0,x_1\in X$ tal que $f(x_0)=g(x_0)$ y $f(x_1)=g(x_1)$, entonces la homotopía $H$ de la proposición \ref{prop:homotopia convexa} es relativa a $\{0,1\}$ ya que 
         \begin{align*}
             H(x_0,t)&=(1-t)f(x_0)+tg(x_0)\\
             &=f(x_0)=g(x_0).
@@ -393,7 +410,8 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
         y de manera análoga $H(x_1,t)=f(x_1)=g(x_1).$
     \end{nota}
     \begin{lema}
-        Sea $X$ un espacio topológico, $\alpha,\alpha':I\to X$ trayectorias de $x_0$ a $x_1$, $\beta,\beta':I\to X$ trayectorias de $x_1$ a $x_2$ tal que $\alpha\simeq\alpha'$ rel $\{0,1\}$ y $\beta\simeq\beta'$ rel $\{0,1\}$. Entonces $\alpha*\beta\simeq \alpha'*\beta'$ rel $\{0,1\}.$
+        Sea $X$ un espacio topológico. Sean
+        $\alpha,\alpha':I\to X$ trayectorias de $x_0$ a $x_1$ y $\beta,\beta':I\to X$ trayectorias de $x_1$ a $x_2$ tal que $\alpha\simeq\alpha'\rel$ y $\beta\simeq\beta'\rel$. Entonces $\alpha*\beta\simeq \alpha'*\beta'\rel.$
     \end{lema}
     \begin{dem}
         Tenemos 
@@ -434,7 +452,7 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
         &H(0,t)=F(0,t)=x_0,\\
         &H(1,t)=G(1,t)=x_2,
     \end{align*}
-    y, como $H$ es continua, por el lema del pegado, $H$ es testigo de que $\alpha*\beta\simeq \alpha'*\beta'$ rel $\{0,1\}$.
+    y, como $H$ es continua por el lema del pegado, concluimos que $H$ es testigo de que $\alpha*\beta\simeq \alpha'*\beta'\rel$.
     \end{dem}
     \begin{coro}
         Sea $X$ un espacio basado en $x_0$. Definamos 
@@ -446,6 +464,161 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_x:I\to 
     Entonces $*$ está bien definida en las clases de homotopía relativa.
     \end{coro}
     \begin{lema}
-        
+        Sean $X$ es un espacio topológico, $x_0,x_1\in X$ y $\alpha,\beta$ trayectorias de $x_0$ a $x_1$. Supongamos que $\alpha\simeq\beta\rel$ bajo la homotopía $H$, entonces $\overline{\alpha}\simeq \overline{\beta}\rel$, donde $\overline{\alpha}(s)=\alpha(1-s)$ (y de manera análoga para $\overline{\beta}$).
     \end{lema}
+    \begin{dem}
+        Sea $\overline{H}:I\times I\to X$ tal que $\overline{H}(s,t)=H(1-s,t)$, entonces
+        \begin{align*}
+            \overline{H}(s,0)&=H(1-s,0)\\
+            &=\alpha(1-s)\\
+            &=\overline{\alpha}(s),
+        \end{align*}
+        de manera análoga, $\overline{H}(s,1)=\overline{\beta}(s)$. Además,
+         \begin{align*}
+            \overline{H}(0,t)&=H(1,t)=x_1,\\
+            \overline{H}(1,t)&=H(0,t)=x_0.
+        \end{align*}
+        Dado que $\overline{H}$ es continua, se concluye que $\overline{\alpha}\simeq \overline{\beta}\rel$.
+    \end{dem}
+    \begin{lema}
+    \label{lema:lema 2}
+        Sea $f,g:I\to I$ continuas tal que $f(0)=g(0)$ y $f(1)=g(1)$, entonces $f\simeq g \rel$.
+    \end{lema}
+    \begin{dem}
+        Se sigue de $\ref{prop:homotopia convexa}$ y $\ref{nota:homotopia_convexa}$ ya que $Y=I\subseteq \R$ es convexo.
+    \end{dem}
     
+    \begin{lema}
+    \label{lema:neutro_Pi_1}
+        Sean $\alpha$ una trayectoria de $x_0$ a $x_1$ en un espacio $X$, $c_{x_0},c_{x_1}:I\to X$ las trayectorias constantes con valor $x_0,x_1$ respectivamente. Entonces $c_{x_0}*\alpha\simeq \alpha\rel$ y $\alpha*c_{x_1}\simeq \alpha\rel$.
+    \end{lema}
+    \begin{dem}
+        Sean $f,g:I\to I$ las funciones continuas
+    \begin{align*}
+    f(s) &=
+    \begin{cases} 
+        0, & \text{si } s\in [0,\nicefrac{1}{2}]; \\[1ex]
+        2s-1, & \text{si } s \in [\nicefrac{1}{2},1].
+    \end{cases}
+    \hspace{1.5cm}
+    \vcenter{\hbox{
+    \begin{tikzpicture}[scale=1.6]
+        % Ejes sin etiquetas
+        \draw[->, >=stealth] (-0.2, 0) -- (1.3, 0);
+        \draw[->, >=stealth] (0, -0.2) -- (0, 1.3);
+        % Marcas en los ejes
+        \node[below, font=\footnotesize] at (0.5, 0) {$\nicefrac{1}{2}$};
+        %\draw (0.5, 1.5pt) -- (0.5, -1.5pt) node[below, font=\footnotesize] {$\nicefrac{1}{2}$};
+        \draw (1, 1.5pt) -- (1, -1.5pt) node[below, font=\footnotesize] {$1$};
+        \draw (1.5pt, 1) -- (-1.5pt, 1) node[left, font=\footnotesize] {$1$};
+        % Gráfica de la función
+        \draw[thick, blue] (0,0) -- (0.5,0) -- (1,1);
+        % Puntos clave (vértices)
+        \filldraw[blue] (0,0) circle (1pt);
+        \filldraw[blue] (0.5,0) circle (1pt);
+        \filldraw[blue] (1,1) circle (1pt);
+    \end{tikzpicture}
+    }}
+    \\[1ex] % Espacio vertical entre las dos funciones
+    g(s) &=
+    \begin{cases} 
+        2s, & \text{si } s\in [0,\nicefrac{1}{2}]; \\[1ex]
+        1, & \text{si } s \in [\nicefrac{1}{2},1].
+    \end{cases}
+    \hspace{2.023cm} 
+    % --- REEMPLAZAMOS \vcenter POR \raisebox ---
+    % Un valor negativo baja la gráfica (subiendo visualmente la ecuación)
+    \raisebox{-1.5cm}{\hbox{ 
+    \begin{tikzpicture}[scale=1.6]
+        % Ejes sin etiquetas
+        \draw[->, >=stealth] (-0.2, 0) -- (1.3, 0);
+        \draw[->, >=stealth] (0, -0.2) -- (0, 1.3);
+        % Marcas en los ejes
+        \draw (0.5, 1.5pt) -- (0.5, -1.5pt) node[below, font=\footnotesize] {$\nicefrac{1}{2}$};
+        \draw (1, 1.5pt) -- (1, -1.5pt) node[below, font=\footnotesize] {$1$};
+        \draw (1.5pt, 1) -- (-1.5pt, 1) node[left, font=\footnotesize] {$1$};
+        % Gráfica de la función
+        \draw[thick, red] (0,0) -- (0.5,1) -- (1,1);
+        % Puntos clave (vértices)
+        \filldraw[red] (0,0) circle (1pt);
+        \filldraw[red] (0.5,1) circle (1pt);
+        \filldraw[red] (1,1) circle (1pt);
+    \end{tikzpicture}
+    }}
+\end{align*}
+        por \ref{lema:lema 2}, $f\simeq \id_I\rel$ y por \ref{obs:homo_rel_compatible}, $\alpha\circ f\simeq \alpha\circ\id_I\rel$, dado que 
+        \begin{align*}
+            (\alpha\circ f)(s)&=
+            \begin{cases} 
+        x_0, & \text{si } s\in [0,\nicefrac{1}{2}]; \\[1ex]
+        \alpha(2s-1), & \text{si } s \in [\nicefrac{1}{2},1].
+    \end{cases}\\
+    &=(c_{x_0}*\alpha)(s),
+        \end{align*}
+        i.e., $\alpha\circ f=c_{x_0}*\alpha$, por lo tanto, $c_{x_0}*\alpha\simeq\alpha\rel$. De manera simular, $g\simeq \id_Y$ y ado que 
+        \begin{align*}
+            (\alpha\circ g)(s)&=
+            \begin{cases} 
+        \alpha(2s), & \text{si } s\in [0,\nicefrac{1}{2}]; \\[1ex]
+        x_1, & \text{si } s \in [\nicefrac{1}{2},1].
+    \end{cases}\\
+    &=(\alpha*c_{x_1})(s),
+        \end{align*}
+    i.e.,  $\alpha\circ g=\alpha*c_{x_1}$, por lo tanto, $\alpha*c_{x_0}\simeq\alpha\rel$.
+    \end{dem}
+    \begin{coro}
+        Sea $X$ un espacio basado en $x_0$. Entonces
+        \[
+        [\alpha]*[c_{x_0}]=[c_{x_0}]*[\alpha]=[\alpha],
+        \]
+        para todo lazo $\alpha\in\Omega(X,x_0)$. Se sigue que $[c_{x_0}]\in\Pi_1(X,x_0)$ es el neutro.
+    \end{coro}
+    \begin{lema}
+        Sea $X$ un espacio topológico y $\alpha:I\to X$ una trayectoria de $x_0$ a $x_1$, entonces $\alpha*\overline{\alpha}\simeq c_{x_0}$.
+    \end{lema}
+    \begin{dem}
+        Sea la función continua $f:I\to I$ tal que
+    \begin{align*}
+    % La gráfica ahora va a la izquierda
+    \vcenter{\hbox{
+    \begin{tikzpicture}[scale=1.6]
+        % Ejes sin etiquetas
+        \draw[->, >=stealth] (-0.2, 0) -- (1.3, 0);
+        \draw[->, >=stealth] (0, -0.2) -- (0, 1.3);
+        % Marcas en los ejes (CON marca/rayita en 1/2)
+        \draw (0.5, 1.5pt) -- (0.5, -1.5pt) node[below, font=\footnotesize] {$\nicefrac{1}{2}$};
+        \draw (1, 1.5pt) -- (1, -1.5pt) node[below, font=\footnotesize] {$1$};
+        \draw (1.5pt, 1) -- (-1.5pt, 1) node[left, font=\footnotesize] {$1$};
+        % Gráfica de la función (color verde militar)
+        \draw[thick, green!35!black] (0,0) -- (0.5,1) -- (1,0);
+        % Puntos clave (vértices)
+        \filldraw[green!35!black] (0,0) circle (1pt);
+        \filldraw[green!35!black] (0.5,1) circle (1pt);
+        \filldraw[green!35!black] (1,0) circle (1pt);
+    \end{tikzpicture}
+    }}
+    \hspace{1cm} % Espacio de separación entre la gráfica y la ecuación
+    f(s) &=
+    \begin{cases} 
+        2s, & \text{si } s\in [0,\nicefrac{1}{2}]; \\[1ex]
+        2-2s, & \text{si } s \in [\nicefrac{1}{2},1].
+    \end{cases}
+    \end{align*}
+    por $\ref{lema:lema 2}$, $f\simeq c_{x_0}\rel$, por \ref{obs:homo_rel_compatible}, $\alpha\circ f\simeq \alpha\circ c_{0}\footnote{La función constante $c_0:I\to I$ tal que $c_0(s)=0,$ para toda $s\in I$.}\rel$. 
+    dado que $\alpha\circ c_0=c_{x_0}$ y 
+    \begin{align*}
+        (\alpha\circ f)(s) &=
+    \begin{cases} 
+        \alpha(2s), & \text{si } s\in [0,\nicefrac{1}{2}]; \\[1ex]
+        \alpha(2-2s), & \text{si } s \in [\nicefrac{1}{2},1].
+    \end{cases}\\
+    &=(\alpha*\overline{\alpha})(s)
+    \end{align*}
+    i.e., $\alpha\circ f=\alpha*\overline{\alpha}$, se sigue que $\alpha*\overline{\alpha}\simeq c_{x_0}\rel$.
+    \end{dem}
+    \begin{ejercicio}
+        Mostrar que $\overline{\alpha}*\alpha\simeq c_{x_1}\rel$.
+    \end{ejercicio}
+    \begin{definicion}
+        Sean $X$ un espacio topológico y $x_0,...,x_{n-1}\in X$. Sea $\alpha_i$ una trayectoria de $x_{i-1}$ a $x_{i}$, para cada $i\in\{1,...,n\}.$
+    \end{definicion}
