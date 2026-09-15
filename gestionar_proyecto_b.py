@@ -79,6 +79,55 @@ def nombre_archivo(posicion):
 
 
 # ============================================================
+# ACTUALIZAR NÚMERO DE EJERCICIOS EN MAIN
+# ============================================================
+
+def actualizar_main(numero_ejercicios):
+    """
+    Actualiza en main.tex el número del último ejercicio.
+    """
+
+    archivo_main = PROYECTO_B / "main.tex"
+
+    if not archivo_main.exists():
+        raise FileNotFoundError(
+            f"No se encontró el archivo {archivo_main}"
+        )
+
+    contenido = archivo_main.read_text(
+        encoding="utf-8"
+    )
+
+    patron = r"(\\foreach \\i in \{1,...,)\d+(\}\{)"
+
+    contenido_nuevo, cambios = re.subn(
+        patron,
+        rf"\g<1>{numero_ejercicios}\g<2>",
+        contenido,
+        count=1
+    )
+
+    if cambios == 0:
+        raise RuntimeError(
+            "No se encontró en main.tex "
+            "la expresión \\foreach \\i in {1,...,N}{."
+        )
+
+    if contenido_nuevo != contenido:
+        archivo_main.write_text(
+            contenido_nuevo,
+            encoding="utf-8"
+        )
+
+    print(
+        f"MAIN: cargando ejercicios del 1 al "
+        f"{numero_ejercicios}"
+    )
+
+
+
+
+# ============================================================
 # OBTENER ARCHIVOS DE B
 # ============================================================
 
@@ -555,6 +604,10 @@ def sincronizar_proyecto_b(
                 in temporales_restantes
             )
         )
+
+    actualizar_main(
+        len(ejercicios_actuales)
+    )
 
     print()
     print(

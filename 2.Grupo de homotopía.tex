@@ -95,7 +95,7 @@ por lo tanto, $\sigma*\tau$ es testigo de que $x_1\sim x_3$.
 
 %%% Más comentarios.
 \begin{definicion}
-    Denotamos por $\pi_0(X)$ el conjunto de clases de equivalencia que son las \textit{componentes por trayectoria} de $X$. Dado $x\in X$, su clase de equivalencia la pon $\langle x\rangle \in \pi_0$(X). 
+    Denotamos por $\pi_0(X)$ el conjunto de clases de equivalencia que son las \textit{componentes por trayectoria} de $X$. Dado $x\in X$, su clase de equivalencia la denotamos por $\langle x\rangle \in \pi_0$(X). 
 \end{definicion}
 \begin{definicion}
 \label{def: pi_0(f)}
@@ -103,11 +103,11 @@ por lo tanto, $\sigma*\tau$ es testigo de que $x_1\sim x_3$.
 \end{definicion}
 \begin{ejercicio}
     % ID: 1
-    Mostrar que $f_*$ está bien definida y que satisface que
-    \begin{itemize}
-        \item [(1)] ${\id_X}_*=\id_{\pi_0(x)}.$
-        \item [(2)] Para cualquier $f:X\to Y$ y $g:Y\to Z$ funciones continuas, entonces $(g\circ f)_*=g_*\circ f_*$
-    \end{itemize}
+    Mostrar que $f_*$ está bien definida y satisface que
+    \begin{enumerate}[label=(\arabic*)]
+        \item  ${\id_X}_*=\id_{\pi_0(X)}.$
+        \item  Para cualquier $f:X\to Y$ y $g:Y\to Z$ funciones continuas, entonces $(g\circ f)_*=g_*\circ f_*$.
+    \end{enumerate}
 %\begin{dem}
 %    Supongamos $x\simeq y$, entonces existe una trayectoría continua $\sigma:I\to X$ tal que $\sigma(0)=x$ y $\sigma(1)=y$. Entonces $f\circ \sigma(0)=f(x)$ y $f\circ \sigma(1)=f(y)$
 %\end{dem}
@@ -239,9 +239,9 @@ La condición rel \{0,1\} es que los puntos $0,1\in I$ van a dar al mismo punto 
 \begin{ejercicio}
     % ID: 2
     Mostrar que la relación de homotopía en el conjunto $\Omega(X,x_0)$ es una relación de equivalencia.
-    \begin{dem}
-        Supongamos
-    \end{dem}
+    %\begin{dem}
+    %   Supongamos
+    %\end{dem}
 \end{ejercicio}
 \begin{definicion}
 \label{def: fundamental_group}
@@ -285,7 +285,7 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_{x_0}:I
     \end{dem}
     Podemos deformar funciones continuas arbitrarias de la siguiente manera:
     \begin{definicion}
-        Sea $f,g:X\to Y$ continuas, decimos que $f$ es \textit{homotópica} a $g$ (o que $f$ \textit{se deforma a} $g$) y lo denotamos por $f\simeq g$, si existe una función continua $H:I\times X\to Y$ llamada \textit{homotopía} tal que $H(x,0)=f(x)$ y $H(x,1)=g(x)$. Para cada $t\in I$ tenemos la función continua $H_t:X\to Y$ dada por $H_t(x)=H(x,t)$.
+        Sea $f,g:X\to Y$ continuas, decimos que $f$ es \textit{homotópica} a $g$ (o que $f$ \textit{se deforma a} $g$) y lo denotamos por $f\simeq g$, si existe una función continua $H:X\times I\to Y$ llamada \textit{homotopía} tal que $H(x,0)=f(x)$ y $H(x,1)=g(x)$. Para cada $t\in I$ tenemos la función continua $H_t:X\to Y$ dada por $H_t(x)=H(x,t)$.
     \end{definicion}
     \begin{nota}
         Cuando $f,g:X\to Y$ tengan algunas \textit{propiedades extras} siempre vamos a pedir que una homotopía $H$ entre $f$ y $g$ cumpla que, para cada $t\in I$, $H_t:X\to Y$ tenga esa propiedad también. Como ejemplo se tiene lo siguiente:
@@ -312,7 +312,7 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_{x_0}:I
     \end{definicion}
     \begin{ejercicio}
     % ID: 5
-        Mostrar que un espacio $X$ es contraible si y sólo si existe una homotopía $H:X\times I\to X$ tal que $H(-,0)=\id_X$ y $H(-,1)=c_{x_0}$, para toda $x\in X$.
+        Mostrar que un espacio $X$ es contraible si y sólo si existe una homotopía $H:X\times I\to X$ tal que $H(-,0)=\id_X$ y $H(-,1)=c_{x_0}$, para algún $x_0\in X$.
     \end{ejercicio}
     \begin{ejercicio}
     % ID: 6
@@ -375,7 +375,7 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_{x_0}:I
     \label{eje:Pi_1_es_invariante}
         Sean 
         $
-            \begin{tikzcd}[column sep=0.65cm]
+            \begin{tikzcd}[column sep=0.5cm]
             (X,x_0) \arrow[r, "f"] & (Y,y_0)\arrow[r, "g"] & (Z,z_0)
         \end{tikzcd}
         $
@@ -772,9 +772,11 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_{x_0}:I
         \end{align*}
     \end{definicion}
     \begin{ejercicio}
+    % ID: 10
         Mostrar que $\Vec{\sigma}$ está bien definido y es un homomorfismo de grupo.
     \end{ejercicio}
     \begin{ejercicio}
+    % ID: 11
         Mostrar que $\Vec{\sigma}$ satisface las siguientes propiedades
         \begin{enumerate}
             \item[(1)] Si $\sigma\simeq\tau\rel$, entonces $\Vec{\sigma}=\Vec{\tau}.$
@@ -921,6 +923,7 @@ para cada $s\in I^q$. Entonces
  \p([\alpha])=[\hat{\alpha}]=[\hat{\beta}]=\p([\beta]).
  \]
 \begin{ejercicio}
+    % ID: 12
     Mostrar que $\p$ es la inversa de $p^{(X,x_0)
     }$.
 \end{ejercicio}

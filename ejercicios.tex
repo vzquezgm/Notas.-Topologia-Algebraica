@@ -1,10 +1,10 @@
 \begin{ejercicio}
     % ID: 1
-    Mostrar que $f_*$ está bien definida y que satisface que
-    \begin{itemize}
-        \item [(1)] ${\id_X}_*=\id_{\Pi_0(x)}.$
-        \item [(2)] Para cualquier $f:X\to Y$ y $g:Y\to Z$ funciones continuas, entonces $(g\circ f)_*=g_*\circ f_*$
-    \end{itemize}
+    Mostrar que $f_*$ está bien definida y satisface que
+    \begin{enumerate}[label=(\arabic*)]
+        \item  ${\id_X}_*=\id_{\pi_0(X)}.$
+        \item  Para cualquier $f:X\to Y$ y $g:Y\to Z$ funciones continuas, entonces $(g\circ f)_*=g_*\circ f_*$.
+    \end{enumerate}
 %\begin{dem}
 %    Supongamos $x\simeq y$, entonces existe una trayectoría continua $\sigma:I\to X$ tal que $\sigma(0)=x$ y $\sigma(1)=y$. Entonces $f\circ \sigma(0)=f(x)$ y $f\circ \sigma(1)=f(y)$
 %\end{dem}
@@ -13,9 +13,9 @@
 \begin{ejercicio}
     % ID: 2
     Mostrar que la relación de homotopía en el conjunto $\Omega(X,x_0)$ es una relación de equivalencia.
-    \begin{dem}
-        Supongamos
-    \end{dem}
+    %\begin{dem}
+    %   Supongamos
+    %\end{dem}
 \end{ejercicio}
 
 \begin{ejercicio}
@@ -30,7 +30,7 @@
 
 \begin{ejercicio}
     % ID: 5
-        Mostrar que un espacio $X$ es contraible si y sólo si existe una homotopía $H:X\times I\to X$ tal que $H(-,0)=\id_X$ y $H(-,1)=c_{x_0}$, para toda $x\in X$.
+        Mostrar que un espacio $X$ es contraible si y sólo si existe una homotopía $H:X\times I\to X$ tal que $H(-,0)=\id_X$ y $H(-,1)=c_{x_0}$, para algún $x_0\in X$.
     \end{ejercicio}
 
 \begin{ejercicio}
@@ -40,9 +40,10 @@
 
 \begin{ejercicio}
     % ID: 7
+    \label{eje:Pi_1_es_invariante}
         Sean 
         $
-            \begin{tikzcd}[column sep=0.65cm]
+            \begin{tikzcd}[column sep=0.5cm]
             (X,x_0) \arrow[r, "f"] & (Y,y_0)\arrow[r, "g"] & (Z,z_0)
         \end{tikzcd}
         $
@@ -63,3 +64,50 @@
         Mostrar que $\overline{\alpha}*\alpha\simeq c_{x_1}\rel$.
     \end{ejercicio}
 
+\begin{ejercicio}
+    % ID: 10
+        Mostrar que $\Vec{\sigma}$ está bien definido y es un homomorfismo de grupo.
+    \end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 11
+        Mostrar que $\Vec{\sigma}$ satisface las siguientes propiedades
+        \begin{enumerate}
+            \item[(1)] Si $\sigma\simeq\tau\rel$, entonces $\Vec{\sigma}=\Vec{\tau}.$
+            \item[(2)] $\Vec{c}_{x_0}=\id_{\Pi_1(X,x_0)}.$ 
+            \item[(3)]  Sea $\sigma_0:I\to X$ una trayectoria de $x_0$ a $x_1$ y $\sigma_1$ una trayectoria de $x_1$ a $x_2$. Mostrar que $$\overrightarrow{\sigma_0*\sigma_1}=\Vec{\sigma}_0\circ \Vec{\sigma}_1.$$
+        \end{enumerate}
+    \end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 12
+    Mostrar que $\p$ es la inversa de $p^{(X,x_0)
+    }$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 13
+    Sea $F:\C\to\D$ un funtor. Mostrar que $F$ manda objetos isomorfos en $\C$ a objetos isomorfos en $\D$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 14
+        Mostrar que $\HTop$ es una categoría y describir qué es un isomorfismo en está categoría.
+    \end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 15
+    Para cada espacio $(X,x_0)$, hagamos 
+    \begin{align*}
+        T_{(X,x_0)}:[(I^q/\partial I^q,*),(X,x_0)]&\to[(S^q,*),(X,x_0)]\\
+        [\alpha]&\mapsto [\alpha\circ h],
+    \end{align*}
+    donde $h$ es el homeomorfismo presentado en \ref{eq:iso_In/partial_In_to_Sn}. Mostrar que $T$ es una equivalencia natural, i.e., para cualquier función continua basada $f:(X,x_0)\to(Y,y_0)$, el siguiente diagrama conmuta 
+     \[
+    \begin{tikzcd}[column sep=1.2cm, row sep=1.2cm] 
+        \bIq\arrow[r,"\px"] \arrow[d,"f_+"'] & \text{[}(S^q,*),(X,x_0)\text{]}
+        \arrow[d,"f_\#"']\\
+        \YIq\arrow[r,"\py"] &\text{[}(S^q,*),(Y,y_0){]}
+\end{tikzcd}
+    \]
+\end{ejercicio}
