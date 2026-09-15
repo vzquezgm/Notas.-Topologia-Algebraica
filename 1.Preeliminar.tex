@@ -1,0 +1,271 @@
+\begin{center}
+    \section{Preeliminares}
+\end{center}
+\begin{prop}
+\label{prop:pi_n_abierta}
+    Sea $\{(X_i,\tau_i):i\in I\}$ una familia de espacios topológicos. Entonces la proyección na- tural $\pi_n:\prod_{i\in I}X_i\to X_n$ es una función abierta, para todo $n\in I$.
+\end{prop}
+\begin{dem}
+    Sea $\beta$ base de la topología producto de $\prod_{i\in I}X_i$. Hagamos $U\in \beta$ no vacío, entonces existe $F\subseteq I$ finito tal que 
+    \[
+    U=\medcap\{\pi_i^{-1}(U_i):U_i\in\tau_i,\; i\in F\}.
+    \]
+    Notemos que 
+    \begin{align*}
+        \pi_n(U)=\begin{cases} 
+        X_n, & \text{si } i\notin F; \\[1ex]
+        U_n, & \text{si } i\in F.
+    \end{cases}
+    \end{align*}
+    En ambos casos, se sigue que $\pi_n(U)\in \tau_n$, Dado que la imagen de $\pi_n$ en la base $\beta$ es un abierto, se sigue que $\pi_n$ es abierta.
+\end{dem}
+%%%%%% Espacio cociente
+\subsection{Topología cociente}
+\begin{definicion}
+    Sean $X,Y$ espacios topológicos y $p:X\to Y$ una función sobreyectiva. Decimos que $p$ es \textit{cociente} si, para todo $U\subseteq Y$, 
+     $U$ es abierto en $Y$ si y sólo si $\pi^{-1}(U)$ es abierto en $X$.
+\end{definicion}
+\begin{obs}
+    Dado que $p^{-1}(Y\setminus U)=X\setminus p^{-1}(U)$, por lo tanto, la condición de función cociente se puede dar en términos de conjuntos cerrados.
+\end{obs}
+\begin{prop}
+\label{prop:topo_cociente}
+    Sean $(X,\tau_X)$ un espacio topológico y $Y$ un conjunto. Si $f:X\to Y$, entonces
+    \[
+    \tau_f=\{U\subseteq Y:f^{-1}(U)\in\tau_X\}
+    \]
+    es una topológia para $Y$ tal que $f:(X,\tau_X)\to(Y,\tau_f)$ es continua. Más aun, si $f:(X,\tau_X)\to(Y,\tau_Y)$ es continua, entonces $\tau_Y\subseteq \tau_f$.
+\end{prop}
+\begin{dem}
+    Dado que $f^{-1}(\emptyset)=\emptyset$ y $f^{-1}(Y)=X$, se sigue que $\emptyset,Y\in\tau_f$. Finalmente, que $\tau_f$ preserve uniones arbitrarías e intersecciones fintas, se sigue del hecho de que la imagen inversa de cualquier función preserva uniones e intersecciones arbitrarias. De la definición de $\tau_f$, es inmediato concluir que $f:(X,\tau_X)\to(Y,\tau_Y)$ es continua.
+
+    Por otro lado, supongamos $f:(X,\tau_X)\to(Y,\tau_Y)$ es continua. Sea $U\in\tau_Y$, entonces $p^{-1}(U)\in \tau_X$, por definición de $\tau_f$, $U\in \tau_{f}$.
+\end{dem}
+\begin{definicion}
+    A la topología $\tau_f$ definida en \ref{prop:topo_cociente} se le conoce como \textit{topología cociente inducida por $f$} y a $(Y,\tau_f)$ \textit{espacio cociente de} $X$.
+\end{definicion}
+\begin{prop}
+\label{prop:unicidad_espacio_cociente}
+    Sea $(X,\tau_X)$ un espacio topológico y $f:X\to Y$ una función sobreyectiva. Entonces la topología cociente inducida por $f$ es la única topología para la cuál 
+    \begin{enumerate}[label=(\arabic*)]
+        \item\label{item:f_continua} $f:(X,\tau_X)\to (Y,\tau_f)$ es continua y
+        \item\label{item:g_continua} para cualquier función $g:Y\to Z$, $g: (Y,\tau_f)\to(Z,\tau_Z)$ es continua si y sólo si $g\circ f:(X,\tau_X)\to (Z,\tau_Z)$ es continua. 
+    \end{enumerate}
+\end{prop}
+\begin{dem}
+    En \ref{prop:topo_cociente} se demostró que $f:(X,\tau_X)\to (Y,\tau_f)$. Por otro lado, supongamos 
+    $g\circ f:(X,\tau_X)\to (Z,\tau_Z)$ es continua. Se $U\in \tau_Z$,se sigue que 
+    $$f^{-1}(g^{-1}(U))=(g\circ f)^{-1}(U)\in\tau_X,$$ por definición de $\tau_f$, se sigue que $g^{-1}(U)\in\tau_f$. Lo anterior muestra que $g: (Y,\tau_f)\to(Z,\tau_Z)$ es continua.
+
+    Finalmente, supongamos $\sigma$ es una topología tal que cumple las propiedades \ref{item:f_continua} y \ref{item:g_continua} en $\ref{prop:unicidad_espacio_cociente}$. Como $f:(X,\tau_X)\to(Y,\sigma)$ es continua, por \ref{prop:topo_cociente}, $\sigma\subseteq \tau_f$. Sea $U\in \tau_f$. Para $i_Y:Y\to Y$, dado que $f=i_Y\circ f:(X,\tau_X)\to(Y,\tau_f)$ es continua, por la propiedad \ref{item:g_continua}, $i_Y:(Y,\sigma)\to (Y,\tau_f)$ es continua, por lo tanto, $U=i_Y^{-1}(U)\in\sigma$. Se sigue que, $\sigma=\tau_f$.
+\end{dem}
+\begin{prop}
+    Sean $(X,\tau_X), (Y,\tau_Y)$ espacios topológicos y $f:X\to Y$ una función sobreyectiva. Entonces $f$ es  cociente si y sólo si $\tau_f=\tau_Y$.
+\end{prop}
+\begin{dem}
+    $\Rightarrow)$ Supongamos $f:(X,\tau_X)\to(Y,\tau_Y)$ es cociente. Sea $g:(Y,\tau_Y)\to(Z,\tau_Z)$ tal que $g\circ f:(X,\tau_X)\to(Z,\tau_Z)$ es continua. Sea $U\in \tau_Z$, entonces $f^{-1}(g^{-1}(U))=(g\circ f)^{-1}(U)\in\tau_X$, como $f$ es cociente, se sigue que $g^{-1}(U)\in \tau_Y$. Por \ref{prop:unicidad_espacio_cociente}, $\tau_f=\tau_Y$.
+    
+    $\Leftarrow)$ Supongamos $\tau_f=\tau_Y$. Se sigue que $f$ es continua. Por otro lado, si $U\subseteq Y$ tal que $f^{-1}(U)$ es abierto en  $\tau_X$, sigue que $U$ es abierto en $\tau_f=\tau_Y$. Se sigue que $f:(X,\tau_X)\to(Y,\tau_Y)$ es cociente.
+\end{dem}
+\begin{prop}
+\label{prop:continua_abierta_implica_cociente}
+    Sean $(X,\tau_X), (Y,\tau_Y)$ espacios topológicos y $f:X\to Y$ una función sobreyectiva. Si $f$ es continua y abierta, entonces $f$ es cociente.
+\end{prop}
+\begin{dem}
+    Supongamos $f$ es continua y abierta. Sea $U\subseteq \tau_Y$ tal que $f^{-1}(U)\in\tau_X$. Dado que $f$ es sobreyectiva, $f(f^{-1}(U))=U$, como $f$ es abierta, se sigue que $U\in \tau_Y$. Lo anterior muestra que $f$ es cociente.
+\end{dem}
+\begin{obs}
+    La proposición \ref{prop:continua_abierta_implica_cociente} también es válida para funciones continuas y cerradas.
+\end{obs}
+\begin{obs}
+\label{obs:composicion_cociente}
+    La composición de funciones cocientes es cociente.
+\end{obs}
+\begin{prop}
+\label{prop:cociente_biyectiva_implica_homeomorfismo}
+    Toda función cociente biyectiva es un homeomorfismo.
+\end{prop}
+\begin{dem}
+    Supongamos $f:(X,\tau_X)\to (Y,\tau_Y)$ es una función cociente biyectiva. Mostremos que $f^{-1}:Y\to X$ es continua. Sea $U\in\tau_X$, entonces
+    \begin{align*}
+        f^{-1}((f^{-1})^{-1}(U))&=(f^{-1}\circ f)^{-1}(U)\\
+        &=\id_X^{-1}(U)\\
+        &=U,
+    \end{align*}
+    como $f$ es cociente, se sigue que $(f^{-1})^{-1}(U)\in\tau_Y$, por lo tanto, $f^{-1}$ es continua.
+\end{dem}
+\begin{coro}[Propiedad universal del cociente]
+    \label{prop:propiedad_universal_cociente}
+    Sean $(X,\tau_X), (Y,\tau_Y)$ espacios topológicos. Sea $p:X\to Y$ una función sobreyectiva. Entonces $p$ es cociente si y sólo si para toda función $g:X\to Z$ constante en $p^{-1}(\{y\})$ para toda $y\in Y$, entonces existe una única función $\hat{g}:X\to Z$ tal que el siguiente diagrama conmuta
+    \[
+    \begin{tikzcd}[column sep=0.65cm, row sep=0.85cm] 
+        X\arrow[r,"g"] \arrow[d,"p"'] & Z\\
+        Y \arrow[ur, dashed, "\hat{g}"']
+    \end{tikzcd}
+    \]
+    i.e., $\hat{g}\circ p=g$. Y además, si $g$ es continua (cociente) si y sólo si $\hat{g}$ es continua (cociente).
+\end{coro}
+\begin{dem}
+    $\Rightarrow)$ Supongamos $p$ es cociente. Sea $g:X\to Z$ tal que $g$ es constante en $p^{-1}(\{y\})$ para cada $y\in Y$. Hagamos $\hat{g}:Y\to Z$, de la siguiente manera: sea $y\in Y$, como $g$ es constante en $p^{-1}(\{y\})$ y $p$ es sobreyectiva, existe un único $z\in g(p^{-1}(\{y\}))$, hagamos $\hat{g}(y)=z$. Notemos que si $x\in X$, entonces $g(x)\in g(p^{-1}(\{p(x)\}))$, por lo tanto, $\hat{g}(p(x))=g(x)$, i.e., $\hat{g}\circ p=g$. 
+
+    Dado que $p$ es cociente, por \ref{prop:topo_cociente}, $g=\hat{g}\circ p$ es continua si y sólo si $\hat{g}$. Por otro lado, supongamos $g$ es cociente. Sea $U\subseteq Z$, tal que $\hat{g}^{-1}(U)\in\tau_Y$, entonces
+    \begin{equation*}
+       g^{-1}(U)=p^{-1}(\hat{g}^{-1}(U))
+    \end{equation*}
+    como $p$ es continua, $g^{-1}(U)\in\tau_X$ y, como $g$ es cociente, se concluye que $U\in\tau_Z$. Finalmente, por la observación \ref{obs:composicion_cociente}, si $\hat{g}$ es cociente, entonces $g=\hat{g}\circ p$ es cociente.
+
+    $\Leftarrow)$ De manera recíproca, mostremos que $p$ es cociente. Sea $g:Y\to Z$ una función. Por hipó- tesis $g$ es continua si y sólo $g\circ p$ es continua. Por \ref{prop:topo_cociente}, se sigue que $p$ es cociente.
+\end{dem}
+\begin{prop}
+    Sean $(X,\tau_X)$ un espacio topológico, $p:X\to Y$ una función cociente y $q:X\to Y'$ es una función sobreyectiva constante en $p^{-1}(\{y\})$ para toda $y\in Y$ . Entonces $q$ es cociente de $X$ si y sólo si existe un único homeomorfismo $Y\cong_\psi Y'$ tal que el siguiente diagrama conmuta
+    \[
+    \begin{tikzcd}[column sep=0.65cm, row sep=0.85cm] 
+        X\arrow[r,"q"] \arrow[d,"p"'] & Y'\\
+        Y \arrow[ur, dashed, "\psi"']
+    \end{tikzcd}
+    \]
+    i.e., $\psi\circ p=q$.
+\end{prop}
+\begin{dem}
+    Si $p:X\to Y$ es un cociente, por \ref{prop:propiedad_universal_cociente}, existe una única función $\psi:Y\to Y'$ tal que $\psi\circ p=q$.
+    
+    $\Rightarrow)$ Supongamos $q$ es cociente de $Y'$, por \ref{prop:propiedad_universal_cociente}, existe una función continua $\psi':Y'\to Y$ tal que $\psi'\circ q=p$, entonces $\psi'\circ\psi\circ p=p$. Se tiene el siguiente diagrama conmutativo.
+    \[
+\begin{tikzcd}[every label/.append style = {font = \small},column sep=0.65cm, row sep=0.7cm]
+   & Y \arrow[dd,"\psi'\psi"]  \arrow[dd,"\id_Y", bend left=55]\\
+    X  \arrow[dr,"p"'] \arrow[ur,"p"] \\
+   & Y 
+\end{tikzcd}
+\]
+Dado que $\id_Y\circ p=p$, por unicidad, se sigue que $\psi'\circ\psi=\id_Y$. De manera análoga se concluye que $\psi\circ \psi'=\id_{Y'}$. Como $q$ es cociente, por \ref{prop:propiedad_universal_cociente}, $\psi$ es cociente y biyectiva, por \ref{prop:cociente_biyectiva_implica_homeomorfismo}, $\psi$ es un homeomorfismo.
+
+$\Leftarrow)$ Sea $g:X\to Z$ una función. Dado que $p$ es cociente, existe una única función $h:Y\to Z$ tal que $h\circ p=g$. Hagamos $\hat{g}=h\circ\psi^{-1}$, Se sigue que
+$$
+\hat{g}\circ q=h\circ\psi^{-1}\circ\psi\circ p=h\circ p=g,
+$$
+por lo tanto, $\hat{g}=h\circ\psi^{-1}:Y'\to Z$ es la única función tal que el siguiente diagrama conmuta
+\[
+\begin{tikzcd}[row sep=5.5ex, column sep=0.85cm]
+ & &Y \arrow[dd,"\psi"]  \arrow[dl,"h"',dashed]  \\
+ X\arrow[r, "g"] \arrow[urr,bend left , "P"]   \arrow[drr,bend right, "q"'] & Z  & \\
+  & & Y'  \arrow[ul, "h\circ\psi^{-1}", dashed]
+\end{tikzcd}
+\]    
+i.e., $\hat{g}\circ q=g$. 
+
+Por \ref{prop:propiedad_universal_cociente}, $g$ es continua (cociente) si y sólo si $h=\hat{g}\circ \psi$ es continua (cociente) si y sólo si $\hat{g}$ es continua (cociente). Por \ref{prop:propiedad_universal_cociente}, $q$ es cociente.
+\end{dem}
+\subsection{Espacios compactos}
+%%%%%% Iniciemos con espacio compacto y localmente compacto
+\begin{definicion}
+    Sea $(X,\tau)$ un espacio topológico. Decimos que $X$ es \textit{compacto} si para toda cubierta $\U\subseteq \tau$, existe una subcubierta finita $\A\subseteq\U$ tal que $X=\bigcup\A$.
+\end{definicion}
+\begin{obs}
+    Sea $Y\subseteq X$ con la topología relativa. Entonces $Y$ es compacto si solo si toda cubierta de abiertos en $X$ de $Y$ tiene una subcubierta finita, i.e., para toda $\U\subseteq \tau_X$ tal que $Y\subseteq\bigcup\U$, existe $\F\subseteq \U$ finito tal que $Y\subseteq\bigcup \F.$
+\end{obs}
+\begin{prop}
+\label{prop:f(K)_compacto}
+    Sean $(X,\tau_X),(Y,\tau_Y)$ espacios topológicos. Si $f:(X,\tau_X)\to(Y,\tau_Y)$ es continua y $K\subseteq X$ es compacto, entonces $f(K)$ es compacto.
+\end{prop}
+\begin{dem}
+    Si $\U\subseteq\tau_Y$ es una cubierta de $f(K)$, entonces $f^{-1}(\U)\subseteq \tau_X$ es una cubierta de $K$, por lo tanto, existe una subfamilia finita $\V$ de $\U$ tal que $f^{-1}(\V)$ es cubierta de $K$, por lo tanto, $\V$ es una cubierta finita de $f(K)$.
+\end{dem}
+\begin{prop}
+\label{prop:cerrado_de_compacto}
+    Sea $(X,\tau)$ un espacios topológicos. Si $X$ es compacto y $Y$ es un subespacio cerrado de $X$, entonces $Y$ es compacto.
+\end{prop}
+\begin{dem}
+    Sea $\U\subseteq Y$ una cubierta abierta en $X$ de $Y$. Hagamos $\mathscr{V}=\mathscr{U}\cup\{X\setminus Y\}$, entonces
+    \begin{align*}
+        X&=Y\cup (X\setminus Y)\\
+        &\subseteq(\medcup\mathscr{U})\cup (X\setminus Y)\\
+        &=\medcup\mathscr{V}.
+    \end{align*}
+    Se sigue que $\mathscr{U}$ es una cubierta abierta de $X$, por hipótesis, existe $\mathcal{F}\subseteq \mathscr{U}$ finto tal que $\mathcal{F}\cup\{X\setminus Y\}$ es subcubierta de $\mathscr{V}$.
+    Se sigue que
+    \begin{equation*}
+        \begin{split}
+            Y&=X\cap Y\\
+            &=\textstyle (\medcup\mathcal{F}\cup X\setminus Y)\cap Y\\
+            &=\textstyle\medcup(\mathcal{F}\cap Y)\\
+            &\subseteq\textstyle\medcup\mathcal{F}.
+        \end{split}
+    \end{equation*}
+    Se sigue que $\F$ es una subcubierta de $\U$, por lo tanto, $Y$ es compacto.
+\end{dem}
+\begin{lema}
+\label{lema:separacion_por_compacto}
+    Sea $(X,\tau)$ Hausdorff. Si $K\subseteq X$ es compacto y $x\in X\setminus K$, entonces existen $U,V\in\tau$ ajenos tal que $K\subseteq U$ y  $x\in V$.
+\end{lema}
+\begin{dem}
+    Dado que $X$ es Hausdorff, para cada $k\in K$, existen $U_k,V_k\in \tau$ ajenos tal que $x\in V_k$ y $k\in U_k$. Se sigue que $\mathscr{V}=\{V_k:k\in K\}$ es cubierta de $K$, entonces existe una subcubierta finita $\mathcal{F}$ de $\mathscr{V}$. Hagamos $V=\medcup\mathcal{F}$ y $U=\medcap\{U_k:V_k\in \mathcal{F}\}$. Se sigue que $U,V$ son abiertos ajenos tal que $K\subseteq U$ y  $x\in V$.
+\end{dem}
+\begin{coro}
+\label{coro:compacto_de_T_1_cerrado}
+    Todo subespacio compacto de un espacio Hausdorff es cerrado.
+\end{coro}
+\begin{dem}
+    Sea $K\subseteq X$ compacto y $x\in X\setminus K$, por \ref{lema:separacion_por_compacto}, existe $U,V$ abiertos ajuenos tal que $K\subseteq U$ y $x\in V$, como $U,V$ son ajenos, $x\in V\subseteq X\setminus K$, por lo tanto, $X\setminus K$ es abierto, implica que $K$ es cerrado.
+\end{dem}
+\begin{lema}[del Tubo]
+\label{lema:del tubo}
+    Sean $(X,\tau_X),(Y,\tau_Y)$ espacios topológicos, con $Y$ compacto. Si $x\in X$ y $N$ es un subconjunto abierto de $X\times Y$ tal que $\{x\}\times Y\subseteq N$, entonces existe un abierto $W$ en $X$ tal que $\{x\}\times Y\subseteq W\times Y\subseteq N$.
+\end{lema}
+\begin{dem}
+    Hagamos $\U=\{U\times V\subseteq N:U\in \tau_X, V\in\tau_Y\}.$ Mostremos que $\U$ es una cubierta de $\{x\}\times Y$. Sea $(x,y)\in \{x\}\times Y\subseteq N$, como $N$ es abierto, existe $U,V$ abiertos tal que $(x,y)\in U\times V\subseteq N$, por lo tanto, $(x,y)\in \bigcup\U$. Dado que $Y$ es compacto, existe una subcubierta finita $\F$ de $\U$, i.e., $\{x\}\times Y\subseteq\bigcup\F$. 
+    Sin pérdida de la generalidad, supongamos $F\cap (Y\times\{x\})\neq \emptyset$, para toda $F\in \F$. Hagamos
+    \[
+    W=\medcap\pi_X(\{F:F\in\F\})
+    \]
+    Dado que $\F$ es finito y $\pi_X$ es abierta, por \ref{prop:pi_n_abierta}, se sigue que que $W\in\tau_X$.
+    
+    Por otro lado, para cada $F\in\F$, existe $(y_F,x)\in F\cap (Y\times\{x\})$, se sigue que $$x=\pi_X(x,y_F)\in\pi_X(F), \text{ para toda } F\in \F,$$ 
+    por lo tanto, $x\in W$, i.e.,  $\{x\}\times Y\subseteq W\times Y$. Finalmente sea $(w,y)\in W\times Y$, entonces existe $F\in\F$ tal que $(x,y)\in F$, por tanto, $y\in\pi_Y(F)$, en particular $w\in \pi_X(F)$. Por lo tanto, $$(w,y)\in\pi_X(F)\times\pi_Y(F)=F\subseteq N.$$
+    Lo anterior muestra que $\{x\}\times Y\subseteq W\times Y\subseteq N$.
+\end{dem}
+%%%%%%%%%%%%%%%%
+\subsection{Espacios localmente compactos}
+%%%%%%%%%%%%%%%%
+\begin{definicion}
+    Un espacio $X$ es \textit{localmente compacto} si todo punto $x\in X$ tiene una vecindad compacta.
+\end{definicion}
+\begin{prop}
+\label{prop:Hausdorff_localmente_compacto}
+    Sea $X$ un espacio de Hausdorff. Entonces $X$ es localmente compacto si y sólo si cual- quier punto $x\in X$ tiene una base local compacta.
+\end{prop}
+\begin{dem}
+    $\Rightarrow)$ Si $x$ tiene una base local compacta, en particular contiene una vecindad compacta. 
+
+    $\Leftarrow)$ Sea $x\in X$ y $U$ una vecindad abierta de $x$. Por hipótesis, existe una vecindad compacta $K$ de $x$. Dado que $K\setminus U=(X\setminus U)\cap K$ es un subconjunto cerrado de un espacio compacto $K$, por \ref{prop:cerrado_de_compacto}, $K\setminus U$ es compacto, por \ref{lema:separacion_por_compacto}, existen abiertos ajenos $V_1,V_2$ tal que $x\in V_1$ y $K\setminus U\subseteq V_2$. Sea $V=V_1\cap U\cap \interior(K)$, entonces $V$ es un abierto de $x$ tal que $V\subseteq \interior(K)\subseteq K$, por \ref{coro:compacto_de_T_1_cerrado} $K$ es cerrado, por lo tanto $\overline{V}\subseteq K$. Por otro lado, $V_2$ es vecindad abierta de cada $y\in K\setminus U$ y $V\cap V_2=\emptyset$, por lo tanto, se sigue que $\overline{V}\cap (K\setminus U)=\emptyset$ y dado que $\overline{V}\subseteq K$, se sigue que $x\in\overline{V}\subseteq U$. Como $\overline{V}$ es un subespacio cerrado de $K$, por \ref{prop:cerrado_de_compacto}, $\overline{V}$ es compacto. Se sigue que $\mathcal{K}_x=\{K\in\mathcal{V}(x):K \text{ es compacto}\}$ es una base local compacta de $x$.
+\end{dem}
+\begin{prop}
+\label{prop:producto de cocientes}
+    Sean $X,Y,Z$ espacios topológicos. Si $p:X\to Z$ es un cociente y $Y$ es localmente compacto, entonces la función $\pi=p\times \id_Z:X\times Y\to Z\times Y$ es cociente. 
+\end{prop}
+\begin{dem}
+    Notemos que $\pi$ es sobreyectiva y continua. Sea $A\subseteq Z\times Y$ tal que $\pi^{-1}(A)$ es abierto. Sea $(x_0,y_0)\in \pi^{-1}(A)$, entonces existen $U_1\in \tau_X$ y $V\in \tau_Y$ tales que $(x_0,y_0)\in U_1\times V\subseteq \pi^{-1}(A)$. Por \ref{prop:Hausdorff_localmente_compacto}, existe $K\in\mathcal{V}(y_0)$ compacto tal que $K\subseteq V$, por lo tanto, $(x_0,y_0)\in U_1\times K\subseteq \pi^{-1}(A)$. Hagamos 
+    \[
+    N=\pi^{-1}(A)\cap (X\times K).
+    \]
+    Notemos que si $x\in p^{-1}(p(U_1))=P_1$ y $k\in K$, entonces $p(x)=p(u)$, con $(u,k)\in U_1\times K\subseteq\pi^{-1}(A)$, entonces $(p(x),k)=(p(u),k)\in A$, se sigue que $(x,k)\in \pi^{-1}(A)$ y, por lo tanto, $(x,k)\in N$, i.e., para cada $x\in P_1$
+    \[
+    \{x\}\times K\subseteq P_1\times K\subseteq N\subseteq \pi^{-1}(A)
+    \]
+    como $N$ es abierto en $X\times K$, por \ref{lema:del tubo}, existe $U_x\subseteq X$ abierto tal que 
+    \[
+    \{x\}\times K\subseteq U_x\times K\subseteq N.
+    \]
+    Definamos $U_2=\bigcup\{U_x:x\in P_1\}$. Se sigue que existe $U_2\supseteq P_1$ abierto tal que $U_2\times K\subseteq N\subseteq \pi^{-1}(A)$. De manera inductiva, aplicando este mismo razonamiento, se construye una sucesión de conjuntos abiertos $\{U_i\}_{i\in\mathbb{N}}$ en $X$ tal que para cada $i\geq 1:$
+    \begin{itemize}
+        \item[(1)] $P_i= p^{-1}(p(U_i)) \subseteq U_{i+1}$;
+        \item[(2)] $U_i \times K \subseteq \pi^{-1}(A)$.
+    \end{itemize}
+    Hagamos $U=\bigcup \{U_i:i\geq 1\}$. Notemos que $x_0\in U_1\subseteq U$, por lo que $\pi(x_0,y_0)\in \pi(U\times V)$. Además, dado que $U\times V\subseteq \pi^{-1}(A)$, entonces $\pi(x_0,y_0)\in\pi(U\times V)\subseteq A$. Finalmente, mostremos que $\pi(U\times V)$ es abierto. Sea $x\in p^{-1}(p(U))$, entonces existe $u\in U$ tal que $p(x)=p(u)$. Se sigue que, existe $i\in \N$ tal que $u\in U_i$, por lo tanto, $p(x)=p(u)\in p^{-1}(U_i)$, entonces $x\in P_i\subseteq U_{i+1}\subseteq U.$ Se sigue que $p^{-1}(p(U))\subseteq U$. Dado que la otra contención es siempre cierta, se sigue que $p^{-1}(p(U))= U$ es abierto, como $p$ es cociente, entonces $p(U)$ es abierto, como
+    \begin{align*}
+        \pi(U\times V)&=(p\times \id_Y)(U\times V)\\
+        &=p(U)\times V
+    \end{align*}
+    Se sigue que $\pi(U\times V)$ es abierto. Lo anterior muestra que $A$ es abierto. Por \ref{prop:continua_abierta_implica_cociente}, sigue que $\pi$ es cociente.
+\end{dem}
+
+\subsection{Topología compacto-abierta}
