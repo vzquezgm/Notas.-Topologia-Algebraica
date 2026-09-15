@@ -1,0 +1,606 @@
+\section{Fundamentos de la teoría de categorías}
+\medskip
+La teoría de conjuntos que se usa en general es la de Zermelo y Fraenkel junto con el \textit{axioma de elección} que se denota como ZFC. 
+
+Hay una extensión conservadora de la teoría ZFC (i.e., no se puede probar teoremas que no están en ZFC) la cuál es la teoría de Von Neumann Bernstein Gödel que se conoce como NBG cuyos elementos se llaman \textit{clases}. 
+
+Una clase $V$ es un conjunto si existe una clase $W$ tal que $V\in W$. Tenemos clases propias que no son conjuntos y conjuntos. También existen funciones entre clases y, por lo tanto, entre conjuntos.
+
+Un resultado importante es que si se tiene una función continua $f:X\to V$ donde $X$ es un conjunto, entonces la imagen de $f$ es un conjunto.
+\begin{nota}
+    Los elementos de las clases son únicamente conjuntos. 
+\end{nota}
+\subsection{Categorías y Funtores}
+\begin{definicion}
+    Una \textit{categoría} $\C$, consta de lo siguiente:
+    \begin{enumerate}[label=(\arabic*)]
+        \item Una clase de objetos $\text{Ob}({\C})$.
+        \item Para cada pareja de objetos $A,B$, existe un único conjunto $\Mor_{\C}(A,B)=\C(A,B)$, cuyos elementos se llaman \textit{morfismo} 
+        
+        Para cada morfismo $f\in \Mor_{\C}(A,B)$, $A$ se llama el \textit{dominio} de $f$, y $B$ el \textit{codominio} de $f$. La notación habitual para $f$ es\hspace{-1cm}
+            \begin{equation*}
+                \begin{tikzcd}[column sep=0.5cm,row sep=1.5cm]  
+                    A \ar[r,"f"] & B
+                \end{tikzcd} \hspace{1mm} \text{ó } \hspace{1mm} \begin{tikzcd}[column sep=0.5cm,row sep=1.5cm]  
+                    f:A \ar[r] & B.
+                \end{tikzcd} 
+            \end{equation*}
+        \item  Para cada terna de objetos $A,B,C$ en $\C$, existe una función llamada \textit{composición} 
+          \begin{align*}
+                \circ:\Mor_{\C}(A,B)\times\Mor_{\C}(B,C) &\to \Mor_{\C}(C,D)  \\
+                (f,g) &\mapsto g\circ f.
+          \end{align*}       
+          Que satisface las siguientes propiedades:
+          \begin{enumerate}[label=(\alph*),ref=\arabic{enumi}.(\alph*)]
+              \item Dados los morfismos
+          $$
+                \begin{tikzcd}[column sep=0.5cm,row sep=1.5cm]  
+                    A \ar[r,"f"] \ar[rr,"g\circ f", bend left=45] & B\ar[r,"g"]\ar[rr,"h\circ g"', bend right] & C\ar[r,"h"] & D
+                \end{tikzcd}
+          $$
+          entonces 
+          $$
+          h\circ(g\circ f)=(h\circ g)\circ f,
+          $$
+          lo cuál es equivalente a que el siguiente cuadrado conmute
+          \begin{equation*}
+              \begin{tikzcd}[column sep=1.2cm,row sep=1.1cm]  
+                    A \ar[r,"g\circ f"] \arrow[d, "f"']  & C\ar[d, "h"]\\
+                    B \ar[r, "h\circ g"'] & D
+                \end{tikzcd}
+          \end{equation*}
+            \item\label{item:morphism_id} Para cada objeto $A$, existe un morfismo $1_A:A\to A$, llamado el \textit{morfismo identidad en $A$} tal que para cada $f:A\to B$ y $g:C\to A$;
+            $$
+            f\circ 1_A=f\;\text{ y }\;1_A\circ g=g,
+            $$
+            lo cuál es equivalente a que los siguientes triángulos conmuten
+            \begin{equation*}
+                \begin{tikzcd}[column sep=1cm,row sep=1.1cm]  
+                    C \arrow[r, "g"] \arrow[dr, "g"'] & A \arrow[d, "1_A"] \ar[r,"f"]& B\\ 
+                    & A \ar[ur, "f"']
+                \end{tikzcd}
+            \end{equation*}
+        \end{enumerate}
+    \end{enumerate}
+\end{definicion}
+
+%%%%% Clase 7 del 26/08/2026 terminada el 02/09/2026
+    
+%%%%% Clase 8 del 28/08/26 inciada el 02/09/26
+
+Notemos que $1_A$ es único ya que si existe $1'_A:A\to A$ tal que cumple la propiedad \ref{item:morphism_id}, entonces 
+\[
+1_A=1'_A\circ 1_A=1'_A.
+\]
+\begin{nota}
+    Para que dos morfismos en una categoría sean iguales es necesario que tengan el mismo dominio y codominio.
+\end{nota}
+\begin{definicion}
+    Un morfismo $f:A\to B$ en una categoría $\C$ es un \textit{isomorfismo} si existe un morfismo $g:B\to A$ tal que $g\circ f=1_A$ y $f\circ g=1_B$.
+\end{definicion}
+Notemos que si $f$ es un isomorfismo, $g$ es único. En efecto, supongamos que existe $g':B\to A$ tal que $g'\circ f=1_A$ y $f\circ g'=1_B,$ entonces 
+\begin{equation*}
+    \begin{split}
+        g&=g\circ 1_B\\
+        &=g\circ(f\circ g')\\
+        &=(g\circ f)\circ  g'\\
+        &=1_A\circ g'\\
+        &=g'.
+    \end{split}
+\end{equation*}
+\begin{definicion}
+Un \textit{funtor}  Sean $\C$ y $\D$ categorías, un \textit{funtor} $F: \C \to \mathcal{D}$ consta de los siguientes datos:
+\begin{enumerate}[label=(\arabic*)]
+    \item Para cada objeto $X \in \obj({\C})$, un objeto $F(X) \in \obj({\mathcal{D}})$;
+    \item Para cada morfismo $f: A \to B$ en ${\C}$, un morfismo $F(f): F(A) \to F(B)$ en ${\mathcal{D}}$.
+\end{enumerate}
+que manera que:
+\begin{enumerate}
+    \item$F(1_A) = 1_{F(A)}$ para todo $A \in \obj({\C})$;
+    \item $F(g \circ f) = F(g) \circ F(f)$, siempre que $f:A\to B$ y $g:B\to C$.
+\end{enumerate}
+A este tipo de funtores se les conoce como \textit{funtores covariante}. También existen \textit{funtores contravariantes} que a un morfismo $f:A\to B$ en $\C$ le asocia $F(f):F(B)\to F(A)$ en $\D$.
+\end{definicion}
+\begin{ejercicio}
+    Sea $F:\C\to\D$ un funtor. Mostrar que $F$ manda objetos isomorfos en $\C$ a objetos isomorfos en $\D$.
+\end{ejercicio}
+\begin{ejemplo}
+\label{ej: examples of cat}
+    \begin{enumerate}[label = (\arabic*)]
+        \item La categoría de conjunto $\Set$  que tiene a la clase de todos los conjuntos como objetos y los morfismos son las funciones entre conjuntos.
+        \item La categoría de espacios topológicos $\Top$ que tiene a la clase de todos los espacios topológicos como objetos, mientras que los morfismo son las funciones continuas de $X$ a $Y$.
+        \item $\Grp$ es la categoría de grupos con los homomorfismos de grupos entre ellos. De manera si- milar, $\Ab$ es la categoría de grupos abelianos.
+        \item Para un anillo $R$ con unidad, denotamos por $\Mod={}_{R}\mathrm{Mod}$ a la categoría de $R$-modulos izquierdos con los homomorfismos de $R$-modulos entre ellos.
+        \item Definimos la categoría $\Top_*$, llamada la \textit{categoría de espacios basados},
+        que tiene por objetos los espacios basados y los morfismos las funciones continuas basadas entre ellos.
+        \item De manera general, definimos $\Top_2$ como la categoría que tiene por objetos los espacios basados $(X,A)$, donde $X$ es un espacio topológicos y $A\subseteq X$ y morfismos las funciones continuas $f:X\to Y$ tal que $f(A)\subseteq B$.
+        \item Definimos $\HTop$, llamada la \textit{categoría de homotopía}, cuyos objetos son los espacios topológicos y morfismos las clases de homotopía. 
+        \item De forma similar, definimos $\HTop_*$, llamada \textit{categoría de homotopía basa}, cuyos objetos son los espacios topológicos basados en un punto y morfismos las clases de homotopía basadas.
+        \item Un \textit{funtor de olvido} es un funtor el cuál \textit{olvida (alguna) estructura} en la categoría dominio. En particular, las categorías en el ejemplo (\ref{ej: examples of cat})(1)-(6) permiten definir funtores de olvido a la categoría $\Set$, los cuales asignan a cada objeto su conjunto subyacente y a cada morfismo la función subyacente entre los conjuntos subyacentes. De manera similar, tenemos ejemplos de funtores de olvido que solo olvidan alguna de las estructuras:
+    \begin{align*}
+        &\Mod \to \Ab, \text{ olvida la estructura de módulo};\\
+        &\Ab \to \Grp, \text{ olvida la conmutatividad};\\
+        &\Top_* \to \Top, \text{ olvida el punto basado}.
+    \end{align*}
+    \end{enumerate}
+    \end{ejemplo}
+    \begin{ejercicio}
+        Mostrar que $\HTop$ es una categoría y describir qué es un isomorfismo en está categoría.
+    \end{ejercicio}
+    \begin{obs}
+        La demostración de que $\HTop_*$ es una categoría es completamente análoga a la de $\HTop$.
+    \end{obs}
+    \begin{ejemplo}
+    \begin{enumerate}[label = (\arabic*)]
+        \item El grupo fundamental define un funtor $\Pi_1:\Top_*\to \Grp$ como sigue:
+        \begin{enumerate}
+        \item objetos: $\Pi_1:(X, x_0) \mapsto \Pi_1(X, x_0)$, donde $\Pi_1(X, x_0)$ es el  grupo fundamental definido en (\ref{def: fundamental_group});
+        \item morfismos: para cada morfismo $f:(X,x_0)\to (Y,y_0)$, $$\Pi_1:f \mapsto f_\#$$ 
+    donde $f_\#$ es el homomorfismo definido en $\ref{def:funtor_fundamental}$. 
+        \end{enumerate}
+    
+    \item De manera análoga $\Pi_q:\Top_*\to \Grp$ y $[(Z,z_0),-]:\Top_*\to \Set_*$ son funtores, donde $\Set_*$ es la categoría que tiene por objetos pares $(X,x_0)$, donde $X$ es un conjunto y $x_0\in X$ y los morfismos son funciones basadas.
+    \end{enumerate}
+    \end{ejemplo}
+\begin{definicion}
+    Sea $F:\C\to\D$ y $G:\D\to\E$ funtores. Definimos el funtor \textit{$F$ compuesto con $G$} como $G\circ F:\C\to\E$ tal que
+    \begin{enumerate}[label=(\arabic*)]
+        \item $(G\circ F)(A)=G(F(A))$, para toda $A\in\C$;
+        \item Si $f:A\to B$ es un morfismo en $\C$, entonces 
+        $$(G\circ F)(f)=G(F(f)):G(F(A))\to G(F(B)).$$
+    \end{enumerate}
+    \begin{obs}
+        De la definición, se sigue de inmediato que $G\circ F$ es un funtor, el cuál escribiremos simplemente por $GF$.
+    \end{obs}
+\end{definicion}
+\begin{definicion}
+Sean $F, G: \C \to \mathcal{D}$ dos funtores. Una \textit{transformación natural} $\theta: F \to G$ consiste de lo siguiente:
+\begin{enumerate}
+    \item para cada objeto $A \in \obj({\C})$, un morfismo $\theta_A: F(A) \to G(A)$ en $\mathcal{D}$;
+    \item para cualquier morfismo $f: A \to B$ en $\C$, el siguiente diagrama conmuta:
+    \begin{center}
+\begin{tikzcd}[row sep=1.25cm, column sep=1.25cm]
+    F(A) \arrow[r, "\theta_X"] \arrow[d, "F(f)"'] & G(A) \arrow[d, "G(f)"] \\
+    F(B) \arrow[r, "\theta_Y"'] & G(B)
+\end{tikzcd}
+\end{center}
+i.e., $\theta_Y\circ F(f)=G(f)\circ\theta_X$.
+\end{enumerate}
+\end{definicion}
+\begin{ejemplo}
+    La proposición \ref{prop:p_transformacion_natural} muestra que $\theta:[\Iq/\pIq,-]\to\Pi_q$ tal que $\theta_{(X,x_0)}=\px$ es una transformación natural.
+\end{ejemplo}
+\begin{nota}
+    Cuando $\theta_A$ es un isomorfismo para todo objeto $A$ en $\C$, decimos que $\theta$ es una \textit{equivalencia natural}.
+\end{nota}
+La noción de naturalidad fue estudiada por Samuel Eilenberg y Saunders Mac Lane en su artículo \textit{Natural Isomorphisms in Group Theory}, publicado en 1942~\cite{EilenbergMacLane1942}, para luego formalizar el concepto de transformación natural en el artículo sobre categorías \textit{General Theory of Natural Equivalences}~\cite{EilenbergMacLane1945}.
+
+%%%%%%%% Fragmento de la clase 09 del 31/08/26 iniciado el 06 de enero de 2026
+
+\begin{nota}
+    Consideremos la función $\exp:\R\to S^1\subseteq\complex$ tal que $\exp(t)=e^{2\pi it}$. La restricción $\exp|_I:I\to S^1$ es sobreyectiva. Mostremos que $\exp$ es cerrada. Supongamos $C\subseteq I$ es cerrado, como $I$ es compacto, por \ref{prop:cerrado_de_compacto}, $C$ es compacto, como $\exp$ es continua, por $\ref{prop:f(K)_compacto}$, $\exp(C)\subseteq S^1$ es compacto. Dado que $S^1$ es Hausdorff, por \ref{coro:compacto_de_T_1_cerrado}, $\exp|_I(C)=\exp(C)$ es cerrado. Por otro lado,
+    \[
+    \exp(0)=e^{0}=1=e^{2\pi i}=\exp(1),
+    \]
+    i.e., $\exp(t)=1$, para todo $t\in\partial I=\{0,1\}$.
+    
+    Se sigue que $\exp|_I$ es un cociente y es constante en $\partial I$, por \ref{prop:propiedad_universal_cociente}, existe un único homeomorfismo $I/\partial I\cong_{\psi} S^1$ tal que el siguiente diagrama conmuta 
+    \[
+    \begin{tikzcd}[column sep=1cm, row sep=1cm] 
+        I\arrow[r,"\exp"] \arrow[d,"p"'] & S^1\\
+        I/\partial I \arrow[ur, dashed, "\psi"']
+    \end{tikzcd}
+    \]
+    i.e., $\psi\circ p=\exp$.
+
+    En general se tiene un único homeomorfismo 
+    \begin{equation}
+    \label{eq:iso_In/partial_In_to_Sn}
+        I^n/\partial I^n\cong_h S^n
+    \end{equation}
+\end{nota}
+\begin{obs}
+\label{obs:Pi_q(f)}
+    Sea $f:(X,x_0)\to(Y,y_0)$ una función continua basada. De manera particular, para $(S^q,*)$, denotemos la función \ref{def:morfismo_f_+} por $\bar{f}_+$, i.e.,
+\begin{align*}
+    \bar{f}_+:[(S^q,*),(X,x_0)]
+    &\longrightarrow [(S^q,*),(Y,y_0)]\\
+    [\alpha]&\longmapsto [f\circ\alpha].
+\end{align*}
+\end{obs}
+\begin{ejercicio}
+    Para cada espacio $(X,x_0)$, hagamos 
+    \begin{align*}
+        T_{(X,x_0)}:[(I^q/\partial I^q,*),(X,x_0)]&\to[(S^q,*),(X,x_0)]\\
+        [\alpha]&\mapsto [\alpha\circ h],
+    \end{align*}
+    donde $h$ es el homeomorfismo presentado en \ref{eq:iso_In/partial_In_to_Sn}. Mostrar que $T$ es una equivalencia natural, i.e., para cualquier función continua basada $f:(X,x_0)\to(Y,y_0)$, el siguiente diagrama conmuta 
+     \[
+    \begin{tikzcd}[column sep=1.2cm, row sep=1.2cm] 
+        \bIq\arrow[r,"\px"] \arrow[d,"f_+"'] & \text{[}(S^q,*),(X,x_0)\text{]}
+        \arrow[d,"f_\#"']\\
+        \YIq\arrow[r,"\py"] &\text{[}(S^q,*),(Y,y_0){]}
+\end{tikzcd}
+    \]
+\end{ejercicio}
+\begin{definicion}
+    Sean $F,G:\C\to F$ funtores. Decimos que $F$ y $G$ son \textit{naturalmente equivalentes} y escribimos $F\cong G$ si existe una equivalencia natural $\theta:F\to G$
+\end{definicion}
+\begin{ejemplo}
+    Consideremos el funtor $U:\Top_*\to\Top$ que olvida el punto basado, i.e., $U(X,x_0)=X$ y si $f:(X,x_0)\to (Y,y_0)$ es una función continua basada, entonces $U(f)=f:X\to Y$ es simplemente la función continua en $\Top$. Entonces $\Pi_0\cong \pi_0 U$. 
+
+    Notemos que $S^{0}=\{-1,1\}$. Hagamos 
+    \begin{align*}
+        \varphi:\map((S^0,-1),(X,x_0))&\to X\\
+        \alpha & \mapsto \alpha(1)
+    \end{align*}
+    Veamos que $\varphi$ pasa al cociente. Sean $\alpha,\beta:(S^0,-1)\to X$ tal que $\alpha\simeq \beta,$ entonces existe una homotopía $H:S^0\times I\to X$ tal que $H(s,0)=\alpha(s)$, $H(s,1)=\beta(s)$ y $H(-1,t)=x_0$, para toda $t\in I$. Hagamos $\sigma:I\to X$ tal que $\sigma(t)=H(1,t)$. Se sigue que $\langle \alpha(1)\rangle=\langle \beta(1)\rangle$. Por lo tanto, la siguiente función esta bien definida 
+    \begin{align*}
+        \overline{\varphi}_{(X,x_0)}:\Pi_0(X,x_0)&\to\pi_0(X)\\
+        [\alpha]&\mapsto \langle \varphi(\alpha)\rangle.
+    \end{align*}
+    y hace conmutar el siguiente diagrama
+    \[
+    \begin{tikzcd}[column sep=1cm, row sep=1cm] 
+        \map((S^0,-1),(X,x_0))\arrow[r,"\varphi"] \arrow[d,"p_1"'] & X
+        \arrow[d,"p_2"']\\
+        \Pi_0(X,x_0)\arrow[r,"\overline{\varphi}_{(X,x_0)}"] & \pi_0(X)
+\end{tikzcd}
+    \]
+    i.e., $\overline{\varphi}_{(X,x_0)}\circ p_1=p_2\circ\varphi$, donde $p_1,p_2$ son las proyecciones naturales al cociente. Notemos que $\varphi$ es sobreyectiva, pues si $x_0\in X$, entonces la trayectoria constante $c_{x_0}:I\to X$ cumple que $\varphi(c_{x_0})=c_{x_0}(1)=x_0$. Dado que $p_2\circ\varphi$ y $p_1$ son sobreyectivas, se sigue que $\overline{\varphi}_{(X,x_0)}$ es sobreyectiva. Veamos que es inyectiva. Sean $\alpha,\beta:(S^0,-1)\to (X,x_0)$ tal que 
+    $$\langle\alpha(1)\rangle=\overline{\varphi}_{(X,x_0)}[\alpha]= \overline{\varphi}_{(X,x_0)}[\beta]=\langle\beta(1)\rangle,$$
+    entonces existe una trayectoria $\sigma:I\to X$ tal que $\sigma(0)=\alpha(1)$ y $\sigma(1)=\beta(1)$. Sea $H:S^0\times I\to X$ dada por $H(-1,t)=x_0$, para toda $t\in I$ y $H(1,t)=\sigma(t)$. Se sigue que $H$ es continua y  cumple que 
+    \begin{align*}
+        H(1,0)&=\sigma(0)=\alpha(1);\\
+        H(1,1)&=\sigma(1)=\beta(1),
+    \end{align*}
+    por lo tanto $\alpha\simeq \beta,$ por lo tanto, $[\alpha]=[\beta].$ Mostremos que $\varphi:\Pi_0\to \pi_0U$ es una transformación natural. Sea $f:(X,x_0)\to (Y,y_0)$ una función continua basada. Consideremos el siguiente diagrama
+    \begin{equation}
+    \label{eq:Pi_0_eq_pi_0}
+    \begin{tikzcd}[column sep=1cm, row sep=1cm] 
+       \Pi_0(X,x_0)\arrow[r,"\overline{\varphi}_{(X,x_0)}"] \arrow[d,"\bar{f}_+"'] & \pi_0(X)
+        \arrow[d,"f_*"']\\
+        \Pi_0(Y,y_0)\arrow[r,"\overline{\varphi}_{(Y,y_0)}"] & \pi_0(Y)
+\end{tikzcd}
+    \end{equation}
+    Sea $\alpha:(S^0,-1)\to (X,x_0)$, por como están definidas $f_*$ y $\bar{f}_+$ en \ref{def: pi_0(f)} y \ref{obs:Pi_q(f)} respectivamente, se sigue que
+    \begin{equation*}
+        \begin{split}
+            \overline{\varphi}_{(Y,y_0)}(\bar{f}_+(\alpha))&=\overline{\varphi}_{(Y,y_0)}[f\circ \alpha]\\
+            &=\langle f(\alpha(1))\rangle\\
+            &=f_*\langle\alpha(1)\rangle\\
+            &=f_*(\overline{\varphi}_{(X,x_0)}(\alpha)).
+        \end{split}
+    \end{equation*}
+    Se sigue que \ref{eq:Pi_0_eq_pi_0} conmuta, para toda $(X,x_0)\in \Top_*$. Lo anterior muestra que $\Pi_0\cong_{\overline{\varphi}} \pi_0 U$.
+\end{ejemplo}
+%%%%%%%%%%%%%%%%% Fragmento de la clase 09 del 31/08/26 finilazida el 07 de enero de 2026
+
+%%%%%%% Por agregar \subsection{Morfismos y funtores especiales}
+
+%%%%%%% Agregar subsection de transformaciones naturales?
+
+\subsection{Morfismos y funtores especiales}
+
+\subsection{Productos y coproductos directos}
+
+\begin{definicion}
+\label{def:propiedad universal del producto}
+    Sea $I$ un conjunto y $(P_i)_{i\in I}$ una familia de objetos en una categoría $\C$. El producto de $(P_i)_{i\in I}$ es el par $(\prod_{i\in I}P_i,(p_i)_{i\in I})$ donde 
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\prod_{i\in I}P_i\in\obj(\C)$;
+        \item $p_j:\prod_{i\in I}P_i\to P_j$ son morfismos en $\C$, para cada $j\in I$,
+    \end{enumerate}
+    tal que para cualquier familia de morfismos $(f_i:P\to P_i)_{i\in I}$, existe un único morfismo $f:P\to\prod_{i\in I}P_i$ tal que, para toda $j\in I$, el siguiente diagrama conmuta
+    \[
+\begin{tikzcd}[every label/.append style = {font = \small},column sep=normal, row sep=normal]
+   P \arrow[dd,"f"'{xshift=-1.75pt}]  \arrow[dr,"f_j"] \\
+   & P_j  \\
+   \prod_{i\in I}P_i  \arrow[ur,"p_j"']
+\end{tikzcd}
+\] 
+i.e., $p_j\circ f=f_j$.
+\end{definicion}
+\begin{definicion}
+\label{def:propiedad universal del coproducto}
+    Sea $I$ un conjunto y $(Q_i)_{i\in I}$ una familia de objetos en una categoría $\C$. El coproducto de $(Q_i)_{i\in I}$ es el par $(\coprod_{i\in I}Q_i,(q_i)_{i\in I})$ donde 
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\coprod_{i\in I}Q_i\in\obj(\C)$;
+        \item $q_j:Q_j\to\coprod_{i\in I}Q_i$ son morfismos en $\C$, para cada $j\in I$,
+    \end{enumerate}
+    tal que para cualquier familia de morfismos $(f_i:Q_i\to Q)_{i\in I}$, existe un único morfismo $f:\coprod_{i\in I}Q_i\to Q$ tal que, para toda $j\in I$, el siguiente diagrama conmuta
+    \[
+\begin{tikzcd}[]
+ &
+  \coprod_{i\in I}Q_i \arrow[dd,"f"] \\
+  Q_j\arrow[ur,"q_j"] \arrow[dr,"f_j"'] & \\
+  & Q
+\end{tikzcd}
+\]    
+i.e., $p_j\circ p=f_j$.
+\end{definicion}
+\begin{ejemplo}
+    \begin{enumerate}[label=(\arabic*)]
+        \item\label{item:ejemplo_1_coprod}
+        En $\Set$ el coproducto de una familia $(X_i)_{i\in I}$ es su unión disjunta, i.e., es el par 
+        $(\bigcup_{i\in I} X_i\times \{i\},(q_i)_{i\in I})$, donde
+        \begin{equation}
+        \label{eq:q_j_coprod}
+            \begin{split}
+                q_j:X_j&\to\medcup_{i\in I} X_i\times \{i\}\\
+                x & \mapsto (x,j),
+            \end{split}
+        \end{equation}
+        para todo $j\in I$. En efecto, sea $f_j:X_j\to X$ funciones, para cada $j\in I$. Definamos 
+        \begin{equation*}
+            f:\medcup_{i\in I} X_i\times \{i\}\to X
+        \end{equation*} 
+        tal que $f(x_j,j)=f_j(x_j)$, para toda $x_j\in X_j$ y $j\in I$. Dado que $(X_i\times\{i\})_{i\in I}$ es una partición de la \textit{unión ajena} de la familia $(X_i)_{i\in I}$, se sigue que $f$ está definida y cumple que, para todo $j\in I$ el diagrama conmute
+        \begin{equation}
+        \label{eq:prop_universal_coproducto_Set}
+\begin{tikzcd}[column sep=0.7cm]
+ &
+  \hspace{2.5mm}\bigcup_{i\in I} X_i\times \{i\} \arrow[dd,"f"] \\
+    X_j\arrow[ur,"q_j"] \arrow[dr,"f_j"'] & \\
+  & X
+\end{tikzcd}
+\end{equation}  
+        i.e., $f\circ q_j=f_j$.
+    Finalmente, supongamos $f:\bigcup_{i\in I} X_i\times \{i\}\to X$ hace conmutar \ref{eq:prop_universal_coproducto_Set}, entonces $g\circ q_j=f\circ q_j$. Sea $(x_j,j)\in X_j\times\{j\}$, entonces 
+    \begin{align*}
+        f(x_j,j)&=f(q_j(x_j))\\
+        &=g(q_j(x_j))\\
+        &=g(x_j,j),  
+    \end{align*}
+    se sigue que, $f=g$. Es usual denotar a la unión ajena de una familia $(X_i)_{i\in I}$ simplemente por $\bigsqcup_{i\in I} X_i$.
+    \item[(2)] \label{item:prop_universal_coprod_Top}
+    En $\Top$ el coproducto de una familia de espacios topológicos $(X_i,\tau_i)_{i\in I}$ es la unión ajena como en $\Set$ con la topología más fina $\tau$ para la cuál las funciones $q_j$ son continuas, para todo $j\in I$, i.e.,
+    \begin{align*}
+        \tau&=\{B\subseteq\textstyle\bigsqcup_{i\in I} X_i:q_j^{-1}(B)\in\tau_j, \text{ para toda } j\in I\}.
+    \end{align*}
+    En efecto, si $f_j:(X_j,\tau_j)\to (X,\tau_X)$ funciones continuas, para cada $j\in I$, por el inciso \ref{item:ejemplo_1_coprod}, existe una única función continua $f:\coprod_{i\in I}X_i\to X$ tal que $f\circ q_j=f_j$. Mostremos que $f$ es continua.
+    Sea $U\in\tau_X$, entonces 
+    \begin{align*}
+        q_j^{-1}(f^{-1}(U))&=
+        (f\circ q_j)^{-1}(U)\\
+        &=f_j^{-1}(U)\in \tau_j,
+    \end{align*}
+    para toda $j\in I$, por definición, $f^{-1}(U)\in \tau$.
+    \end{enumerate}
+\end{ejemplo}
+\begin{prop}
+\label{unicidad producto}
+    Sea $(P_i)_{i\in I}$ una familia de objetos en una categoría $\C$. Supongamos $(\prod_{i\in I}P_i,(p_{i})_{i\in I})$ es un producto de $(P_i)_{i\in I}$.
+    Entonces el par $(P,(\varrho_i)_{i\in I})$
+    es un producto directo de $(P_i)_{i\in I}$ si y s\'olo si existe un único isomorfismo $\psi: P\to \prod_{i\in I}P_i$ tal que el siguiente diagrama conmuta
+    \[
+\begin{tikzcd}[every label/.append style = {font = \small},column sep=normal, row sep=normal]
+   P \arrow[dd,"\psi"'{xshift=-1.75pt}]  \arrow[dr,"\varrho_j"] \\
+   & P_j  \\
+   \prod_{i\in I}P_i  \arrow[ur,"p_j"']
+\end{tikzcd}
+\] 
+i.e., $p_j\circ\psi=\varrho_j$, para todo $j\in I.$ 
+\end{prop}
+\begin{dem}
+    Por \ref{def:propiedad universal del producto}, existe un único morfismo $\psi:P\to  \prod_{I}P_i$ tal que  $\varrho_j\circ\psi=p_j$, para todo $j\in I.$ 
+    
+    $\Rightarrow)$ Supongamos $(P,(\rho_i)_{i\in I})$
+    es producto directo de $(P_i)_{i\in I}$, por \ref{def:propiedad universal del producto}, existe un único morfismo $\psi':\prod_{i\in I}P_i\to P$ tal que  $p_j\circ\psi'=\varrho_j$, para todo $j\in I$, entonces $p_j\circ\psi'\circ\psi=p_j$.
+      \[
+\begin{tikzcd}[every label/.append style = {font = \small},column sep=normal, row sep=normal]
+  P \arrow[dd,"\psi'\circ\psi"'{xshift=-1.75pt}]  \arrow[dr,"p_j"] \\
+   & P_j  \\
+  P  \arrow[ur,"p_j"']
+\end{tikzcd}
+\] 
+Dado que $p_j\circ\id_P=p_j$, por la unicidad de \ref{def:propiedad universal del producto}, se sigue que $\psi'\circ\psi=\id_P$. De manera análoga, se concluye que $\psi\circ\psi'=\id_{\prod_{I}P_i}$. 
+
+$\Leftarrow)$ Sea $(f_i:A\to P_i)_{i\in I}$ una familia de morfismos en $\C$. Dado que $(\prod_{i\in I}P_i,(p_i)_{i\in I})$ es producto directo de $(P_i)_{i\in I}$, por \ref{def:propiedad universal del producto} existe un único morfismo $h:A\to \prod_{i\in I}P_i$ tal que $p_j\circ h=f_j$, para todo $j\in I$. Entonces $f=\varrho^{-1}\circ h:A\to P$ es el único morfismo tal que el siguiente diagrama conmuta
+ \[
+\begin{tikzcd}[every label/.append style = {font = \small},column sep=normal, row sep=normal]
+   A \arrow[dd, dashed, "h"'{xshift=-1.75pt}]  \arrow[drr, bend left, "f_j"]  \arrow[dr,dashed, "\varrho^{-1}h"] \\
+   & P \arrow[r,"p_j"]  \arrow[dl,"\varrho"] & P_j  \\
+   \prod_{i\in I}P_i  \arrow[urr, bend right, "P_j"']
+\end{tikzcd}
+\] 
+Entonces,
+\begin{align*}
+    p_j\circ f&=p_j\circ\varrho\circ\varrho^{-1}\circ h\\
+    &=p_j\circ h\\
+    &=f_j.    
+\end{align*}
+Se sigue que $(P,(\varrho_i)_{i\in I})$ es producto directo de $(P_i)_{i\in I}$.
+\end{dem}
+    De manera dual, el coproducto si existe es único salvo isomorfismo, como se enuncia a continuación y la demostración es completamente análoga a la del producto.
+\begin{prop}
+\label{unicidad coproducto}
+    Sea $(Q_i)_{i\in I}$ una familia de objetos en una categoría $\C$. Supongamos $(\prod_{i\in I}Q_i,(q_{i})_{i\in I})$ es un producto de $(Q_i)_{i\in I}$.
+    Entonces el par $(Q,(\iota_i)_{i\in I})$
+    es un producto directo de $(Q_i)_{i\in I}$ si y s\'olo si existe un único isomorfismo $\chi:\coprod_{i\in I}Q_i\to Q$ tal que el siguiente diagrama conmuta
+   \[
+\begin{tikzcd}[]
+ &
+  \coprod_{i\in I}Q_i \arrow[dd,"\chi"] \\
+  Q_j\arrow[ur,"q_j"] \arrow[dr,"\iota_j"'] & \\
+  & Q
+\end{tikzcd}
+\]    
+i.e., $\chi\circ q_j=\iota_j$, para todo $j\in I.$ 
+\end{prop}
+%%%%% Clase 8 del 28/08/2026 terminada el 06/09/2026
+    
+%%%%% Clase 9 del 31/08/26 inciada el 06/09/26
+\begin{ejemplo}
+\label{eje: coproducto_Top_*}
+    Sea $((X_i,x_i))_{i\in I}$ una familia de espacios basados. Entonces el coproducto de esta familia en $\Top_*$ es la cuña de estos espacios que se define como
+    \[
+    \medvee_{i\in I}(X_i,x_i)=\medcoprod_{i\in I}X_i\big/\{x_i:i\in I\}
+    \]
+    Recordemos que el espacio $\coprod_{i\in I}X_i=\bigcup_{i\in I}X_i\times\{i\}$ tiene funciones continuas definidas en \ref{eq:q_j_coprod}. Definimos 
+    \begin{equation*}
+        \iota_j=\pi\circ q_j:X_j\to\medvee_{i\in I} X_i,\text{ para todo } j\in I
+    \end{equation*}
+    donde $\pi:\medcoprod_{i\in I}X_i\to \bigvee_{i\in I} X_i$ es la proyección natural al cociente. Consideremos a $\bigvee_{i\in I} X_i$ con la topología cociente y $*=\{x_i:i\in I\}$, entonces $(\bigvee_{i\in I} X_i,*)$ es un objeto en $\Top_*$, mostremos que tiene la \textit{propiedad universal del coporducto}, definido en \ref{def:propiedad universal del coproducto}. Sea $f_j:(X_j,x_j)\to (Y,y_0)$ funciones continuas basadas. Por \ref{item:prop_universal_coprod_Top}, existe una única función continua $f:\prod_{i\in I}X_i\to Y$ tal que el siguiente diagrama conmuta
+    \begin{equation}
+        %\label{eq:prop_universal_coproducto_Set}
+\begin{tikzcd}[]
+ &
+ \coprod_{i\in I} X_i\arrow[dd,dashed,"f"] \\
+    X_j\arrow[ur,"q_j"] \arrow[dr,"f_j"'] & \\
+  & Y
+\end{tikzcd}
+\end{equation}  
+i.e., $f\circ q_j=f_j$, para toda $j\in I$. Se sigue que
+\begin{align*}
+    f(x_j,j)&=f(q_j(x_j))\\
+    &=f_j(x_j)\\
+    &=y_0,
+\end{align*}
+para todo $j\in I$. Por \ref{prop:propiedad_universal_cociente}, existe una única función continua $\bar{f}:\bigvee_{i\in I}X_i\to Y$ tal que
+\[
+    \begin{tikzcd}[column sep=1cm, row sep=1.2cm] 
+        \prod_{i\in I}X_i\arrow[r,"f"] \arrow[d,"\pi"'] & Z\\
+        \bigvee_{i\in I}X_i \arrow[ur, dashed, "\bar{f}"']
+    \end{tikzcd}
+    \]
+i.e., $\bar{f}\circ \pi=f$. Se sigue que 
+\begin{align*}
+    \bar{f}\circ \iota_j&=\bar{f}\circ\pi\circ q_j\\
+    &=f\circ q_j\\
+    &=f_j,
+\end{align*}
+además, $\bar{f}(*)=\bar{f}(x_j,j)=f(x_j)=y_0$, por lo tanto, $\bar{f}:(\bigvee_{i\in I}X_i,*)\to(Y,y_0)$ es una función continua basada. 
+\end{ejemplo}
+\begin{lema}
+    Sea $(X,x_0),(Y,y_0)$ espacios basados. Se tiene el siguiente homeomorfismo canónico
+    \[
+    (X,x_0)\vee(Y,y_0)\cong (X\times \{y_0\})\cup (\{x_0\}\times Y)\subseteq X\times Y.
+    \]
+\end{lema}
+\begin{dem}
+    Hagamos $X_1=X\times\{y_0\}$ y $Y_1=\{x_0\}\times Y$.  Definimos 
+    \begin{equation*}
+    \begin{split}
+        \varphi_X:X&\to X_1\hookrightarrow X_1\cup Y_1\text{\hspace{0.5cm} y \hspace{0.5cm}}\\ 
+                  x&\mapsto (x,y_0)
+    \end{split}
+    \begin{split}
+        \varphi_Y:Y&\to Y_1\hookrightarrow X_1\cup Y_1\\ 
+                  y&\mapsto (x_0,y)
+    \end{split}
+    \end{equation*}
+    se sigue que $\varphi_X, \varphi_Y$ son continuas, por \ref{item:prop_universal_coprod_Top}, existe una única función continua $\varphi:X\sqcup Y\to X_1\cup Y_1$ tal que el siguiente diagrama conmuta. 
+    \begin{equation*}
+        \begin{tikzcd}[row sep = 1cm]
+            X\arrow[r,"q_1"]\arrow[rd, bend right=10, "\varphi_X"'] & X\sqcup Y \arrow[d, dashed, "\varphi"] & Y \arrow[l, "q_2"'] \arrow[dl, bend left=10, "\varphi_Y"] \\
+                             & X_1\cup Y_1 & 
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $\varphi\circ q_1=\varphi_X$ y $\varphi\circ p_2=\varphi_Y$. Notemos que 
+    \begin{equation}
+        \label{eq:phi_saturada}
+        \varphi(x_0,1)=(x_0,y_0)=\varphi(y_0,2).
+    \end{equation}
+    Mostremos que $\varphi$ es cociente. Sea $V \subseteq X_1 \cup Y_1$ tal que $U = \varphi^{-1}(V)$ es un abierto en $X \sqcup Y$. Comprobemos que $V$ es abierto en $X_1 \cup Y_1$ con la topología de subespacio. Como $U$ es abierto en $X\sqcup Y$, entonces $q_1^{-1}(U)\in\tau_X$ y $q_2^{-1}(U)\in\tau_Y$.
+
+    Por otro lado, de la igualdad \ref{eq:phi_saturada}, se sigue que $(x_0,1)\in U$ si y sólo si $(y_0,2)\in U$
+    lo cual implica que $x_0\in q_1^{-1}(U)$ si y sólo si $y_0\in q_2^{-1}(U)$. Como $\varphi$ es sobreyectiva, $V = \varphi(U)$. Entonces
+    \[
+    V=\varphi(U) = (q_1^{-1}(U)\times \{y_0\}) \cup (\{x_0\}\times q_2^{-1}(U)).
+    \]
+
+    Para mostrar que $V$ es abierto, encontraremos un abierto $W\subseteq X\times Y$ tal que $W\cap (X_1\cup Y_1) = V$. Supongamos que $x_0\notin q_1^{-1}(U)$ y $y_0\notin q_2^{-1}(U)$. 
+    Hagamos
+    \[
+    W = (q_1^{-1}(U)\times Y) \cup (X\times q_2^{-1}(U)).
+    \]
+    Notemos que $W$ es abierto en $X\times Y$ por ser unión de productos de abiertos. Entonces
+    \begin{align*}
+        (q_1^{-1}(U)\times Y)\cap Y_1=\emptyset;\\
+        (X\times q_2^{-1}(U))\cap X_1=\emptyset,
+    \end{align*}
+    se sigue que
+    \begin{align*}
+        W\cap (X_1\cup Y_1) &= ((q_1^{-1}(U)\times Y) \cup (X\times q_2^{-1}(U)) \cap ( X_1\cup Y_1) \\
+        &= ((q_1^{-1}(U)\times Y)\cap X_1) \cup ((X\times q_2^{-1}(U)\cap Y_1)\\
+        &= (q_1^{-1}(U)\times \{y_0\}) \cup (\{x_0\}\times q_2^{-1}(U)) \\
+        &= V.
+    \end{align*}
+    Si $x_0\in q_1^{-1}(U)$ y $y_0\in q_2^{-1}(U)$, entonces hagamos
+    \[
+    W = q_1^{-1}(U)\times q_2^{-1}(U).
+    \]
+    Se sigue que $W$ es abierto en $X\times Y$. Entonces
+    \begin{align*}
+        W\cap (X_1\cup Y_1) &= (q_1^{-1}(U)\times q_2^{-1}(U)) \cap ( X_1\cup Y_1) \\
+        &= ((q_1^{-1}(U)\times q_2^{-1}(U))\cap X_1)\cup
+         ((q_1^{-1}(U)\times q_2^{-1}(U))\cap Y_1)\\
+         &= (q_1^{-1}(U)\times \{y_0\}) \cup (\{x_0\}\times q_2^{-1}(U))\\
+         &=V.
+    \end{align*}
+
+    En ambos casos, existe $W$ abierto en $X\times Y$ tal que $W\cap (X_1\cup Y_1) = V$. Por lo tanto, $V$ es abierto en $X_1\cup Y_1$. Se sigue que $\varphi$ es cociente de $X\sqcup Y$, por \ref{prop:propiedad_universal_cociente}, existe un único homeomorfismo 
+    \[
+    \overline{\varphi}:(X,x_0)\vee (Y,y_0)\to X_1\cup Y_1
+    \]
+    tal que el siguiente diagrama conmuta
+    \[
+    \begin{tikzcd}[column sep=0.5cm, row sep=1.5cm] 
+        X\sqcup Y\arrow[r,"\varphi"] \arrow[d,"\pi"'] & 
+        X_1\cup Y_1\\
+        X\vee Y \arrow[ur, dashed, "\overline{\varphi}"']
+    \end{tikzcd}
+    \]
+    i.e., $\overline{\varphi}\circ\pi=\varphi$. Además,
+    se tiene que
+    \begin{align*}
+        \overline{\varphi}(*)=\varphi(x_0,1)=(x_0,y_0),
+    \end{align*}
+    por lo tanto $\varphi:(X\vee Y,*)\to (X_1\cup X_2,(x_0,y_0))$ es un homeomorfismo basado.
+
+    Finalmente, tenemos el siguiente diagrama conmutativo
+    \begin{equation}
+        \begin{tikzcd}[row sep= 1.2cm, column sep =1cm]
+                    & X\sqcup Y   \arrow[d, "\pi"]  &\\
+            X \arrow[r, "\iota_1"]\arrow[rd,"\varphi_X"'] 
+            \arrow[ru, "q_1"]
+            & X\vee Y\arrow[d,"\overline{\varphi}"] & 
+            \arrow[l, "\iota_2"']\arrow[ld, "\varphi_Y"] Y
+            \arrow[lu,"q_2"']\\
+                    & X_1\cup Y_1    &
+        \end{tikzcd}
+    \end{equation}
+    Se sigue que 
+    \begin{align*}
+        \overline{\varphi}\circ \iota_1&=\overline{\varphi}\circ\pi\circ q_1\\
+        &=\varphi\circ q_1\\
+        &=\varphi_X
+    \end{align*}
+    De manera análoga, $ \overline{\varphi}\circ \iota_1=\varphi_Y$, por \ref{unicidad coproducto}, $(X_1\cup X_2,(x_0,y_0))$ es coproducto de $(X,x_0)$ y $(Y,y_0)$.
+    
+    Entonces, si $f:(X,x_0)\to (Z,z_0)$ y $g:(Y,y_0)\to (Z,z_0)$ son funciones continuas basadas, existe una única función continua $f\vee g:X_1\cup Y_1\to Z$  basada en $(f\vee g)(x_0,y_0)=z_0$ tal que 
+    \begin{align*}
+        (f\vee g)\circ\varphi_X=f\text{\; y\;}(f\vee g)\circ\varphi_Y=g.
+    \end{align*}
+\end{dem}
+\begin{obs}
+    De manera general, si $(X_i,x_i)_{i\in I}$ es una familia de espacios basados, entonces existe una única función continua biyectiva de espacios basados
+    \[
+    \overline{\varphi}:\big(\medvee_{i\in I}(X_i,x_i),*\big)\to\big(\medcup_{j\in I}\overline{X}_j,(x_i)_{i\in I}\big)
+    \]
+    tal que $\overline{X}_j=\bigcap_{i\neq j}p_iˆ{-1}(x_i)$ y $\overline{\varphi}[(x,j)]=(x_{ij})_{i\in I}$, con
+    \[
+    x_{ij}=\begin{cases}
+        x_i, & \text{ si } i\neq j\\
+        x, & \text{ si } i=j.
+    \end{cases}
+    \]
+    para todo $j\in I$. Donde consideramos $\pivee_{i\in I}X_i:=\bigcup_{j\in I}\overline{X}_j$ tiene la topología relativa a $\prod_{i\in I}X_i$.
+
+    %Si $I$ es finito, entonces $\overline{\varphi}$ es un homeomorfismo.
+    
+\end{obs}
+%%%%% Clase 8 del 31/08/2026 terminada el 09/09/2026
+    
+%%%%% Clase 10 del 02/09/26 inciada el 09/09/26
