@@ -285,7 +285,7 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_{x_0}:I
     \end{dem}
     Podemos deformar funciones continuas arbitrarias de la siguiente manera:
     \begin{definicion}
-        Sea $f,g:X\to Y$ continuas, decimos que $f$ es \textit{homotópica} a $g$ (o que $f$ \textit{se deforma a} $g$) y lo denotamos por $f\simeq g$, si existe una función continua $H:I\times X\to Y$ llamada \textit{homotopía} tal que $H(x,0)=f(x)$ y $H(x,1)=g(x)$. Para cada $t\in I$ tenemos la función continua $H_t:X\to Y$ dada por $H_t(x)=H(x,t)$.
+        Sea $f,g:X\to Y$ continuas, decimos que $f$ es \textit{homotópica} a $g$ (o que $f$ \textit{se deforma a} $g$) y lo denotamos por $f\simeq g$, si existe una función continua $H:X\times I\to Y$ llamada \textit{homotopía} tal que $H(x,0)=f(x)$ y $H(x,1)=g(x)$. Para cada $t\in I$ tenemos la función continua $H_t:X\to Y$ dada por $H_t(x)=H(x,t)$.
     \end{definicion}
     \begin{nota}
         Cuando $f,g:X\to Y$ tengan algunas \textit{propiedades extras} siempre vamos a pedir que una homotopía $H$ entre $f$ y $g$ cumpla que, para cada $t\in I$, $H_t:X\to Y$ tenga esa propiedad también. Como ejemplo se tiene lo siguiente:
@@ -312,7 +312,7 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_{x_0}:I
     \end{definicion}
     \begin{ejercicio}
     % ID: 5
-        Mostrar que un espacio $X$ es contraible si y sólo si existe una homotopía $H:X\times I\to X$ tal que $H(-,0)=\id_X$ y $H(-,1)=c_{x_0}$, para toda $x\in X$.
+        Mostrar que un espacio $X$ es contraible si y sólo si existe una homotopía $H:X\times I\to X$ tal que $H(-,0)=\id_X$ y $H(-,1)=c_{x}$, para toda $x\in X$.
     \end{ejercicio}
     \begin{ejercicio}
     % ID: 6
