@@ -1,0 +1,1678 @@
+%%%%% Clase 10 del 02/09/26 inciada el 09/09/26
+\section{La categoría de espacios basados}
+
+\subsection{El funtor \texorpdfstring{$\Pi_q$}{Pi_1}, con \texorpdfstring{$q\geq1$}{q>1}}
+En 1890 Giuseppe Peano definió una función continua sobreyectiva del intervalo $I$ al cuadrado $I\times I$. En 1891 David Hilbert encontró otra.
+
+Para 1900 Jhon C. Moore encontró un lazo sobreyectivo. Describamos, en general, el lazo de Moore como sigue.
+
+Supongamos $f:I\to I\times I$ una trayectorias continua de $(0,0)$ a $(1,0).$ Hagamos $R_{\nicefrac{\pi}2}$ la matriz de rotación de $\pi/2$ y $R_{u},$ $R_v$ la matrices de reflexión sobre las rectas generadas por los vectores $u=(0,1)$ y $v=(-1,1),$ respectivamente. Definamos la transformación $T_{1}:I\times I\to [0,\nicefrac{1}{2}] \times [0,\nicefrac{1}{2}]$ tal que
+\begin{align*}
+    T_{1}(x,y)&=\frac{1}{2}R_{u}R_{\pi/2}\begin{bmatrix}
+        x \\
+        y
+    \end{bmatrix};
+\end{align*}
+la transformación afín $T_{2}:I\times I\to [0,\nicefrac{1}{2}]\times  [\nicefrac{1}{2},1]$ tal que
+\begin{equation*}
+    T_{2}(x,y)=\frac{1}{2}(x,y+1);
+\end{equation*}
+la transformación afín $T_{3}:I\times I\to [\nicefrac{1}{2},1]\times[\nicefrac{1}{2},1]$ tal que
+\begin{equation*}
+    T_{3}(x,y)=\frac{1}{2}(x+1,y+1);
+\end{equation*}
+y la transformación $T_{4}:I\times I\to C_4=[\nicefrac{1}{2},1]\times[0,\nicefrac{1}{2}]$ tal que
+\begin{equation*}
+    T_{4}(x,y)=\frac{1}{2}R_{v}\begin{bmatrix}
+        x \\
+        y
+    \end{bmatrix}+(1,\nicefrac{1}{2});
+\end{equation*}
+Hagamos $I_j=[\nicefrac{j-1}{4},\nicefrac{j}{4}]$ para cada $j=1,\ldots,4$ y definamos la función $f_1:I\to I\times I$ tal que
+\begin{equation*}
+    f_1(t)=T_jf(4t+1-j)), \text{ siempre que } t\in I_j,
+\end{equation*}
+con $j=1,\ldots,4$. Entonces, $f_0=f$ se transforma en $f_1$ como se muestra en la siguiente imagen
+\begin{center}
+\begin{tikzpicture}
+
+% ==========================================
+% 1. Curva original f(t) (Izquierda)
+% TAMAÑO AUMENTADO (4cm)
+% ==========================================
+\begin{axis}[
+    width=3.8cm, height=3.8cm,
+    scale only axis,
+    xmin=0, xmax=1, ymin=0, ymax=1,
+    axis lines=none,
+    clip=false 
+]
+\addplot[only marks, mark=*, mark size=1.25pt, color=black] coordinates {
+        (0,0) 
+        (1,0)
+    };
+    % Cuadrado exterior I x I en NEGRO (grosor explícito)
+    \draw[black, line width=1pt, solid] (0,0) rectangle (1,1);
+    
+    % Etiquetas sin líneas que sobresalgan
+    \node[below left, font=\footnotesize] at (0,0) {$0$};
+    \node[left, font=\footnotesize] at (0, 0.5) {$\frac{1}{2}$};
+    \node[left, font=\footnotesize] at (0, 1) {$1$};
+    
+    \node[below, font=\footnotesize] at (0.5, 0) {$\frac{1}{2}$};
+    \node[below, font=\footnotesize] at (1, 0) {$1$};
+    
+    % Parábola base f(t)
+    \addplot [line width=1.2pt, color=black, domain=0:1, samples=100] 
+        ({x}, {2*x*(1-x)});
+        \node[above, font=\small, yshift=2mm] at (0.5,1) {$f$};
+\end{axis}
+
+
+% ==========================================
+% 2. Flecha conectora (Centro)
+% Reposicionada para el nuevo tamaño
+% ==========================================
+\draw[->, >=stealth, thick] (4.5cm, 2cm) to[bend left=25] 
+    node[midway, above=1pt] {$T_2\;\; T_3$} 
+    node[midway, below=1pt] {$T_1\;\; T_4$} 
+    (6.5cm, 2cm);
+
+
+% ==========================================
+% 3. Curva transformada f_1(t) (Derecha)
+% ==========================================
+\begin{axis}[
+    at={(7cm,0)}, 
+    width=3.8cm, height=3.8cm,
+    scale only axis,
+    xmin=0, xmax=1, ymin=0, ymax=1,
+    axis lines=none,
+    clip=false,
+    point meta min=0, point meta max=1
+]
+\addplot[only marks, mark=*, mark size=1.25pt, color=black] coordinates {
+        (0,0) 
+        (0, 0.5) 
+        (0.5, 0.5) 
+        (1, 0.5) 
+        (1,0)
+    };
+    % Cuadrado exterior en 2D normal
+    \draw[black, line width=1pt, solid] (0,0) rectangle (1,1);
+
+    % Subdivisiones internas
+    \draw[black, thick, solid, opacity=0.7] (0.5,0) -- (0.5,1);
+    \draw[black, thick, solid, opacity=0.7] (0,0.5) -- (1,0.5);
+
+    % Marcas en el eje Y y origen
+    \node[below left, font=\footnotesize] at (0,0) {$0$};
+    %\node[left, font=\footnotesize] at (0,0.5) {$\frac{1}{2}$};
+    \node[left, font=\footnotesize] at (0,1) {$1$};
+
+    % Marcas en el eje X
+    \node[below, font=\footnotesize] at (0.25,0) {$\frac{1}{4}$};
+    \node[below, font=\footnotesize] at (0.5,0) {$\frac{1}{2}$};
+    \node[below, font=\footnotesize] at (0.75,0) {$\frac{3}{4}$};
+    \node[below, font=\footnotesize] at (1,0) {$1$};
+
+    % Curvas con variable=t y point meta=t para que el color represente el tiempo sin reventar la memoria
+    \addplot [line width=1.2pt, mesh, colormap/viridis, domain=0:0.25, samples=60, variable=t, point meta=t] 
+        ({ 1/2 * (2*(4*t)*(1-4*t)) }, { 1/2 * (4*t) });
+        
+    \addplot [line width=1.2pt, mesh, colormap/viridis, domain=0.25:0.5, samples=60, variable=t, point meta=t] 
+        ({ 1/2 * (4*t-1) }, { 1/2 * (2*(4*t-1)*(1-(4*t-1)) + 1) });
+        
+    \addplot [line width=1.2pt, mesh, colormap/viridis, domain=0.5:0.75, samples=60, variable=t, point meta=t] 
+        ({ 1/2 * (4*t-2 + 1) }, { 1/2 * (2*(4*t-2)*(1-(4*t-2)) + 1) });
+        
+    \addplot [line width=1.2pt, mesh, colormap/viridis, domain=0.75:1, samples=60, variable=t, point meta=t] 
+        ({ 1 - 1/2 * (2*(4*t-3)*(1-(4*t-3))) }, { 1/2 * (1 - (4*t-3)) });
+    \node[above, font=\small, yshift=2mm] at (0.5,1) {$f_1$};
+\end{axis}
+
+\end{tikzpicture}
+\end{center}
+En efecto, para el extremo $t=\nicefrac{i}{4}$ tal que $i=1,\ldots,3$; tenemos que
+\begin{equation*}
+    \begin{split}
+        T_i(f(1))&=T_i(1,0)\\
+        &=(\nicefrac{i-1}{2},\nicefrac{1}{2})\\
+        &=T_{i+1}(0,0)\\
+        &=T_{i+1}(f(0))
+    \end{split}
+\end{equation*}
+por lo tanto, 
+$$f_1(\nicefrac{i}{4})=T_i(f(1))=T_{i+1}(f(0)).$$
+
+Se sigue que $f_1$ está bien definida. Dado que $T_i\circ f$ es continua, para $i=1,\ldots, 4$, por el lema del pegado, $f_1$ es continua. Además
+\begin{equation*}
+    \begin{split}
+        f_1(0)&=T_1(f(0))\\
+        &=T_1(0,0)\\
+        &=(0,0),
+    \end{split}
+\end{equation*}
+y, por otro lado, 
+\begin{equation*}
+    \begin{split}
+        f_1(1)&=T_4(f(1))\\
+        &=\frac{1}{2}R_v\begin{bmatrix}
+            1\\
+            0
+        \end{bmatrix}+(1,\nicefrac{1}{2})\\
+        &=(0,-\nicefrac{1}{2})+(1,\nicefrac{1}{2})\\
+        &=(1,0).
+    \end{split}
+\end{equation*}
+por lo tanto, $f_1$ es una trayectoria de $(0,0)$ a $(1,0)$. Más aún, 
+$$\|f(t)-f_1(t)\|\leq \sqrt{2},$$ 
+para toda $t\in I$. 
+
+Hagamos $C_0=I\times I$
+\begin{align*}
+    C_{j,1}&=T_j(I\times I)=T_j(C_0),\; \text{ con } 1\leq j\leq 4. 
+\end{align*}
+Dado que $f(I)\subseteq I\times I$, entonces $T_1,\ldots,T_4$ induce la cubierta $C_{1,1},\ldots, C_{4,1}$ para $I\times I$ de tal modo que 
+\begin{align*}
+    \text{diam}(C_{1,j})&=\sqrt{(\nicefrac{1}{2})^2+(\nicefrac{1}{2})^2}\\
+    &=\frac{\sqrt{2}}{2}
+\end{align*}
+y también que 
+\begin{equation}
+    \label{eq:f_1(I)}
+    f_1(I_{j,1})=T_j(f(I))\subseteq C_{j,1},\text{ siempre que } 1\leq j\leq 4.
+\end{equation}
+donde $I_{j,1}=I_j$ para cada $j=1,\ldots,4$.
+
+Apliquemos ahora $T_1,\ldots, T_4$ a $f_1$, i.e., hagamos $f_2:I\to I\times I$ tal que 
+\[
+f_2(t)=T_i(f_1(4t-i+1)), \text{ siempre que } t\in I_j
+\]
+Entonces, $f_2$ genera la siguiente trayectoria
+\begin{center}
+\begin{tikzpicture}[
+    % Declaramos las funciones base de manera segura
+    declare function={
+        fx(\t) = \t;
+        fy(\t) = 2*\t*(1-\t);
+        % Componentes de f_1 (4 trozos)
+        f11x(\t) = fy(\t)/2;             f11y(\t) = fx(\t)/2;
+        f12x(\t) = fx(\t)/2;             f12y(\t) = (fy(\t)+1)/2;
+        f13x(\t) = (fx(\t)+1)/2;         f13y(\t) = (fy(\t)+1)/2;
+        f14x(\t) = 1 - fy(\t)/2;         f14y(\t) = (1-fx(\t))/2;
+    }
+]
+
+% ==========================================
+% 1. Curva f_1(t) (Izquierda - 4 trozos)
+% ==========================================
+\begin{axis}[
+    width=4.5cm, height=4.5cm,
+    scale only axis,
+    xmin=0, xmax=1, ymin=0, ymax=1,
+    axis lines=none,
+    clip=false 
+]
+    % Cuadrado exterior I x I en negro (grosor 1pt)
+    
+    
+    % Marca del origen (compartida)
+    \node[below left] at (0,0) {$0$};
+    
+    % Marcas (ticks) en el eje Y
+    \node[left] at (0, 0.5) {$\frac{1}{2}$};
+    \node[left] at (0, 1) {$1$};
+    
+    % Marcas (ticks) en el eje X
+    \node[below] at (0.25, 0) {$\frac{1}{4}$};
+    \node[below] at (0.5, 0) {$\frac{1}{2}$};
+    \node[below] at (0.75, 0) {$\frac{3}{4}$};
+    \node[below] at (1, 0) {$1$};
+    
+    % Subdivisiones continuas opacas (cruz central 1/2) para f_1
+    \draw[black, thick, solid, opacity=1] (0.5,0) -- (0.5,1);
+    \draw[black, thick, solid, opacity=1] (0,0.5) -- (1,0.5);
+
+    % Curva f_1(t) dividida en sus 4 trozos (Toda en negro)
+    \addplot [line width=1.5pt, mesh, colormap/viridis, domain=0:0.25, samples=60, variable=t, point meta=t] 
+        ({ 1/2 * (2*(4*t)*(1-4*t)) }, { 1/2 * (4*t) });
+        
+    \addplot [line width=1.5pt, mesh, colormap/viridis, domain=0.25:0.5, samples=60, variable=t, point meta=t] 
+        ({ 1/2 * (4*t-1) }, { 1/2 * (2*(4*t-1)*(1-(4*t-1)) + 1) });
+        
+    \addplot [line width=1.5pt, mesh, colormap/viridis, domain=0.5:0.75, samples=60, variable=t, point meta=t] 
+        ({ 1/2 * (4*t-2 + 1) }, { 1/2 * (2*(4*t-2)*(1-(4*t-2)) + 1) });
+        
+    \addplot [line width=1.5pt, mesh, colormap/viridis, domain=0.75:1, samples=60, variable=t, point meta=t] 
+        ({ 1 - 1/2 * (2*(4*t-3)*(1-(4*t-3))) }, { 1/2 * (1 - (4*t-3)) });
+        \draw[black, line width=1pt, solid] (0,0) rectangle (1,1);
+        \node[above, font=\small, yshift=2mm] at (0.5,1) {$f_1$};
+\end{axis}
+
+
+% ==========================================
+% 2. Flecha conectora (Centro)
+% ==========================================
+\draw[->, >=stealth, thick] (5cm, 2.25cm) to[bend left=25] 
+    node[midway, above=2pt, font=\small] {$T_2\; T_3$} 
+    node[midway, below=2pt, font=\small] {$T_1\; T_4$} 
+    (7cm, 2.25cm);
+
+
+% ==========================================
+% 3. Curva transformada f_2(t) (Derecha - 16 trozos)
+% ==========================================
+\begin{axis}[
+    at={(7.5cm,0)}, 
+    width=4.5cm, height=4.5cm,
+    scale only axis,
+    xmin=0, xmax=1, ymin=0, ymax=1,
+    axis lines=none,
+    clip=false,
+    point meta min=0, point meta max=1,
+    colormap/viridis,
+    view={0}{90} % Visto desde arriba para proyectar el color sin fallos
+]
+    % Cuadrado exterior en negro (usamos coordenadas 3D para evitar errores)
+    \draw[black, line width=1pt, solid] (0,0,0) -- (1,0,0) -- (1,1,0) -- (0,1,0) -- cycle;
+    
+    % Subdivisiones continuas opacas (cruz central 1/2)
+    \draw[black, thick, solid, opacity=1] (0.5,0,0) -- (0.5,1,0);
+    \draw[black, thick, solid, opacity=1] (0,0.5) -- (1,0.5);
+    \draw[black, thick, solid, opacity=1] (0,0.25) -- (1,0.25);
+    \draw[black, thick, solid, opacity=1] (0,0.75) -- (1,0.75);
+    \draw[black, thick, solid, opacity=1] (0.25,0) -- (0.25,1);
+    \draw[black, thick, solid, opacity=1] (0.75,0) -- (0.75,1);
+
+    % Etiquetas Y
+    \node[left] at (0,0,0) {$0$};
+    %\node[left] at (0,0.5,0) {$\frac{1}{2}$};
+    \node[left] at (0,1,0) {$1$};
+
+    % Etiquetas X
+    \node[below] at (0.25,0,0) {$\frac{1}{4}$};
+    \node[below] at (0.5,0,0) {$\frac{1}{2}$};
+    \node[below] at (0.75,0,0) {$\frac{3}{4}$};
+    \node[below] at (1,0,0) {$1$};
+
+    % Estilo para trazar las líneas garantizando que no excedan la memoria (samples y=1)
+    \pgfplotsset{
+        trozof2/.style={
+            line width=1.5pt, mesh, domain=0:1, samples=20, y domain=0:0, samples y=1
+        }
+    }
+
+    % Cuadrante T1
+    \addplot3 [trozof2] ({f11y(x)/2}, {f11x(x)/2}, {(0+x)/16});
+    \addplot3 [trozof2] ({f12y(x)/2}, {f12x(x)/2}, {(1+x)/16});
+    \addplot3 [trozof2] ({f13y(x)/2}, {f13x(x)/2}, {(2+x)/16});
+    \addplot3 [trozof2] ({f14y(x)/2}, {f14x(x)/2}, {(3+x)/16});
+    
+    % Cuadrante T2
+    \addplot3 [trozof2] ({f11x(x)/2}, {(f11y(x)+1)/2}, {(4+x)/16});
+    \addplot3 [trozof2] ({f12x(x)/2}, {(f12y(x)+1)/2}, {(5+x)/16});
+    \addplot3 [trozof2] ({f13x(x)/2}, {(f13y(x)+1)/2}, {(6+x)/16});
+    \addplot3 [trozof2] ({f14x(x)/2}, {(f14y(x)+1)/2}, {(7+x)/16});
+
+    % Cuadrante T3
+    \addplot3 [trozof2] ({(f11x(x)+1)/2}, {(f11y(x)+1)/2}, {(8+x)/16});
+    \addplot3 [trozof2] ({(f12x(x)+1)/2}, {(f12y(x)+1)/2}, {(9+x)/16});
+    \addplot3 [trozof2] ({(f13x(x)+1)/2}, {(f13y(x)+1)/2}, {(10+x)/16});
+    \addplot3 [trozof2] ({(f14x(x)+1)/2}, {(f14y(x)+1)/2}, {(11+x)/16});
+
+    % Cuadrante T4
+    \addplot3 [trozof2] ({1 - f11y(x)/2}, {(1 - f11x(x))/2}, {(12+x)/16});
+    \addplot3 [trozof2] ({1 - f12y(x)/2}, {(1 - f12x(x))/2}, {(13+x)/16});
+    \addplot3 [trozof2] ({1 - f13y(x)/2}, {(1 - f13x(x))/2}, {(14+x)/16});
+    \addplot3 [trozof2] ({1 - f14y(x)/2}, {(1 - f14x(x))/2}, {(15+x)/16});
+    \node[above, font=\small, yshift=2mm] at (0.5,1) {$f_2$};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+%% Dado que las matrices ortogonales y las \textit{transformaciones temporales} son invariantes con respecto a la métrica , i.e.,
+%% Lo haremos teorema en el apartado de espacios compacto abiertos
+Se sigue por, %\ref{prop:matriz_ortogonal_invariante} %\ref{prop:trayectoria_temporal_invariante}
+que 
+\begin{align*}
+    \|f_2-f_1\|_{\infty}&=\max\{\|T_i\circ f_1-T_i\circ f\|_{\infty}:1\leq i\leq 4\}\\
+    &=\max\{\|T_i\circ (f_1-f)\|_{\infty}:1\leq i\leq 4\}\\
+    &=\frac{1}{2}\|f_1-f\|_\infty\\
+    &\leq \frac{\sqrt{2}}{2}
+\end{align*}
+
+Además, si definimos $I_{j,2}=[\nicefrac{j-1}{4^2},\nicefrac{j}{4^2}]$ para cada $j=1,\ldots,4^2$; (cubierta de $I$) y
+\begin{equation*}
+    C_{j,2}=T_{q_j+1}(C_{r_j}), \text{ siempre que } 1\leq j\leq 4^2;
+\end{equation*}
+(cubierta de $I\times I$), donde $q_j,r_j$ son los únicos enteros tales que
+\[
+j=4q_j+r_j\; \text{ y } \; 0<r_j\leq 4.
+\]
+Entonces, la partición cumple que
+\begin{align*}
+    \text{diam}(C_{j,2})&=\text{diam}T_{q_j+1}(C_{r_j})\\
+    &=\frac{1}{2}\text{diam}(C_{r_j,1})\\
+    &=\frac{\sqrt{2}}{2^2}
+\end{align*}
+y también tenemos que
+\begin{equation*}
+    \frac{j}{4^2}=\frac{q_j}{4}+\frac{r_j}{4^2}
+\implies
+    \frac{j-1}{4^2}=\frac{q_j}{4}+\frac{r_j}{4^2}-\frac{1}{4^2}.
+\end{equation*}
+Como $1<r_j<4$, se sigue que 
+\begin{equation*}
+    0<\frac{r_j}{4^2}-\frac{1}{4^2}\implies \frac{q_j}{4}<\frac{j-1}{4^2}.
+\end{equation*}
+Por lo tanto,
+\begin{equation}
+\label{eq:cota_I_j,2}
+    \frac{q_j}{4}<\frac{j-1}{4^2}<\frac{j}{4^2}<\frac{q_j+1}{4}
+\end{equation}
+Dado que $I_{j,2}$ es compacto y $f_2$ continua, entonces $f_2(I_{j,2})=[f_2(\nicefrac{j-1}{4}),f_2(\nicefrac{j}{4})]$. Calculemos lo siguiente
+\begin{align*}
+    4\Big(\frac{j-1}{4^2}\Big)-(q_j+1)+1&=\frac{j-1-4q_j}{4}\\
+    &=\frac{r_j-1}{4}.
+\end{align*}
+ Por la desigualdad \ref{eq:cota_I_j,2}, $\nicefrac{j-1}{4^2}\in I_{q_j+1}$ y de la definición de $f_2$, se sigue que
+\begin{equation*}
+    f_2(\nicefrac{j-1}{4})=T_{q_j+1}(f_1(\nicefrac{r_j-1}{4})).
+\end{equation*}
+De manera análoga $f_2(\nicefrac{j}{4})=T_{q_j+1}(f_1(\nicefrac{r_j\hspace{0.25mm}}{4})).$
+
+Dado que $I_{r_j}$ es compacto y $T_{q_j+1}\circ f_1$ es continua, se sigue que
+\begin{align*}
+    f_2(I_{j,2})&=
+    [f_2(\nicefrac{j-1}{4}),f_2(\nicefrac{j}{4})]\\
+    &=[T_{q_j+1}(f_1(\nicefrac{r_j-1}{4})),T_{q_j+1}(f_1(\nicefrac{r_j}{4}))]\\
+    &=T_{q_j+1}(f_1(I_{r_j})),
+\end{align*}
+por \ref{eq:f_1(I)}, se cumple que $f_1(I_{r_j})\subseteq C_{r_j}$. Entonces, podemos concluir que
+\begin{align*}
+    f_2(I_{j,2})&=T_{q_j+1}(f_1(I_{r_j}))\\
+    &\subseteq T_{q_j+1}(C_{r_j})\\
+    &=C_{j,2}.
+\end{align*}
+
+De manera inductiva, podemos construir una sucesión de trayectorias $(f_n)_{n\in \N}$ tal que $f_{n}$ resulta de aplicar $T_1,\ldots, T_4$ a $f_{n-1}$,  
+$$\|f_{n}-f_{n-1}\|_\infty\leq \frac{\sqrt{2}}{2^n},\text{ para toda } n\in \N.$$
+y, si hacemos $I_{j,n}=[\nicefrac{j-1}{n},\nicefrac{j}{n}]$ para cada $j\in\{1,\ldots,4^n\}$ y 
+\begin{equation*}
+    C_{j,n}=T_{q_j+1}(C_{r_j,n-1}), \text{ siempre que } 1\leq j\leq 4^n,
+\end{equation*}
+donde $q_j,r_j$ son los únicos enteros tales que
+\[
+j=4^{n-1}q_j+r_j \;\text{ y }\; 0<r_j\leq 4^{n-1}.
+\]
+Entonces, 
+\begin{equation*}
+\text{diam}(C_{j,n})=\frac{\sqrt{2}}{2^n}\text{\; y \;}
+    f_n(I_{j,n})\subseteq C_{j,n}.
+\end{equation*}
+
+La siguiente imagen muestra la siguiente iteración de $f_3$ para generar la curva $f_4$:
+\begin{center}
+    \begin{tikzpicture}[
+    scale=5,
+    line cap=round,
+    line join=round
+]
+\begin{scope}[shift={(0,0)}]
+    % ==========================================================
+% Macro recursiva: construcción inductiva de f_n
+% ==========================================================
+\newcommand{\drawfractal}[3]{%
+    \ifnum#1=0
+        % --------------------------------------------------
+        % Caso base: f(t) = (t, 2t(1-t))
+        % --------------------------------------------------
+        % Calculamos el valor de 0 a 1000 para el colormap
+        \pgfmathsetmacro{\val}{(#2 / #3) * 1000}
+        
+        % Usamos el espectro Viridis de pgfplots
+                \pgfplotsset{
+        colormap={viridiscobre}{
+        rgb255=(68,1,84)      % 1. Morado oscuro original
+        rgb255=(59,82,139)    % 2. Azul marino original
+        rgb255=(33,145,140)   % 3. Verde azulado original
+        rgb255=(94,201,98)    % 4. Verde manzana original
+        rgb255=(184,115,51)   % 5. Cobre exacto (sustituye al amarillo)
+            }
+        }
+        \pgfplotsset{colormap name=viridis}
+        \pgfplotscolormapdefinemappedcolor{\val}
+
+        \draw[
+            color=mapped color,
+            line width=1.5pt
+        ]
+            (0,0) .. controls ({1/3},{2/3}) and ({2/3},{2/3}) .. (1,0);
+    \else
+        % --------------------------------------------------
+        % Paso inductivo
+        % --------------------------------------------------
+        \pgfmathtruncatemacro{\newdepth}{#1-1}
+
+        % T_1
+        \pgfmathtruncatemacro{\idxA}{4*#2}
+        \begin{scope}[cm={0,0.5,0.5,0,(0,0)}]
+            \edef\tempcall{\noexpand\drawfractal{\newdepth}{\idxA}{#3}}\tempcall
+        \end{scope}
+
+        % T_2
+        \pgfmathtruncatemacro{\idxB}{4*#2+1}
+        \begin{scope}[cm={0.5,0,0,0.5,(0,0.5)}]
+            \edef\tempcall{\noexpand\drawfractal{\newdepth}{\idxB}{#3}}\tempcall
+        \end{scope}
+
+        % T_3
+        \pgfmathtruncatemacro{\idxC}{4*#2+2}
+        \begin{scope}[cm={0.5,0,0,0.5,(0.5,0.5)}]
+            \edef\tempcall{\noexpand\drawfractal{\newdepth}{\idxC}{#3}}\tempcall
+        \end{scope}
+
+        % T_4
+        \pgfmathtruncatemacro{\idxD}{4*#2+3}
+        \begin{scope}[cm={0,-0.5,-0.5,0,(1,0.5)}]
+            \edef\tempcall{\noexpand\drawfractal{\newdepth}{\idxD}{#3}}\tempcall
+        \end{scope}
+    \fi
+}
+
+% ==========================================================
+% Macro para dibujar el cuadrado y la retícula
+% ==========================================================
+\newcommand{\drawgrid}[1]{%
+    % Retícula interna
+    %\draw[black, thick, solid, opacity=1] (0,0.1875) -- (1,0.1875);
+    \pgfmathtruncatemacro{\last}{#1-1}
+    \foreach \k in {1,...,\last} {
+        \pgfmathsetmacro{\gridcoord}{\k/#1}
+        \draw[gray, line width=0.45pt, opacity=0.25] (\gridcoord,0) -- (\gridcoord,1);
+        \draw[gray, line width=0.45pt, opacity=0.25] (0,\gridcoord) -- (1,\gridcoord);
+    }
+}
+
+% ==========================================================
+% Gráfica única: f_3
+% ==========================================================
+    % La construcción de f_3 tiene escala 1/8
+    \drawgrid{8}
+
+    % Eje X
+    \node[below, font=\footnotesize] at (0,0) {$0$};
+    \node[below, font=\footnotesize] at (0.25,0) {$\frac14$};
+    \node[below, font=\footnotesize] at (0.5,0) {$\frac12$};
+    \node[below, font=\footnotesize] at (0.75,0) {$\frac34$};
+    \node[below, font=\footnotesize] at (1,0) {$1$};
+
+    % Eje Y
+    \node[left, font=\footnotesize] at (0,0) {$0$};
+    \node[left, font=\footnotesize] at (0,0.5) {$\frac12$};
+    \node[left, font=\footnotesize] at (0,1) {$1$};
+
+    % Nombre de la iteración
+    \node[above, font=\small, yshift=2mm] at (0.5,1) {$f_3$};
+
+    % f_3 contiene 4^3 = 64 copias de f
+    \drawfractal{3}{0}{63}
+    % Cuadrado exterior
+    \draw[black, line width=1pt] (0,0) rectangle (1,1);
+\end{scope}
+% ==========================================================
+% 2. Flecha de Mapeo (Centro)
+% ==========================================================
+\draw[
+    ->, 
+    >=stealth, 
+    thick
+] 
+    (1.1, 0.5) 
+    to[bend left=25] 
+    node[midway, above=2pt, font=\small] {$T_2\; T_3$} 
+    node[midway, below=2pt, font=\small] {$T_1\; T_4$} 
+    (1.7, 0.5);
+\begin{scope}[shift={(1.8,0)}]
+% ==========================================================
+% Macro recursiva: construcción inductiva de f_n
+% ==========================================================
+\newcommand{\drawfractal}[3]{%
+    \ifnum#1=0
+        % --------------------------------------------------
+        % Caso base: Bezier cúbica matemáticamente exacta
+        % --------------------------------------------------
+        \pgfmathsetmacro{\val}{(#2 / #3) * 1000}
+        \pgfplotsset{
+        colormap={viridiscobre}{
+        rgb255=(68,1,84)      % 1. Morado oscuro original
+        rgb255=(59,82,139)    % 2. Azul marino original
+        rgb255=(33,145,140)   % 3. Verde azulado original
+        rgb255=(94,201,98)    % 4. Verde manzana original
+        rgb255=(184,115,51)   % 5. Cobre exacto (sustituye al amarillo)
+            }
+        }
+        \pgfplotsset{colormap name=viridis}
+        \pgfplotscolormapdefinemappedcolor{\val}
+
+        \draw[
+            color=mapped color,
+            line width=1.2pt % Trazo más fino para la alta densidad de f_4
+        ]
+            (0,0) .. controls ({1/3},{2/3}) and ({2/3},{2/3}) .. (1,0);
+    \else
+        % --------------------------------------------------
+        % Paso inductivo
+        % --------------------------------------------------
+        \pgfmathtruncatemacro{\newdepth}{#1-1}
+
+        % T_1
+        \pgfmathtruncatemacro{\idxA}{4*#2}
+        \begin{scope}[cm={0,0.5,0.5,0,(0,0)}]
+            \edef\tempcall{\noexpand\drawfractal{\newdepth}{\idxA}{#3}}\tempcall
+        \end{scope}
+
+        % T_2
+        \pgfmathtruncatemacro{\idxB}{4*#2+1}
+        \begin{scope}[cm={0.5,0,0,0.5,(0,0.5)}]
+            \edef\tempcall{\noexpand\drawfractal{\newdepth}{\idxB}{#3}}\tempcall
+        \end{scope}
+
+        % T_3
+        \pgfmathtruncatemacro{\idxC}{4*#2+2}
+        \begin{scope}[cm={0.5,0,0,0.5,(0.5,0.5)}]
+            \edef\tempcall{\noexpand\drawfractal{\newdepth}{\idxC}{#3}}\tempcall
+        \end{scope}
+
+        % T_4
+        \pgfmathtruncatemacro{\idxD}{4*#2+3}
+        \begin{scope}[cm={0,-0.5,-0.5,0,(1,0.5)}]
+            \edef\tempcall{\noexpand\drawfractal{\newdepth}{\idxD}{#3}}\tempcall
+        \end{scope}
+    \fi
+}
+
+% ==========================================================
+% Macro para dibujar el cuadrado y la retícula
+% ==========================================================
+\tikzset{gary/.style={gray}}
+\newcommand{\drawgrid}[1]{%
+    % Cuadrado exterior
+    
+
+    % Retícula interna
+    \pgfmathtruncatemacro{\last}{#1-1}
+    \foreach \k in {1,...,\last} {
+        \pgfmathsetmacro{\gridcoord}{\k/#1}
+        \draw[gary, line width=0.2pt, opacity=0.2] (\gridcoord,0) -- (\gridcoord,1);
+        \draw[gary
+        , line width=0.3pt, opacity=0.35] (0,\gridcoord) -- (1,\gridcoord);
+    }
+}
+
+% ==========================================================
+% Gráfica única: f_4
+% ==========================================================
+    % La construcción de f_4 tiene escala 1/16
+    \drawgrid{16}
+
+    % Eje X (Etiquetas simplificadas para no saturar visualmente)
+    \node[below, font=\footnotesize] at (0,0) {$0$};
+    \node[below, font=\footnotesize] at (0.25,0) {$\frac14$};
+    \node[below, font=\footnotesize] at (0.5,0) {$\frac12$};
+    \node[below, font=\footnotesize] at (0.75,0) {$\frac34$};
+    \node[below, font=\footnotesize] at (1,0) {$1$};
+
+    % Eje Y
+    \node[left, font=\footnotesize] at (0,0) {$0$};
+    %\node[left, font=\footnotesize] at (0,0.5) {$\frac12$};
+    \node[left, font=\footnotesize] at (0,1) {$1$};
+
+    % Nombre de la iteración
+    \node[above, font=\small, yshift=2mm] at (0.5,1) {$f_4$};
+
+    % f_4 contiene 4^4 = 256 copias de f
+    \drawfractal{4}{0}{255}
+    \draw[black, line width=0.75pt] (0,0) rectangle (1,1);
+\end{scope}
+\end{tikzpicture}
+\end{center}
+
+Mostremos que $(f_n)_{n\in\N}$ es una sucesión de Cauchy. Sea $\epsilon>0$, dado que la serie $\sum_{n\in \N}\nicefrac{\sqrt{2}}{2^n}$ es converge, existen $n,m\in\N$, con $n<m$ tales que 
+$$\sum_{r=n}^m\frac{\sqrt{2}}{2^r}<\epsilon.$$
+Supongamos $m=n+k$, para algún $k\in\N$. Entonces
+\begin{align*}
+    \|f_n-f_m\|_\infty&=\|f_n-f_{n+1}+f_{n+1}+\cdots+f_{n+k-1}+f_{n+k}-f_{n+k-1}\|_{\infty}\\
+    &\leq \|f_n-f_{n+1}\|_\infty+\cdots+\|f_{n+k}-f_{n+k-1}\|_\infty\\
+    &\leq \frac{\sqrt{2}}{2^n}+\frac{\sqrt{2}}{2^{n+1}}+\cdots+ \frac{\sqrt{2}}{2^{n+k}}
+    < \epsilon.
+\end{align*}
+Como ${C}(I,I^2)$ es un espacio completo. Por lo tanto, existe $\mu\in {C}(I,I^2)$ tal que $f_n\to \mu$.
+
+Mostremos ahora que $\mu$ es sobreyectiva. Sea $x\in I^2$. Para cualquier $\epsilon>0$, existen $N_1,N_2\in\N$ tal que 
+$$
+\|f_{N_1}-\mu\|_\infty<\frac{\epsilon}{2}\text{ \; y \; }
+\frac{\sqrt{2}}{2^N}<\frac{\epsilon}{2}.
+$$  
+Hagamos $N=\max\{N_1,N_2\}$. Dado que $\{C_{j,N}:1\leq j\leq 4^N\}$ es una cubierta de $I\times I$, existe $k\in \{1,\ldots, 4^N\}$ tal que $x\in C_{k,N}$, como $f_N(I_{k,N})\subseteq C_{k,N}$, i.e., para $t\in I_{k,N}$, entones $f_N(t)\in C_{k,N}$. Se sigue que
+\begin{equation*}
+    \|x-f_N(t)\|\leq \frac{\sqrt{2}}{2^N}<\frac{\epsilon}{2}.
+\end{equation*}
+Por lo tanto, 
+\begin{equation*}
+    \|x-\mu(t)\|\leq\|x-f_N(t)\|+\|f_N(t)-\mu(t)\|<\frac{\epsilon}{2}+\frac{\epsilon}{2}=\epsilon.
+\end{equation*}
+Se sigue que $x\in \overline{\mu(I)}$. Como $I$ es compacto y $g$ continua, por \ref{prop:f(K)_compacto}, $\mu(I)$ es compacto, como $\R^2$ es un espacio Hausdorff (con la métrica usual), por \ref{coro:compacto_de_T_1_cerrado}, $\mu(I)$ es cerrado, por lo tanto, $x\in \mu(I)$. 
+
+Si $p:I^2\to I^2/\partial I^2$ es la proyección natural, entonces la composición
+\begin{equation*}
+\begin{tikzcd}[column sep=0.55cm]
+        I\arrow[r,"\mu"] & I\times I\arrow[r,"p"] & I^2/\partial I^2\cong S^2
+\end{tikzcd}
+\end{equation*}
+genera un lazo en $S^2$, pues $p(\mu(0))=p(\mu(1))$, cuya imagen es $S^2$.
+%%%%% Clase 10 del 02/09/26 inciada el 09/09/26
+
+%%%%% Clase 11 del 09/09/26 inciada el 29/09/26
+
+El corolario \ref{coro:iso_espacios_basados} muestra que si existe una trayectoria entre dos puntos $x_0$ y $x_1$ en $X$, entonces sus respectivos grupos fundamentales son isomorfos, i.e., $\Pi_1(X,x_0)\cong \Pi_1(X,x_1)$. Este resultado se puede extender a los grupos de homotopía de orden superior, como se muestra a continuación.
+
+Supongamos  $\sigma:I\to X$ una trayectoria de $x_0$ a $x_1$. Hagamos $J=[\nicefrac{1}{4},\nicefrac{3}{4}]\subseteq I$. 
+
+Notemos que, si $s\in I^q\setminus \interior(J^q)$, entonces
+    \begin{equation*}
+        \begin{split}
+            0\leq d_{\partial I^q}(s)\leq d(\partial I^q,J^q)=\frac{1}{4}.
+        \end{split}
+    \end{equation*}
+    Sea $e^q=(1,\ldots,1)\in \R^q$. Dado $f:(I^q,\partial I^q)\to(X,x_0)$, definamos $\sigma f:I^q\to X$ tal que
+    \begin{equation*}
+         \sigma f(s)=
+         \begin{cases}
+         f(2s-\frac{1}{2}e^q), & \text{si \;} s\in J^q;\\
+         \overline{\sigma}(4d_{\partial I^q}(s)), & \text{si \;} s\in I^q\setminus\interior(J^q).\\
+        \end{cases}
+    \end{equation*}
+    Entonces $\sigma f$ mapea a todo $f$ en el cubo $J^q$ y luego inserta la trayectoria $\overline{\sigma}$ en cada segmento de recta generado por la distancia entre los puntos fuera del interior de $J^q$ y la frontera de $I^q$. Lo anterior se puede ejemplificar como sigue:
+    \begin{center}
+        \begin{tikzpicture}[scale=4, line cap=round, line join=round]
+
+    % Lista simétrica con el valor central 0.5 incluido
+    \def\segmentos{0.08, 0.16, 0.24, 0.32, 0.41, 0.50, 0.59, 0.68, 0.76, 0.84, 0.92}
+    % Lista sin 0.5 exclusiva para el lado izquierdo (donde va \sigma)
+    \def\segmentosizq{0.08, 0.16, 0.24, 0.32, 0.41, 0.59, 0.68, 0.76, 0.84, 0.92}
+
+    % 1. Trapecio Izquierdo (Líneas horizontales tenues, omitiendo 0.5)
+    \begin{scope}
+        \clip (0,0) -- (0.25,0.25) -- (0.25,0.75) -- (0,1) -- cycle;
+        \foreach \y in \segmentosizq {
+            \draw[gray!70, thin] (0,\y) -- (0.25,\y);
+        }
+    \end{scope}
+
+    % 2. Trapecio Derecho (Líneas horizontales, con línea central en 0.5)
+    \begin{scope}
+        \clip (1,0) -- (0.75,0.25) -- (0.75,0.75) -- (1,1) -- cycle;
+        \foreach \y in \segmentos {
+            \draw[gray!70, thin] (0.75,\y) -- (1,\y);
+        }
+    \end{scope}
+
+    % 3. Trapecio Inferior (Líneas verticales, con línea central en 0.5)
+    \begin{scope}
+        \clip (0,0) -- (0.25,0.25) -- (0.75,0.25) -- (1,0) -- cycle;
+        \foreach \x in \segmentos {
+            \draw[gray!70, thin] (\x,0) -- (\x,0.25);
+        }
+    \end{scope}
+
+    % 4. Trapecio Superior (Líneas verticales, con línea central en 0.5)
+    \begin{scope}
+        \clip (0,1) -- (0.25,0.75) -- (0.75,0.75) -- (1,1) -- cycle;
+        \foreach \x in \segmentos {
+            \draw[gray!70, thin] (\x,0.75) -- (\x,1);
+        }
+    \end{scope}
+
+    % 5. Las 4 Diagonales en las esquinas (aristas del túnel)
+    \draw[thick, black!85] (0,0) -- (0.25,0.25);
+    \draw[thick, black!85] (1,0) -- (0.75,0.25);
+    \draw[thick, black!85] (1,1) -- (0.75,0.75);
+    \draw[thick, black!85] (0,1) -- (0.25,0.75);
+
+    % 6. Cubo interior J^2 (Fondo)
+    \draw[line width=0.7pt, black] (0.25,0.25) rectangle (0.75,0.75);
+
+    % 7. Cubo exterior I^2 (Frente)
+    \draw[line width=1.5pt, black] (0,0) rectangle (1,1);
+
+    % 8. Trayectoria \sigma explícita en el lado izquierdo
+    \draw[gray!70, thin] (0, 0.5) -- (0.25, 0.5);     
+    %
+
+    % 9. Etiquetas de texto
+    \node[right] at (0.14, 0.129){$\overline{\sigma}$};
+    \node[anchor=center, inner sep=0pt] at (0.5, 0.5) {$f$};
+    \node[below] at (0.01, -0.01) {$x_1$};
+    \node[right] at (0.25, 0.3) {$x_0$};
+\end{tikzpicture}
+    \end{center}
+
+    Mostremos que $\sigma f$ está bien definida, es continua y $\sigma f(\partial I^q)=\{x_1\}$. 
+    
+    Sea $s\in\partial J^q$, entonces $2s-\frac{1}{2}e^q\in \partial I^q$. Dado que $f(\partial I^q)=\{x_0\}$, se sigue que 
+    \begin{equation*}
+        f(2s-\textstyle\frac{1}{2}e)=x_0    
+    \end{equation*}
+    por otro lado, $d_{\partial I^q}(s)=\nicefrac{1}{4}$, entonces
+    \begin{equation*}
+        \overline{\sigma}(4d_{\partial I^q}(s))=\overline{\sigma}(1)=x_0.
+    \end{equation*}
+    Por,  
+    %\ref{lema:d_A_continua}, 
+    la función de distancia $d_{\partial I^q}$ es continua, se sigue que la composición $s \mapsto \overline{\sigma}(4d_{\partial I^q}(s))$ también lo es. Por otro lado, el cubo $I^q$ se puede en la unión de los conjuntos cerrados:
+    $$I^q = J^q \cup (I^q \setminus \operatorname{int}(J^q)).$$
+    Además, para cualquier $s \in \partial J^q = J^q \cap (I^q \setminus \operatorname{int}(J^q))$, 
+    $$f(4s - \tfrac{1}{2}e) = x_0 = \overline{\sigma}(4d_{\partial I^q}(s)).$$
+    
+    Dado que las funciones son continuas en sus respectivos dominios cerrados y coinciden en su intersección, el lema del pegado garantiza que $\sigma f$ está bien definida y es continua.
+    
+    Tomemos ahora $x\in\partial I^q$, entonces  $d_{\partial I^q}(s)=0$, se sigue que
+    \begin{equation*}
+        \sigma f(s)=\overline{\sigma}(0)=x_1,
+    \end{equation*}
+    por lo tanto, $\sigma f(\partial I^q)=\{x_1\}$.
+
+    $\sigma f$ nos permitirá construir un homomorfismo de grupo, el cual se enuncia a continuación.
+
+\begin{prop}
+    Sea $X$ un espacio topológico y $\sigma:I\to X$ una trayectoria de $x_0$ a $x_1$. Entonces $\sigma$ in- duce el siguiente homomorfismo de grupo. \begin{align*}
+        \vec{\sigma}:\Pi_q(X,x_0)&\to \Pi_q(X,x_1)\\
+        [f] &\mapsto [\sigma f].
+    \end{align*}
+\end{prop}
+\begin{dem}
+    Mostremos primero que $\vec{\sigma}$ está bien definida. Sea $f,g:(I^q,\partial I^q)\to (X,x_0)$ tal que $f\simeq g$. Entonces, existe una función continua $H:I^q\times I\to X$ tal que 
+    \begin{align*}
+        H(s,0)&=f(s) \text{ para toda } s\in I^q;\\
+        H(s,1)&=g(s) \text{ para toda } s\in I^q;\\
+        H(s,t)&=x_0 \text{ para toda } (s,t)\in \partial I^q\times I.
+    \end{align*}
+    Definamos $H_1:I^q\times I\to X$ tal que
+    \begin{align*}
+        H_1(s,t)&=\sigma (H(-,t))(s)\\
+        &=
+        \begin{cases}
+         H(2s-\frac{1}{2}e^q,t), & \text{si \;} s\in J^q;\\
+         \overline{\sigma}(4d_{\partial I^q}(s)), & \text{si \;} s\in I^q\setminus\interior(J^q).\\
+        \end{cases}
+    \end{align*}
+    Entonces $H_1$ es una función continua tal que
+    \begin{equation*}
+        H_1(s,t)=\overline{\sigma}(4d_{\partial I^q}(s))=\overline{\sigma}(0)=x_1
+    \end{equation*}
+    siempre que $(s,t)\in \partial I^q\times I$. Por otro lado, para cualquier $s\in I^q$
+    \begin{align*}
+        H_1(s,0)&=\begin{cases}
+         f(2s-\frac{1}{2}e^q), & \text{si \;} s\in J^q;\\
+         \overline{\sigma}(4d_{\partial I^q}(s)), & \text{si \;} s\in I^q\setminus\interior(J^q).\\
+        \end{cases}\\
+        &=\sigma f(s)
+    \end{align*}
+    y de manera análoga, $H_1(s,1)=\sigma g$, por lo tanto, $H_1$ es testigo de que $\sigma f\simeq \sigma g$. Entonces
+    \begin{equation*}
+        \vec{\sigma}\hspace{0.5mm}[f]=[\sigma f]=[\sigma g]=\vec{\sigma}\hspace{0.5mm}[g],        
+    \end{equation*}
+    por lo tanto, $\vec{\sigma}$ está bien definida. Veamos de $\vec{\sigma}$ es un homomorfismo. Sean $f,g:(I^q,\partial I^q)\to (X,x_0)$. Hagamos 
+    $s=(s_1,s_2)\in I\times I^{q-1}$, entonces
+    \begin{equation*}
+        (f*g)(s)=\begin{cases}
+            f(2s_1,s_2), & \text{ si } s_1\in [0,\nicefrac{1}{2}];\\
+            g(2s_1-1,s_2) & \text{ si } s_1\in [\nicefrac{1}{2},1].
+        \end{cases}
+    \end{equation*}
+    Desarrollando detalladamente a $\sigma(f*g)$, se tiene que
+    \begin{align*}
+        \sigma(f*g)(s)&=\begin{cases}
+            (f*g)(2s-\frac{1}{2}e^q), & \text{ si } s\in J^q;\\
+            \overline{\sigma}(4d_{\partial I^q}(s)) & \text{ si } s\in I^q\setminus \interior(J^q).
+        \end{cases}\\
+        &=\begin{cases}
+            f(4s_1-1,2s_2-\frac{1}{2}e^{q-1}), & \text{ si } s\in J^q\text{\; y\; } 2s_1-\nicefrac{1}{2}\in [0,\nicefrac{1}{2}];\\
+            g(4s_1-2,2s_2-\frac{1}{2}e^{q-1}), & \text{ si } s\in J^q\text{\; y \;} 2s_1-\nicefrac{1}{2}\in [\nicefrac{1}{2},1];\\
+            \overline{\sigma}(4d_{\partial I^q}(s)) & \text{ si } s\in I^q\setminus \interior(J^q).
+        \end{cases}\\
+        &=\begin{cases}
+            f(4s_1-1,2s_2-\frac{1}{2}e^{q-1}), & \text{ si } (s_1,s_2)\in [\nicefrac{1}{4},\nicefrac{1}{2}]\times J^{q-1;}\\
+            g(4s_1-2,2s_2-\frac{1}{2}e^{q-1}), & \text{ si } (s_1,s_2)\in [\nicefrac{1}{2},\nicefrac{3}{4}]\times J^{q-1};\\
+            \overline{\sigma}(4d_{\partial I^q}(s)) & \text{ si } s\in I^q\setminus \interior(J^q).
+        \end{cases}\\
+    \end{align*}
+    De manera análoga, desarrollemos detalladamente a $\sigma f*\sigma g$. Se tiene que
+\begin{align*}
+    (\sigma f*\sigma g)(s)&=\begin{cases}
+            \sigma f(2s_1,s_2), & \text{ si } s_1\in [0,\nicefrac{1}{2}];\\
+            \sigma g(2s_1-1,s_2), & \text{ si } s_1\in [\nicefrac{1}{2},1].
+        \end{cases}\\
+        &=\begin{cases}
+            f(2(2s_1,s_2)-\frac{1}{2}e^q), & \text{ si } s_1\in [0,\nicefrac{1}{2}]\text{\; y\; } (2s_1,s_2)\in J^q;\\
+            \overline{\sigma}(4d_{\partial I^q}(2s_1,s_2))
+            & \text{ si } s_1\in [0,\nicefrac{1}{2}] \text{\; y\; } (2s_1,s_2)\in I^q\setminus\interior(J^q);\\
+            g(2(2s_1-1,s_2)-\frac{1}{2}e^q), & \text{ si } s_1\in [\nicefrac{1}{2},1]\text{\; y\; } (2s_1-1,s_2)\in J^q;\\
+            \overline{\sigma}(4d_{\partial I^q}(2s_1-1,s_2))
+            & \text{ si } s_1\in [\nicefrac{1}{2},1] \text{\; y\; } (2s_1-1,s_2)\in I^q\setminus\interior(J^q).
+        \end{cases}\\
+        &=\begin{cases}
+            f(4s_1-\nicefrac{1}{2},2s_2-\frac{1}{2}e^{q-1}), & \text{ si } (s_1,s_2)\in [\nicefrac{1}{8},\nicefrac{3}{8}]\times J^{q-1};\\
+            \overline{\sigma}(4d_{\partial I^q}(2s_1,s_2))
+            & \text{ si } s_1\in [0,\nicefrac{1}{2}] \text{\; y\; } (2s_1,s_2)\in I^q\setminus\interior(J^q);\\
+            g(4s_1-\nicefrac{5}{2},2s_2-\nicefrac{1}{2}e^{q-1}), & \text{ si } s_1\in [\nicefrac{5}{8},\nicefrac{7}{8}]\times J^{q-1};\\
+            \overline{\sigma}(4d_{\partial I^q}(2s_1-1,s_2))
+            & \text{ si } (s_1,s_2)\in [\nicefrac{1}{2},1] \text{\; y\; } (2s_1-1,s_2)\in I^q\setminus\interior(J^q).
+        \end{cases}
+\end{align*}
+    
+    Para construir la homotopía entre $\sigma f*\sigma g$ y $\sigma (f*g)$ dividamos, para cada tiempo $t\in I$, el intervalo $I$ en 6 subintervalos  de la siguiente manera:
+   \begin{align*}
+    J_{1,t} &= [0, \nicefrac{t+1}{8}], & J_{2,t} &= [\nicefrac{t+1}{8}, \nicefrac{t+3}{8}], & J_{3,t} &= [\nicefrac{t+3}{8}, \nicefrac{1}{2}], \\
+    J_{6,t} &= [\nicefrac{7-t}{8}, 1], & J_{5,t} &= [\nicefrac{5-t}{8}, \nicefrac{7-t}{8}], & J_{4,t} &= [\nicefrac{1}{2}, \nicefrac{5-t}{8}].
+\end{align*}
+    Definamos la \textit{métrica} $\rho_1:I\times I\to I$ tal que
+    \begin{align*}
+        \rho_1(s_1,t)&=\min\{\textstyle\frac{8}{1+t}d_{\partial I}(s_1),8|s_1-\frac{1}{2}|+t,1\}\\
+        &=\begin{cases}
+            \textstyle\frac{8}{1+t}d_{\partial I}(s_1)& \text{si } s_1\in J_{1,t}\cup J_{6,t}\\
+            8|s_1-\frac{1}{2}|+t& \text{si } s_1\in J_{3,t}\cup J_{4,t}\\
+            1&\text{si } s_1\in J_{2,t}\cup J_{5,t}.
+        \end{cases}
+    \end{align*}
+    Dado que $\rho_1(-,t)$ es el mínimo de funciones continuas, para toda $t\in I$, se sigue que $\rho_1$ es continua. Extendamos el dominio de la segunda coordenada de $\rho_1$ a todo $I^q$ de la siguiente manera: 
+    
+    Sea $\rho:I\times I^{q-1}\times I\to I$ tal que
+    \[
+    \rho(s_1,s_2,t)=\min\{\rho(s_1,t),4d_{\partial I^{q-1}}(s_2)\}
+    \]
+    Una vez que extendido $\rho_1$ a $\rho$, estamos en condiciones de definir la función $H:I\times I^q\times I\to X$ tal que
+    \begin{align*}
+        H(s_1,s_2,t)&=\begin{cases}
+            f(4s_1-\frac{1+t}{2},2s_2-\frac{1}{2}e^{q-1}), & \text{ si } (s_1,s_2)\in J_{2,t}\times J^{q-1};\\
+            g(4s_1-\nicefrac{5-t}{2},2s_2-\nicefrac{1}{2}e^{q-1}), & \text{ si } (s_1,s_2)\in J_{5,t}\times J^{q-1};\\
+            \overline{\sigma}(\rho(s_1,s_2,t))
+            & \text{ si } (s_1,s_2)\in I^q\setminus \interior((J_{2,t}\times J^{q-1})\cup (J_{5,t}\times J^{q-1})).
+        \end{cases}
+    \end{align*}
+    Entonces, $H$ genera la siguiente transición 
+        \begin{center}
+    % Comando para dibujar el estado en un tiempo t
+% #1 = parámetro t (de 0 a 1)
+% #2 = Etiqueta inferior
+\newcommand{\drawstate}[2]{
+    \def\t{#1}
+
+    % ==========================================
+    % 1. LAS FIBRAS DEL COLLARÍN (Densidad Isotrópica)
+    % ==========================================
+    
+    % --- PISO Y TECHO (2 líneas -> espaciado de 1.33 unidades) ---
+    \foreach \p in {1, 2} {
+        
+        % Piso de f 
+        \draw[thin, black!45] ({(4*\p/3)}, 0) -- ({(1+\t + 2*\p/3)}, 2);
+        
+        % Techo de f 
+        \draw[thin, black!45] ({(4*\p/3)}, 8) -- ({(1+\t + 2*\p/3)}, 6);
+        
+        % Piso de g 
+        \draw[thin, black!45] ({(4 + 4*\p/3)}, 0) -- ({(5-\t + 2*\p/3)}, 2);
+        
+        % Techo de g 
+        \draw[thin, black!45] ({(4 + 4*\p/3)}, 8) -- ({(5-\t + 2*\p/3)}, 6);
+    }
+
+    % --- PAREDES LATERALES Y VALLE CENTRAL (5 líneas -> espaciado de 1.33 unidades) ---
+    \foreach \p in {1, 2, 3, 4, 5} {
+        
+        % Pared Exterior Izquierda a f
+        \draw[thin, black!45] (0, {(8*\p/6)}) -- ({(1+\t)}, {(2 + 4*\p/6)});
+        
+        % Pared Exterior Derecha a g
+        \draw[thin, black!45] (8, {(8*\p/6)}) -- ({(7-\t)}, {(2 + 4*\p/6)});
+        
+        % Valles Centrales (solo existen si t < 1)
+        \ifdim \t pt < 1 pt
+            % Valle Central a f (desde la cremallera hacia f)
+            \draw[thin, black!45] (4, {(2*\t + \p/6*(8-4*\t))}) -- ({(3+\t)}, {(2 + 4*\p/6)});
+            
+            % Valle Central a g (desde la cremallera hacia g)
+            \draw[thin, black!45] (4, {(2*\t + \p/6*(8-4*\t))}) -- ({(5-\t)}, {(2 + 4*\p/6)});
+        \fi
+    }
+
+    % ==========================================
+    % 2. EL ESQUELETO ESTRUCTURAL (Pliegues gruesos)
+    % ==========================================
+    % Pliegues exteriores (Esquinas de I^2 a las esquinas de f y g)
+    \draw[thick] (0,0) -- ({1+\t}, 2);
+    \draw[thick] (0,8) -- ({1+\t}, 6);
+    \draw[thick] (8,0) -- ({7-\t}, 2);
+    \draw[thick] (8,8) -- ({7-\t}, 6);
+
+    \ifdim \t pt < 1 pt
+        % Pliegues interiores (Desde las puntas de la cremallera central)
+        \draw[thick] (4, {2*\t}) -- ({3+\t}, 2);
+        \draw[thick] (4, {8-2*\t}) -- ({3+\t}, 6);
+        \draw[thick] (4, {2*\t}) -- ({5-\t}, 2);
+        \draw[thick] (4, {8-2*\t}) -- ({5-\t}, 6);
+        
+        % La cremallera central sólida (Donde se encuentran las mitades)
+        \draw[very thick] (4, {2*\t}) -- (4, {8-2*\t});
+    \fi
+    
+    % Línea central punteada negra y gruesa (El rastro de s=1/2)
+    \draw[dashed, black, very thick] (4,0) -- (4, {2*\t});
+    \draw[dashed, black, very thick] (4,8) -- (4, {8-2*\t});
+
+    % Frontera exterior del hipercubo
+    \draw[very thick] (0,0) rectangle (8,8);
+
+    % ==========================================
+    % 3. LAS CAJAS INTERIORES
+    % ==========================================
+    \ifdim \t pt = 1 pt
+        % Caja fusionada en t=1
+        \draw[very thick, fill=white] (2, 2) rectangle (6, 6);
+        \node[font=\Large] at (3, 4) {$f$};
+        \node[font=\Large] at (5, 4) {$g$};
+        % Cicatriz de fusión
+        \draw[dashed, black, very thick] (4,2) -- (4,6); 
+    \else
+        % Cajas separadas en t<1
+        \draw[very thick, fill=white] ({1+\t}, 2) rectangle ({3+\t}, 6);
+        \node[font=\Large] at ({2+\t}, 4) {$f$};
+
+        \draw[very thick, fill=white] ({5-\t}, 2) rectangle ({7-\t}, 6);
+        \node[font=\Large] at ({6-\t}, 4) {$g$};
+    \fi
+
+    % Etiqueta inferior
+    \node[below] at (4,-0.8) {#2};
+}
+
+\begin{tikzpicture}[scale=0.425, font=\sffamily, line join=round, cap=round]
+
+    % --- DIBUJAR LOS 3 ESTADOS ---
+    \begin{scope}[xshift=0cm]
+        \drawstate{0}{$H(s, 0)$}
+    \end{scope}
+
+    \draw[->, >=stealth] (8.5, 4) to[bend left=20] node[above, font=\small] {$t \to 1/2$} (11.5, 4);
+
+    \begin{scope}[xshift=12cm]
+        \drawstate{0.5}{$H(s, 1/2)$}
+    \end{scope}
+
+    \draw[->, >=stealth] (20.5, 4) to[bend left=20] node[above, font=\small] {$t \to 1$} (23.5, 4);
+
+    \begin{scope}[xshift=24cm]
+        \drawstate{1}{$H(s, 1)$}
+    \end{scope}
+
+\end{tikzpicture}
+    \end{center}
+    
+    En efecto, mostremos que $H$ esta bien definida y es continua. 
+    
+    Sea $(s_1,s_2) \in I^q$. Evaluaremos la homotopía $H$ en el instante inicial $t=0$. En este parámetro, los subintervalos que definen las cajas interiores  $J_{2,0} = [\nicefrac{1}{8}, \nicefrac{3}{8}]$ y $J_{5,0} = [\nicefrac{5}{8}, \nicefrac{7}{8}]$. Analicemos la partición del dominio inducida por la expansión de $(\sigma f * \sigma g)$.
+
+    Supongamos que $s_1 \in [0, \nicefrac{1}{2}]$ y $(2s_1, s_2) \in J^q$. Esta condición es equivalente a que $2s_1 \in [\nicefrac{1}{4}, \nicefrac{3}{4}]$ y $s_2 \in J^{q-1}$, es decir, $(s_1, s_2) \in [\nicefrac{1}{8}, \nicefrac{3}{8}] \times J^{q-1} = J_{2,0} \times J^{q-1}$. Por definición de la homotopía sobre esta región interior, se sigue directamente que:
+    \[
+        H(s_1, s_2, 0) = f(4s_1 - \nicefrac{1}{2}, 2s_2 - \nicefrac{1}{2}e^{q-1}) = (\sigma f * \sigma g)(s_1, s_2).
+    \]
+
+    Supongamos ahora que $s_1 \in [\nicefrac{1}{2}, 1]$ y $(2s_1 - 1, s_2) \in J^q$. De forma análoga, la restricción implica que $2s_1 - 1 \in [\nicefrac{1}{4}, \nicefrac{3}{4}]$, de modo que $s_1 \in [\nicefrac{5}{8}, \nicefrac{7}{8}]$. Por consiguiente, $(s_1, s_2) \in J_{5,0} \times J^{q-1}$. Evaluando $H$ sobre el interior de la segunda caja, obtenemos:
+    \[
+        H(s_1, s_2, 0) = g(4s_1 - \nicefrac{5}{2}, 2s_2 - \nicefrac{1}{2}e^{q-1}) = (\sigma f * \sigma g)(s_1, s_2).
+    \]
+
+    Si $s_1 \in [0, \nicefrac{1}{2}]$ y $(2s_1, s_2) \in I^q \setminus \interior(J^q)$, la segunda condición asegura que $(s_1, s_2) \in I^q\setminus\interior(J_{2,0} \times J^{q-1})$. Al pertenecer al complemento, la función $H$ se rige por la métrica del collarín exterior. Dado que $s_1 \leq \nicefrac{1}{2}$, entonces $|8s_1 - 4| = 4 - 8s_1$. La profundidad en la primera coordenada colapsa a:
+    \begin{align*}
+        \rho_1(s_1, 0) &= \min\big\{8s_1, 8(1-s_1), |8s_1 - 4|, 1\big\} \\
+        &= \min\big\{8s_1, 4(1-2s_1)\big\} \\
+        &= 4d_{\partial I}(2s_1).
+    \end{align*}
+    extendiendo el valor de la métrica a las $q-1$ coordenadas restantes, tenemos que
+    \begin{align*}
+        \rho(s_1,s_2 0)&= \min\big\{\rho_1(s_1,0), 4d_{\partial I^{q-1}}(s_2), 1\big\} \\
+        &=\min\big\{4d_{\partial I}(2s_1), 4d_{\partial I^{q-1}}(s_2)\big\} \\
+        &= 4d_{\partial I^q}(2s_1, s_2).
+    \end{align*}
+    En consecuencia, al evaluar la homotopía en esta región, tenemos que
+    \[
+        H(s_1, s_2, 0) = \overline{\sigma}(4d_{\partial I^q}(2s_1, s_2)) = (\sigma f * \sigma g)(s_1, s_2).
+    \]
+
+    Para el último caso, si $s_1 \in [\nicefrac{1}{2}, 1]$ y $(2s_1 - 1, s_2) \in I^q \setminus \interior(J^q)$, entonces la segunda condición implica que $(s_1, s_2) \in  I^q\setminus \interior(J_{5,0} \times J^{q-1})$. Dado que $s_1 \geq \nicefrac{1}{2}$, el valor absoluto es no negativo, lo que fija $|8s_1 - 4| = 8s_1 - 4$. La profundidad en la primera coordenada se reduce a:
+    \begin{align*}
+        \rho_1(s_1, 0) &= \min\big\{8s_1, 8(1-s_1), 8s_1-4, 1\big\} \\
+        &= \min\big\{8-8s_1, 8s_1-4, 1\big\} \\
+        &= 4d_{\partial I}(2s_1-1).
+    \end{align*}
+    Al extender la métrica sobre el hipercubo se tiene que:
+    \begin{align*}
+        \rho(s_1,s_2 0)&= \min\big\{\rho_1(s_1,0), 4d_{\partial I^{q-1}}(s_2), 1\big\} \\
+        &=\min\big\{4d_{\partial I}(2s_1-1), 4d_{\partial I^{q-1}}(s_2)\big\} \\
+        &= 4d_{\partial I^q}(2s_1, s_2).
+    \end{align*}
+    Por lo tanto, la homotopía empata explícitamente en el último dominio:
+    \[
+        H(s_1, s_2, 0) = \overline{\sigma}\big(4d_{\partial I^q}(2s_1-1, s_2)\big) = (\sigma f * \sigma g)(s_1, s_2).
+    \]
+
+    \medskip
+    Al verificarse la igualdad sobre todos los subconjuntos de la partición, concluimos que $H(s_1, s_2, 0) = (\sigma f * \sigma g)(s_1, s_2)$ para todo $(s_1, s_2) \in I^q$.
+
+    De manera similar, se demuestra que
+
+    \begin{equation*}
+        H(s_1,s_2,1)=\sigma(f*g)(s_1,s_2), \text{ para todo } (s_1,s_2)\in I^q.
+    \end{equation*}
+
+    Fijemos $t \in (0,1)$. Las funciones que componen a la homotopía (las transformaciones afines, la métrica de distancia a la frontera y los lazos $f$, $g$ y $\overline{\sigma}$) son continuas en sus dominios respectivos. Para garantizar que $H$ está bien definida y es continua en el hipercubo, es suficiente y necesario demostrar que sus restricciones coinciden sobre las fronteras de separación, i.e., debemos verificar la identidad sobre $\partial(J_{2,t} \times J^{q-1})$ y $\partial(J_{5,t} \times J^{q-1})$.
+
+    Notemos primero que
+    \[
+        \partial(J \times J^{q-1}) = (\partial J \times J^{q-1}) \cup (J \times \partial J^{q-1}).
+    \] 
+
+    Entonces, consideremos las paredes laterales correspondientes a la primera caja, dadas por $\partial J_{2,t} \times J^{q-1}$, donde $\partial J_{2,t} = \{ \nicefrac{t+1}{8}, \nicefrac{t+3}{8} \}$. 
+    
+    (1) Si $s_1 = \nicefrac{t+1}{8}$, la transformación en $f$ es
+    \[
+        f\big(4(\textstyle\frac{t+1}{8}) - \frac{t+1}{2}, 2s_2 - \frac{1}{2}e^{q-1}\big) = f\big(0, 2s_2 - \frac{1}{2}e^{q-1}\big) = x_0.
+    \] 
+    Simultáneamente, $\frac{8}{t+1}d_{\partial I}(s_1)=1$ y
+    \begin{align*}
+        \big|8\textstyle(\frac{t+1}{8})-4\big|-t&=|t+1-4|+t\\
+        &=4-(t+1)+t\\
+        &=3,
+    \end{align*}
+    por lo tanto,
+    \begin{align*}
+        \rho_1(s_1,t)&=\min\{\textstyle\frac{8}{t+1}d_{\partial I}(s_1),3,1\}=1
+    \end{align*}
+    y como $s_2\in J^{q-1}$, entonces $4d_{\partial I^{q-1}}(s_2)\geq 1$,  por lo tanto,
+    \[
+        \overline{\sigma}(\min\{1, 4d_{\partial I^{q-1}}(s_2)\}) = \overline{\sigma}(1) = x_0.
+    \]
+    
+    (2) Si $s_1 = \nicefrac{t+3}{8}$, la transformación en $f$ arroja:
+    \[
+        f\big(4(\textstyle\frac{t+3}{8}) - \frac{t+1}{2}, 2s_2 - \frac{1}{2}e^{q-1}\big) = f\big(1, 2s_2 - \frac{1}{2}e^{q-1}\big) = x_0.
+    \] 
+    Por oto lado, $t+1<{t+3}$ y $\frac{t+3}{8}<\frac{1}{2}$, entonces
+    \begin{equation*}
+        1<\frac{t+3}{t+1}=\frac{8}{t+1}d_{\partial I}(s_1).
+    \end{equation*}
+    Además,
+    \begin{align*}
+        \big|8\textstyle(\frac{t+3}{8})-4\big|-t&=|t+3-4|+t\\
+        &=4-(t+3)+t\\
+        &=1,
+    \end{align*}
+    por lo tanto, 
+    \begin{align*}
+        \rho_1(s_1,t)&=\min\{\textstyle\frac{8}{t+1}d_{\partial I}(s_1),1,1\}=1,
+    \end{align*}
+    de modo que $\overline{\sigma}(\rho(s_1,s_2,t))= x_0$.
+        
+    Por otro lado, consideremos las bases de la primera caja $J_{2,t} \times \partial J^{q-1}$. Si $s_2 \in \partial J^{q-1}$, entonces 
+    $$2s_2-\frac{1}{2}e^{q-1}\in\partial I^{q-1},$$ por lo tanto, $f(2s_2-\frac{1}{2}e^{q-1})=x_0$. Asimismo, para todo $s_1 \in J_{2,t}$, se cumple que $\rho_1(s_1, t)=1$. Como $s_1\in\partial J^{q-1}$, entonces $4d_{\partial I^{q-1}}(s_2)=1$, por lo tanto,
+    $$\rho(s_1,s_2,t)=\min\{\rho_1(s_1,t), 1\} = 1.$$ 
+    Se concluye que  $\overline{\sigma}(\rho(s_1,s_2,t)) = x_0$.
+
+    De manera análoga, se demuestra que
+    \begin{equation*}
+        g(s_1,s_2)=x_0=\overline{\sigma}(\rho(s_1,s_2,t)), \text{ para toda } (s_1,s_2)\in \partial(J_{5,t}\times J^{q-1}). 
+    \end{equation*}
+    
+    Dado que 
+    $(J_{2,t}\times J^{q-1})\cap (J_{5,t}\times J^{q-1})=\emptyset, \text{ siempre que } t<1,$ 
+    entonces
+    \begin{align*}
+        (J_{2,t}\times J^{q-1})\cup (J_{5,t}\times J^{q-1})\setminus \interior(J_{2,t}\times J^{q-1})\cup (J_{5,t}\times J^{q-1})&=\partial((J_{2,t}\times J^{q-1})\cup (J_{5,t}\times J^{q-1}))\\
+        &=\partial(J_{2,t}\times J^{q-1})\cup \partial(J_{5,t}\times J^{q-1})
+    \end{align*}
+    Al comprobar que $H$ está bien definida en $\partial(J_{2,t}\times J^{q-1})\cup \partial(J_{5,t}\times J^{q-1})$, por el lema del pegado, $H$ está bien definida para todo $t \in (0,1)$.
+
+    Para demostrar que la homotopía $H$ preserva el punto base, debemos verificar que $H(\partial I^q\times I) = x_1$. Recordamos la descomposición de la frontera del hipercubo paramétrico:
+    \[
+        \partial I^q = (\partial I \times I^{q-1}) \cup (I \times \partial I^{q-1})\subseteq I^q\setminus\interior((J_{2,t}\times J^{q-1})\cup (J_{5,t}\times J^{q-1})).
+    \]
+     
+    Entonces, $H(s_1,s_2,t)=\overline{\sigma}(\rho(s_1,s_2,t)),$ para toda $(s_1,s_2)\in\partial I^q$.
+     
+     Sea $(s_1,s_2)\in \partial I^q$. Supongamos primero que $s_1 \in \partial I = \{0, 1\}$,  entonces $\rho_1(0,t)=0$, pues $d_{\partial I}(s_1) = 0$. Se sigue que $\rho(s_1,s_2,t)=0$, por lo tanto,
+     \begin{equation*}
+         H(s_1,s_2,t)=\overline{\sigma}(\min\{0,4d_{\partial J^{q-1}}(s_2)\})=\overline{\sigma}(0)=x_1.
+     \end{equation*}
+     
+    Supongamos ahora que $s_2 \in \partial I^{q-1}$. Entonces $4d_{\partial I^{q-1}}(s_2) = 0$. Se sigue que $\rho(s_1,s_2,t)= 0$, lo que implica que
+     \begin{equation*}
+         H(s_1,s_2,t)=x_1.
+     \end{equation*}
+
+     Por lo tanto, $H$ es testigo de que $\sigma f *\sigma g\simeq \sigma(f*g)$, i.e., $\vec{\sigma}$ es un homomorfismo de grupo.
+    \end{dem}
+    \begin{prop}
+    Sea $X$ un espacio topológico y $\sigma:I\to X$ una trayectoría de $x_0$ a $x_1$. Entonces el homomorfismo $\vec{\sigma}$ satisface las siguientes propiedades functoriales:
+    \begin{enumerate}
+        \item[(1)] Si $\sigma, \tau: I \to X$ son trayectorias de $x_0$ a $x_1$ tales que $\sigma \simeq \tau \rel \partial I$, entonces $\vec{\sigma} = \vec{\tau}$.
+        \item[(2)] Si $c_{x_0}$ denota a la trayectoria constante en $x_0$, entonces $\vec{c}_{x_0} = \id_{\Pi_q(X, x_0)}$.
+        \item[(3)] Si $\sigma: I \to X$ es una trayectoria de $x_0$ a $x_1$ y $\sigma_1: I \to X$ es una trayectoria de $x_1$ a $x_2$, entonces 
+        \[
+            \overrightarrow{\sigma * \sigma_1} = \vec{\sigma}_1 \circ \vec{\sigma}.
+        \]
+    \end{enumerate}
+\end{prop}
+    \begin{dem}
+    (1) Supongamos $\sigma\simeq \tau\rel$. Entonces, existe una función continua $H:I\times I\to X$ tal que 
+    \begin{align*}
+        H(s,0)&=\sigma(s) \text{ para toda } s\in I;\\
+        H(s,1)&=\tau(s) \text{ para toda } s\in I;\\
+        H(i,t)&=x_i \text{ para toda } (i,t)\in \partial I\times I;
+    \end{align*}
+    Entonces $H(-,t)$ es una trayectoria de $x_0$ a $x_1$ para toda $t\in I$. Por lo tanto, la función $H_1:I^q\times I\to X$ tal que 
+    \begin{align*}
+        H_1(s,t)&=(H(-,t)f)(s)\\
+        &=\begin{cases}
+         f(2s-\frac{1}{2}e^q), & \text{si \;} s\in J^q;\\
+         \overline{H}(4d_{\partial I^q}(s),t), & \text{si \;} s\in I^q\setminus\interior(J^q).
+        \end{cases}
+    \end{align*}
+    Entonces, $H_1$ está bien definida, es continua y $H(s,t)=x_1$ para toda $(s,t)\in I^q\times I$. Por otro lado,
+    \begin{align*}
+        H_1(s,0)&=\begin{cases}
+         f(2s-\frac{1}{2}e^q), & \text{si \;} s\in J^q;\\
+         \overline{\sigma}(4d_{\partial I^q}(s)), & \text{si \;} s\in I^q\setminus\interior(J^q).
+         \end{cases}\\
+         &=\sigma f(s).
+    \end{align*}
+    De manera similar, $H_1(s,0)=\tau f(s)$. Por lo tanto, $H_1$ es testigo de que $\sigma f\simeq \tau f$. Se sigue que
+    \begin{equation*}
+        \vec{\sigma}\hspace{0.5mm}[f]=[\sigma f]=[\tau f]=\vec{\tau}\hspace{0.6mm}[f].        
+    \end{equation*}
+    Lo anterior muestra que $\vec{\sigma}=\vec{\tau}.$
+
+    (2) Sea $f:(I^q,\partial I^q)\to (X,x_0)$. Notemos que 
+    \begin{align*}
+        c_{x_0}f(s)&=\begin{cases}
+         f(2s-\frac{1}{2}e^q), & \text{si \;} s\in J^q;\\
+         x_0, & \text{si \;} s\in I^q\setminus\interior(J^q).\\
+        \end{cases}
+    \end{align*}
+    Mostremos que $c_{x_0}f\simeq f$. Para cada $t\in I$, definamos $J_t=[\nicefrac{1-t}{4},\nicefrac{3+t}{4}]$. Hagamos $H: I^q \times I \to X$ tal que
+    \begin{align*}
+        H(s, t) &= 
+        \begin{cases}
+            f\big(\frac{4s-(1-t)e^q}{2(t+1)}\big), & \text{si } s \in J_t^q; \\
+            x_0, & \text{si } s \in I^q \setminus \interior(J_t^q).
+        \end{cases}
+    \end{align*}
+    Mostremos que $H$ está bien definida y es continua. Si $s\in \partial J_t^q$, entonces $\frac{4s-(1-t)e^q}{2(t+1)}\in \partial I^q$, por lo tanto,
+    \begin{equation*}
+        f\big(\textstyle\frac{4s-(1-t)e^q}{2(t+1)}\big)=x_0.
+    \end{equation*}
+    Dado que $\partial(J^q)=J_t^q\setminus\interior(J_t^q)$, por el lema del pegado, $H(-,t)$ es continua para toda $t\in I$, por lo tanto, $H$ está bien definida y es continua. Por otro lado, para toda $s\in Iq$,
+    \begin{align*}
+        H(s,0)&=\begin{cases}
+            f\big(\frac{4s-e^q}{2}\big), & \text{si } s \in J_0^q; \\
+            x_0, & \text{si } s \in I^q \setminus \interior(J_0^q).
+        \end{cases}\\
+        &=c_{x_0}f(s)
+    \end{align*}
+    y, también
+    \begin{align*}
+        H(s,1)&=\begin{cases}
+            f(s), & \text{si } s \in J_1^q; \\
+            x_0, & \text{si } s \in I^q \setminus \interior(J_1^q).
+        \end{cases}\\
+        &=f(s).
+    \end{align*}
+    Solo falta mostrar que $H(\partial I^q\times I)=\{x_0\}$. Sea $t\in I$ y supongamos $s\in\partial I^q\subseteq I^q\setminus\interior(J^q_t)$. Por como está definida $H$, se sigue que $H(s,t)=x_0$. Por lo tanto, $H$ es testigo de que $c_{x_0}f\simeq f$. 
+
+    De lo anterior, se sigue que $\vec{c}_{x_0}=\id_{\Pi_q(X,x_0)}$.
+
+    (3) Sea $f:(I^q,\partial I^q)\to (X,x_0)$. Desarrollando a $(\sigma_1*\sigma)f$, tenemos que
+    \begin{equation*}
+        (\sigma*\sigma_1)f(s)=\begin{cases}
+        f(2s-\frac{1}{2}e^q) & \text{si \;} s\in J^q\\
+         \overline{\sigma*\sigma_1}(4d_{\partial I^q}(s)), & \text{si \;} s\in I^q\setminus\interior(J^q).\\
+         \end{cases}
+    \end{equation*}
+    Para el caso $s\in I^q\setminus\interior(J^q)$, tenemos que
+    \begin{align*}
+        (\sigma*\sigma_1)f(s)&=\begin{cases}
+        \overline{\sigma}(8d_{\partial I^q}(s)), & \text{si \;} 4d_{\partial I^q}(s)\in [0,\nicefrac{1}{2}];\\
+        \overline{\sigma}_1(8d_{\partial I^q}(s)-1), & \text{si \;} 4d_{\partial I^q}(s)\in [\nicefrac{1}{2},1];
+         \end{cases}\\
+         &=\begin{cases}
+        \overline{\sigma}(8d_{\partial I^q}(s)), & \text{si \;} d_{\partial I^q}(s)\in [0,\nicefrac{1}{8}];\\
+        \overline{\sigma}_1(8d_{\partial I^q}(s))-1, & \text{si \;} d_{\partial I^q}(s)\in [\nicefrac{1}{8},\nicefrac{1}{4}];
+         \end{cases}
+    \end{align*}
+    Se sigue que $(\sigma*\sigma_1)f$ parte en dos a $I^q\setminus\interior(J^q)$ y en una mitad opera $\sigma$ y en la otra mitad $\sigma_1$. Lo anterior se puede ilustrar a continuación  
+    \begin{center}
+        \begin{tikzpicture}[scale=0.65, thick]
+        
+        % Color de las líneas del collarín (hatching)
+        \colorlet{hatch}{gray!70}
+        
+        % Recorte y rayado para el trapecio inferior
+        % Al usar pasos de 0.5, las líneas coinciden exactamente en x=1, x=2, x=6 y x=7
+        \begin{scope}
+            \clip (0,0) -- (8,0) -- (6,2) -- (2,2) -- cycle;
+            \foreach \x in {0.5, 1.0, ..., 7.5} \draw[hatch] (\x,0) -- (\x,2);
+        \end{scope}
+        
+        % Recorte y rayado para el trapecio superior
+        \begin{scope}
+            \clip (0,8) -- (8,8) -- (6,6) -- (2,6) -- cycle;
+            \foreach \x in {0.5, 1.0, ..., 7.5} \draw[hatch] (\x,6) -- (\x,8);
+        \end{scope}
+        
+        % Recorte y rayado para el trapecio izquierdo
+        \begin{scope}
+            \clip (0,0) -- (0,8) -- (2,6) -- (2,2) -- cycle;
+            \foreach \y in {0.5, 1.0, ..., 7.5} \draw[hatch] (0,\y) -- (2,\y);
+        \end{scope}
+        
+        % Recorte y rayado para el trapecio derecho
+        \begin{scope}
+            \clip (8,0) -- (8,8) -- (6,6) -- (6,2) -- cycle;
+            \foreach \y in {0.5, 1.0, ..., 7.5} \draw[hatch] (6,\y) -- (8,\y);
+        \end{scope}
+        
+        % Bordes principales del hipercubo
+        \draw[ultra thick] (0,0) rectangle (8,8); % I^2 (Frontera exterior)
+        \draw[ultra thick] (2,2) rectangle (6,6); % J^2 (Frontera interior)
+        
+        % Línea divisoria de la concatenación en el collarín (Primera mitad)
+        \draw[very thick] (1,1) rectangle (7,7);  
+        
+        % Diagonales de los vértices
+        \draw[thick] (0,0) -- (2,2);
+        \draw[thick] (8,0) -- (6,2);
+        \draw[thick] (8,8) -- (6,6);
+        \draw[thick] (0,8) -- (2,6);
+
+        % Acción central en la caja J^2
+        \node at (4,4) {\Large $f$};
+
+        % Puntos Base (Posicionados fielmente a la imagen de referencia)
+        % x_0 en la esquina interior
+        \node[above right, fill=white, inner sep=2pt] at (2.05, 2.05) {\small $x_0$};
+        % x_1 en la partición intermedia del collarín
+        \node[below left,fill=white, inner sep=2pt] at (0.89, 1.45) {\small $x_1$};
+        % x_2 en la esquina exterior
+        \node[below left, inner sep=2pt] at (0, 0) {\small $x_2$};
+
+        % Acciones evaluadas en los sub-collarines
+        \node[below right, fill=white, inner sep=2pt] at (1.7, 1.7) {\small $\sigma$};
+        \node[below right, fill=white, inner sep=2pt] at (0.7, 0.7) {\small $\sigma_1$};
+        \end{tikzpicture}
+    \end{center}
+    Calculemos, por otro lado, $\sigma_1(\sigma f)$. Tenemos que
+    \begin{align*}
+        \sigma_1(\sigma f)(s)=\begin{cases}
+        \sigma f(2s-\frac{1}{2}e^q) & \text{si \;} s\in J^q\\
+         \overline{\sigma}_1(4d_{\partial I^q}(s)), & \text{si \;} s\in I^q\setminus\interior(J^q).\\
+         \end{cases}
+    \end{align*}
+    Para el caso $s\in J^q$, se tiene que
+    \begin{align*}
+        \sigma_1(\sigma f)(s)&=\begin{cases}
+         f(4s-\frac{3}{2}e^q) & \text{si \;} 2s-\nicefrac{1}{2}\in J^q\\
+         \overline{\sigma}(4d_{\partial I^q}(2s-\frac{1}{2})e^q), & \text{si \;} 2s-\nicefrac{1}{2}\in I^q\setminus\interior(J^q).\\
+         \end{cases}\\
+         &=\begin{cases}
+         f(4s-\frac{3}{2}e^q) & \text{si \;} s\in [\nicefrac{3}{8},\nicefrac{5}{8}]^q\\
+         \overline{\sigma}(4d_{\partial I^q}(2s-\frac{1}{2})e^q), & \text{si \;} s\in [\nicefrac{1}{4},\nicefrac{3}{4}]^q\setminus\interior([\nicefrac{3}{8},\nicefrac{5}{8}]^q).\\
+         \end{cases}
+    \end{align*}
+
+    Entonces, $\sigma_1(\sigma f)$ reduce en a $\nicefrac{3}{8}$ el dominio de $f$, después  $\sigma$  opera la frontera de $[\nicefrac{1}{4},\nicefrac{3}{4}]^q$ a la frontera del dominio reducido de $f$ y finalmente $\sigma_1$ opera el resto del hipercubo. Lo anterior, se puede ilustrar a continuación
+    \begin{center}
+    \begin{tikzpicture}[scale=0.65, thick]
+    
+    % Color de las líneas del collarín (hatching)
+    \colorlet{hatch}{gray!70}
+    
+    % Recorte y rayado para el trapecio inferior (Cubre ambos collarines a la vez)
+    \begin{scope}
+        \clip (0,0) -- (8,0) -- (5,3) -- (3,3) -- cycle;
+        \foreach \x in {0.5, 1.0, ..., 7.5} \draw[hatch] (\x,0) -- (\x,3);
+    \end{scope}
+    
+    % Recorte y rayado para el trapecio superior
+    \begin{scope}
+        \clip (0,8) -- (8,8) -- (5,5) -- (3,5) -- cycle;
+        \foreach \x in {0.5, 1.0, ..., 7.5} \draw[hatch] (\x,5) -- (\x,8);
+    \end{scope}
+    
+    % Recorte y rayado para el trapecio izquierdo
+    \begin{scope}
+        \clip (0,0) -- (0,8) -- (3,5) -- (3,3) -- cycle;
+        \foreach \y in {0.5, 1.0, ..., 7.5} \draw[hatch] (0,\y) -- (3,\y);
+    \end{scope}
+    
+    % Recorte y rayado para el trapecio derecho
+    \begin{scope}
+        \clip (8,0) -- (8,8) -- (5,5) -- (5,3) -- cycle;
+        \foreach \y in {0.5, 1.0, ..., 7.5} \draw[hatch] (5,\y) -- (8,\y);
+    \end{scope}
+    
+    % Bordes principales de las acciones iteradas
+    \draw[ultra thick] (0,0) rectangle (8,8); % I^2 (Frontera exterior absoluta)
+    \draw[ultra thick] (2,2) rectangle (6,6); % J^2 de \sigma_1 (Frontera intermedia)
+    \draw[ultra thick] (3,3) rectangle (5,5); % J^2 de \sigma (Frontera interior donde habita f)
+    
+    % Diagonales de los vértices (Atraviesan ambos collarines)
+    \draw[thick] (0,0) -- (3,3);
+    \draw[thick] (8,0) -- (5,3);
+    \draw[thick] (8,8) -- (5,5);
+    \draw[thick] (0,8) -- (3,5);
+
+    % Acción central en el subcubo más profundo
+    \node at (4,4) {\Large $f$};
+
+    % Puntos Base
+    % x_0 en la esquina del dominio de f
+    \node[above right, fill=white, inner sep=2pt] at (3.05, 3.05) {\small $x_0$};
+    % x_1 en la esquina del primer J^2
+    \node[above right, fill=white, inner sep=2pt] at (1.1, 1.9) {\small $x_1$};
+    % x_2 en la esquina exterior de I^2
+    \node[below left, inner sep=2pt] at (0, 0) {\small $x_2$};
+
+    % Acciones evaluadas en los respectivos collarines
+    % \sigma opera en el collarín interno (ancho de 1 unidad, de 2 a 3)
+    \node[below right, fill=white, inner sep=2pt] at (2.7, 2.6) {\small $\sigma$};
+    % \sigma_1 opera en el collarín externo (ancho de 2 unidades, de 0 a 2)
+    \node[below right, fill=white, inner sep=2pt] at (1.2, 1.0) {\small $\sigma_1$};
+    
+    \end{tikzpicture}
+\end{center}
+Definimos
+    \[
+        \alpha_t = \frac{1+t}{8} \quad \text{y} \quad \beta_t = \frac{2+t}{8}
+    \]
+    para todo $t \in I$. Consideremos los subcubos 
+    \[
+        I_t^q = [\alpha_t, 1-\alpha_t]^q \quad \text{y} \quad J_t^q = [\beta_t, 1-\beta_t]^q.
+    \]
+    Como $\alpha_t < \beta_t$, se tiene $J_t^q \subset \interior(I_t^q) \subset \interior(I^q)$. Definimos $H: I^q \times I \to X$ tal que
+    \begin{align*}
+        H(s, t) &= 
+        \begin{cases}
+            \overline{\sigma}_1\Big( \frac{8d(s)}{1+t} \Big), & \text{si } s \in I^q \setminus \interior(I_t^q); \\
+            \overline{\sigma}\Big( 8d(s) - (1+t) \Big), & \text{si } s \in I_t^q \setminus \interior(J_t^q); \\
+            f\Big( \frac{8s - (2+t)e^q}{2(2-t)} \Big), & \text{si } s \in J_t^q.
+        \end{cases}
+    \end{align*}
+    
+    Verificamos que $H$ está bien definida y es continua. (1) Si $s\in\partial I_t^q$, entonces $d(s) = \alpha_t = \frac{1+t}{8}$. 
+    Evaluando en la primera regla:
+    \[
+        \overline{\sigma}_1\Big( \frac{8(\alpha_t)}{1+t} \Big) = \overline{\sigma}_1\Big(\frac{1+t}{1+t}\Big) = \overline{\sigma}_1(1) =x_1.
+    \]
+    Evaluando en la segunda regla:
+    \[
+        \overline{\sigma}\Big( 8\Big(\frac{1+t}{8}\Big) - (1+t) \Big) = \overline{\sigma}(1+t - 1-t) = \overline{\sigma}(0) = x_1.
+    \]
+
+    (2) Si $s\in \partial J_t^q$, entonces $d(s) = \beta_t = \frac{2+t}{8}$. 
+    Evaluando en la segunda regla:
+    \[
+        \overline{\sigma}\Big( 8\Big(\frac{2+t}{8}\Big) - (1+t) \Big) = \overline{\sigma}(2+t - 1-t) = \overline{\sigma}(1) = x_0.
+    \]
+    Para la tercera regla, dado que $s=(s_1,\ldots,s_q) \in \partial J_t^q$, entonces existe $i\in\{1,\ldots,q\}$ tal que $s_i \in \big\{\frac{2+t}{8}, 1-\frac{2+t}{8}\big\}$. Si $s_i = \frac{2+t}{8}$:
+    \[
+        \frac{8\big(\frac{2+t}{8}\big) - (2+t)}{2(2-t)} = \frac{(2+t) - (2+t)}{2(2-t)} = 0.
+    \]
+    Si $s_i = 1-\frac{2+t}{8} = \frac{6-t}{8}$:
+    \[
+        \frac{8\big(\frac{6-t}{8}\big) - (2+t)}{2(2-t)} = \frac{6-t - 2-t}{2(2-t)} = \frac{4-2t}{4-2t} = 1.
+    \]
+    Entonces $s_i\in\partial I$, por lo tanto, $s\in\partial I^q$. Como $f(\partial I^q) = \{x_0\}$, se sigue que 
+    \begin{equation*}
+       \textstyle f\Big( \frac{8s - (2+t)e^q}{2(2-t)} \Big)=x_0.
+    \end{equation*}
+
+    Por el lema del pegado, $H(-,t)$ está bien definida y es continua para toda $t\in I$, por lo tanto, $H$ está bien definida y es continua.
+    
+    Si $t=0$, tenemos que $\alpha_0 = \frac{1}{8}$ y $\beta_0 = \frac{2}{8} = \frac{1}{4}$. Así, $I_0 = [\frac{1}{8}, \frac{7}{8}]$ y $J_0 = [\frac{1}{4}, \frac{3}{4}] = J$. Entonces
+    \begin{align*}
+        H(s, 0) &= 
+        \begin{cases}
+            \overline{\sigma}_1\big( 8d(s) \big), & \text{si } s \in I^q \setminus \interior(I_0^q); \\
+            \overline{\sigma}\big( 8d(s) - 1 \big), & \text{si } s \in I_0^q \setminus \interior(J^q); \\
+            f\big( 2s - \frac{1}{2}e^q \big), & \text{si } s \in J^q.
+        \end{cases}
+    \end{align*}
+    Lo cual corresponde exactamente a $(\sigma * \sigma_1)(f)(s)$.
+
+    Si $t=1$, entonces $\alpha_1 = \frac{2}{8} = \frac{1}{4}$ y $\beta_1 = \frac{3}{8}$. Así, $I_1 = [\frac{1}{4}, \frac{3}{4}] = J$ y $J_1 = [\frac{3}{8}, \frac{5}{8}]$. Entonces, 
+    \begin{align*}
+        H(s, 1) &= 
+        \begin{cases}
+            \overline{\sigma}_1\big( 4d(s) \big), & \text{si } s \in I^q \setminus \interior(J^q); \\
+            \overline{\sigma}\big( 8d(s) - 2 \big), & \text{si } s \in J^q \setminus \interior(J_1^q); \\
+            f\big( 4s - \frac{3}{2}e^q \big), & \text{si } s \in J_1^q.
+        \end{cases}
+    \end{align*}
+    Lo cual corresponde exactamente a $\sigma_1(\sigma f)(s)$.
+
+    Finalmente, para todo $t \in I$ y todo $s \in \partial I^q$, se cumple $d(s) = 0$. Como $\alpha_t > 0$, el punto recae en $I^q \setminus \interior(I_t^q)$. Evaluando en la primera regla:
+    \[
+        H(s, t) = \overline{\sigma}_1(0) = \sigma_1(1) = x_2.
+    \]
+    Por lo tanto, $H(\partial I^q, t) = x_2$, demostrando que la homotopía está basada. Concluimos que $H$ es testigo de que $(\sigma * \sigma_1)(f) \simeq \sigma_1(\sigma f)$.
+\end{dem}
+\begin{coro}
+    Sea $X$ un espacio topológico y $\sigma:I\to X$ una trayectoria de $x_0$ a $x_1$. Entonces $$\Pi_q(X,x_0)\cong\Pi_q(X,x_1).$$
+\end{coro}
+
+\begin{definicion}
+    Sean $X$ un espacio topológico y $\sigma:I\to X$ una trayectoria de $x_0$ a $x_1$. Decimos que dos lazos $\alpha:(I^q,\partial I^q)\to (X,x_0)$ y $\beta:(I^q,\partial I^q)\to (X,x_1)$ son homotópicos a lo largo de la trayectoria $\sigma$, si existe una homotopía $H$ tal que $H(s,t)=\alpha(t)$, para toda $(s,t)\in\partial I^q\times I$.  
+\end{definicion}
+
+El siguiente lema muestra la importancia de definir este tipo de lazos homotópicos.
+\begin{lema}
+\label{lema:sigma alpha cong beta}
+    Sean $X$ un espacio topológico y $\sigma:I\to X$ una trayectoria de $x_0$ a $x_1$. Sean $\alpha,\beta:I^q\to X$ dos lazos con punto base en $x_0$ y $x_1$ respectivamente. Si $\alpha$ y $\beta$ son homotópicos a lo largo de $\sigma$, entonces
+    \[
+        \vec{\sigma}\hspace{0.5mm}[\alpha]=[\beta].
+    \]
+\end{lema}
+\begin{dem}
+    Sea $H:I^q\times I\to X$ la función continua tal que
+    \begin{align*}
+        H(s,0)&=\alpha(s);\\
+        H(s,1)&=\beta(s) \text{ y }\;\\
+        H(s,t)&=\sigma(t) \text{\; para toda } (s,t)\in \partial I^q\times I.
+    \end{align*}
+    Denotaremos $d(s) = d_{\partial I^q}(s)$. Definimos el subcubo $K_t = [\nicefrac{t}{4}, 1-\nicefrac{t}{4}]$ para toda $t\in I$. Hagamos $F: I^q \times I \to X$ tal que
+    \begin{align*}
+        F(s, t) &= 
+        \begin{cases}
+            \overline{\sigma}(4d(s)), & \text{si } s \in I^q \setminus \interior(K_t^q); \\[1ex]
+            H\big( \frac{4s - t e^q}{4 - 2t}, 1-t \big), & \text{si } s \in K_t^q.
+        \end{cases}
+    \end{align*}
+    
+    Si $s \in \partial K_t^q$, entones $d(s) = \frac{t}{4}$. La métrica del collarín evalúa a:
+    \[
+        \overline{\sigma}(4s) = \overline{\sigma}(t).
+    \]
+    Dado que $s\in\partial K_t^q$, entonces $ \frac{4s - t e^q}{4 - 2t}\in\partial I^q$, por lo tanto,
+    \begin{equation*}
+        H\big(\textstyle \frac{4s - t e^q}{4 - 2t}, 1-t \big)=\sigma(1-t)=\overline{\sigma}(t).
+    \end{equation*}
+    Por el lema del pegado, $F(-,t)$ está bien definida y es continua para toda $t\in I$. Por lo tanto, $F$ es continua.
+    
+    Supongamos ahora que $t=0$, entonces $K_0 = I$. Entonces
+    \begin{align*}
+        F(s, 0) &= 
+        \begin{cases}
+            \overline{\sigma}(4d(s)), & \text{si } s \in I^q \setminus \interior(I^q); \\[1ex]
+            H\big( s, 1 \big), & \text{si } s \in I^q.
+        \end{cases}\\
+        &=\beta(s).
+    \end{align*} 
+    Si $t=1$, entonces el subcubo se encoge a $K_1 = [\frac{1}{4}, \frac{3}{4}] = J$. Por lo tanto,
+    \begin{align*}
+        F(s, 1) &= 
+        \begin{cases}
+            \overline{\sigma}(4d(s)), & \text{si } s \in I^q \setminus \interior(J^q); \\[1ex]
+            H\big( \frac{4s - e^q}{2}, 0 \big), & \text{si } s \in J^q.
+        \end{cases}\\
+        &= 
+        \begin{cases}
+            \overline{\sigma}\big(4d(s)\big), & \text{si } s \in I^q \setminus \interior(J^q); \\[1ex]
+            \alpha\big(2s-\frac{1}{2}e^q\big), & \text{si } s \in J^q.
+        \end{cases}\\
+        &=\sigma\alpha(s).
+    \end{align*} 
+    Finalmente, para todo $(s,t) \in \partial I^q\times I\subseteq I^q\setminus\interior(K_t)$, entonces $d(s) = 0$. Por lo tanto,
+    \[
+        F(s, t) = \overline{\sigma}(0) = \sigma(1) = x_1.
+    \]
+    Se concluye explícitamente que $F$ es una homotopía basada en $x_1$, demostrando que $\beta \simeq \sigma\alpha$.
+\end{dem}
+Recordemos que $\Pi_q$ es un invariante topológico, i.e., un funtor, por lo tanto, si $f:(X,x)\to(Y,y)$ es un homeomorfismo, entonces el homeomorfismo inducido $$f_{\#}:\Pi_q(X,x)\to\Pi_q(Y,f(x))$$ 
+resulta ser un isomorfismo grupos. A pesar de que este hecho es fundamental, el siguiente teorema muestra que es posible debilitar la condición de homeomorfismo por la de equivalencia homotópica.
+
+\begin{prop}
+Sea $f:X\to Y$ una equivalencia homotópica. Entonces para cada $x\in X$, se tiene el siguiente isomorfismo
+\begin{equation*}
+    \Pi_q(X,x)\cong_{f_\#} \Pi_q(Y,f(x))
+\end{equation*}
+\end{prop}
+\begin{dem}
+    Supongamos $f:X\to Y$ es una equivalencia homotópica. Entonces existe $g:Y\to X$ tal que $f\circ g\cong \id_Y$ y $g\circ f\simeq \id_X$. Sea $x\in X$ y $H:X\times I\to X$ la homotopía entre $\id_X$ y $g\circ f$.
+    
+    Tomemos $\alpha:(I^q,\partial I^q)\to(X,x)$ y definamos $G:I^q\times I\to X$ tal que $G(s,t)=H(\alpha(s),t)$. Se sigue que
+    \begin{align*}
+        G(s,0)&=H(\alpha(s),0)=g(f(\alpha(s)));\\
+        G(s,1)&=H(\alpha(s),1)=\alpha(s);\\
+        G(s,t)&=H(x_0,t), \text{ siempre que } (s,t)\in\partial I^q\times I.
+    \end{align*}
+    Notemos que la restricción de la homotopía a la frontera de $I^q$ induce una trayectoria $\sigma:I\to X$ tal que $\sigma(t)=H_1(x_0,t)$, la cual recorre de $\sigma(0)=g(f(x))$ a $\sigma(1)=x$. 
+    
+    Se sigue que $g\circ f\circ \alpha$ y $\alpha$ son homotópicos a lo largo de $\alpha$, por \ref{lema:sigma alpha cong beta}
+    \[
+        \vec{\sigma}\hspace{0.5mm}[g\circ f\circ \alpha]=[\alpha].
+    \]
+    De lo anterior se sigue que
+    \[
+        \id_{\pi_q(X,x_0)} = \vec{\sigma}\circ (g_\#\circ f_\#).
+    \]
+    Dado que $\vec{\sigma}$ es un isomorfismo, entonces $g_\#\circ f_\#$ es un isomorfismo, en particular es monomorfismo, por lo tanto, $f_\#$ es un monomorfismo de grupo.
+    
+    Aplicando un argumento totalmente simétrico, sea $H_2:Y\times I\to Y$ la homotopía entre $\id_Y$ y $f\circ g$. Si tomamos $\beta:(I^q,\partial I^q)\to (Y,f(x))$, entonces $F:I^q\times I\to Y$ tal que $F(s,t)=H_1(\beta(s),t)$ es testigo de que  $f\circ g\circ \beta$ y $\beta$ son homotópicos a lo largo de $\tau$, donde $\tau:I\to Y$ tal que $\tau(s)=F(f(x),s)$ es la trayectoría de $f(g(f(x)))$ a $f(x)$. Por, \ref{lema:sigma alpha cong beta}, 
+     \[
+        \vec{\tau}\hspace{0.55mm}[f\circ g\circ \beta]=[\beta].
+    \]
+    De lo anterior se sigue que
+    \[
+        \id_{\pi_q(X,x_0)} =\vec{\tau}\circ (f_\#\circ g_\#).
+    \]
+    Dado que $\vec{\tau}$ es un isomorfismo, se sigue que, $f_{\#}$ es un epimorfismo de grupo. Por lo tanto, $f_{\#}$ es un isomorfismo.
+\end{dem}
+
+Entre otras propiedades importantes del funtor $\Pi_q$ está la de preserva productos directos, como se enuncia a continuación
+
+\begin{prop}
+    Sea $\{(X_j,x_j)\}_{j\in J}$ una familia de espacios basados. Entonces
+    \[
+    \Pi_q\Big(\medprod_{j\in I}X_j,*\Big)\cong 
+    \medprod_{j\in J}\Pi_q(X_j,*_j).
+    \]
+    Donde $*=\{x_j\}_{j\in J}$.
+\end{prop}
+\begin{dem}
+    Tomemos las proyecciones $p_i:(\prod_{j\in J}X_j,*)\to (X_j,x_j)$ para cada $i\in J$ que inducen los siguientes homomorfismos de grupos
+    \begin{equation*}
+        p_{i\#}: \Pi_q\Big(\medprod_{j\in I}X_j,*\Big)\to \Pi_q(X_j,x_j)\text{ para cada } i\in I.
+    \end{equation*}
+    % Hacer referencia a la propiedad universal
+    Sea $\rho_i:\medprod_{j\in J}\Pi_q(X_j,*_j)\to \Pi_q(X_j,x_j)$ las proyecciones naturalales para cada $i\in I$. Por la propiedad universal del producto en grupos, existe un único homomorfismo 
+    \[
+    F:\Pi_q\Big(\medprod_{j\in I}X_j,*\Big)\to 
+    \medprod_{j\in J}\Pi_q(X_j,*_j)
+    \]
+    tal que el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep= 1.2cm]
+            \Pi_q\big(\medprod_{j\in I}X_j,*\big) \arrow[r,"p_{i\#}"] \arrow[d, "F"']& \Pi_q(X_i,x_i)\\
+            \medprod_{j\in J}\Pi_q(X_j,*_j)\arrow[ur, "\rho_i"']
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $\rho_i\circ F=p_{i\#}$. Donde $\rho_i$ es la proyección natural para cada $i\in I$. Mostremos que $F$ es un iso- morfismo.
+
+    Mostremos primero que $F$ es sobreyectiva. Sea $\{[\alpha_j]\}_{j\in J}\in \prod_{j\in J}\Pi_q(X_j,x_j)$. Por la propiedad universal del producto de espacios basados, existe una función continua basada 
+    $$\alpha:(I^q,\partial I^q)\to \Big(\medprod_{j\in J}X_j,*\Big)$$ 
+    tal que el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep= 1.2cm]
+             (I^q,\partial I^q)\arrow[r,"\alpha_{i}"] \arrow[d, "\alpha"']& (X_i,x_i)\\
+            \big(\prod_{j\in J}X_j,*\big)\arrow[ur, "p_i"']
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $p_i\circ\alpha=\alpha_i$. Entonces $F[\alpha]$ satisface 
+    \begin{align*}
+        \rho_i(F[\alpha])&=p_{i\#}[\alpha]\\
+        &=[p_i\circ\alpha]\\
+        &=[\alpha_i].
+    \end{align*}
+    Se sigue que $F[\alpha]=\{[\alpha_j]\}_{j\in J}$.
+
+    Mostremos ahora que $F$ es inyectiva. Sea $\beta:((I^q,\partial I^q)\to (\prod_{j\in J}X_j,*)$ tal que 
+    \begin{equation*}
+        F[\beta]=e\in\medprod_{j\in J}\Pi_q(X_j,*_j).
+    \end{equation*}
+    Tenemos que
+    \begin{equation*}
+        F[\beta]=\{[p_j\circ \beta]\}_{j\in J}.
+    \end{equation*}
+    Se sigue que $p_i\circ \beta\simeq c_{x_j}$, para toda $j\in I$, por lo tanto, existe $H_i:I^q\times I\to X_i$ tal que 
+    \begin{align*}
+        H_i(s,0)&=p_i\circ\beta (s) \text{ \;para toda } s\in I^q;\\
+        H_i(s,1)&=x_i \text{\; para toda }s\in I^q\text{ y}\\
+        H_i(s,t)&=x_i\text{ para toda } (s,t)\in\partial I^q\times I
+    \end{align*}
+    Por la propiedad universal de la categoría de espacios topológicos, existe una única función continua $H:I^q\times I\to \prod_{j\in J}X_j$ tal que el siguiente diagrama conmuta  
+     \begin{equation*}
+        \begin{tikzcd}[row sep= 1.2cm]
+             I^q\times I\arrow[r,"H_{i}"] \arrow[d, "H"']& X_i\\
+            \prod_{j\in J}X_j\arrow[ur, "p_i"']
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $p_i\circ H=H_{i}$. Se sigue que 
+    \begin{align*}
+        p_i \circ H(s,t)&=H_i(s,t)=x_i    
+    \end{align*}
+    para toda $i\in I$ y $(s,t)\in \partial I^q\times I$. Por lo tanto, $H(s,t)=*$ para toda $(s,t)\in \partial I^q\times I$. De manera análoga
+    \begin{align*}
+        H(s,0)&=\beta, \text{ y }\\
+        H(s,1)&=*
+    \end{align*}
+    Por lo tanto, $H$ es testigo de que $\beta\simeq *$, i.e., $[\beta]=e$.
+
+    Se sigue que $F$ es un isomorfismo.
+\end{dem}
+\begin{ejercicio}
+    Ver que $F$ es inyectiva también en el caso $q=0$.
+\end{ejercicio}
+
+
+

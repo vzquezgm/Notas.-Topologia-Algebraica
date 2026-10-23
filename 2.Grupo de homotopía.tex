@@ -785,10 +785,11 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_{x_0}:I
         \end{enumerate}
     \end{ejercicio}
     \begin{coro}
+    \label{coro:iso_espacios_basados}
         Sea $X$ un espacio topológico y $\sigma$ una trayectoria en $X$. Entonces $\Vec{\sigma}$ es un isomorfismo.
     \end{coro}
 
-    \subsection{El grupo \texorpdfstring{$\Pi_q$}{Pi_q},  con \texorpdfstring{$q\geq 1$}{q>1}}
+    \subsection{El grupo \texorpdfstring{$\Pi_q(X,x_0)$}{Pi_q},  con \texorpdfstring{$q\geq 1$}{q>1}}
     
     \begin{definicion}
         Sea $X$ un punto basado en $x_0$. Una \textit{función basada de orden $n\geq 1$} 
@@ -809,8 +810,8 @@ donde $\overline{\alpha}(s)=\alpha(1-s)$. Y tenemos el lazo constante $c_{x_0}:I
         \begin{equation*}
             (\alpha*\beta)(s_1,\ldots,s_q) = 
             \begin{cases} 
-                \alpha(2s_1,\ldots,s_n), & \text{si } s\in[0,\nicefrac{1}{2}]; \\[1ex]
-                \beta(2s_1-1,\ldots,s_n), & \text{si } s\in [\nicefrac{1}{2},1]. 
+                \alpha(2s_1,\ldots,s_q), & \text{si } s_1\in[0,\nicefrac{1}{2}]; \\[1ex]
+                \beta(2s_1-1,\ldots,s_q), & \text{si } s_1\in [\nicefrac{1}{2},1]. 
             \end{cases}
         \end{equation*}
         Definimos 
@@ -897,7 +898,7 @@ i.e., $\alpha=\hat{\alpha}\circ p$. Hagamos $\bdot{p}:[\alpha]\mapsto[\hat{\alph
 \end{align*}
 
 Queremos dar una homotopía entre $\hat{\alpha}$ y $\hat{\beta}.$ Como $I$ es localmente compacto, por \ref{prop:producto de cocientes},
-$$p\times \id_I:I^q\times I\to I^q/\pIq\times I$$ es una función cociente, por \ref{prop:propiedad_universal_cociente}, existe una única función continua $\hat{H}:\Iq/\pIq\to X$  tal que el siguiente diagrama conmuta   
+$$p\times \id_I:I^q\times I\to I^q/\pIq\times I$$ es una función cociente, por \ref{prop:propiedad_universal_cociente}, existe una única función continua $\hat{H}:\Iq/\pIq\times I\to X$  tal que el siguiente diagrama conmuta   
 \[
 \begin{tikzcd}[column sep=0.65cm, row sep=1.2cm] 
         I^q\times I\arrow[r,"H"] \arrow[d,"p\times \id_I"'] & X\\
@@ -928,9 +929,9 @@ para cada $s\in I^q$. Entonces
     }$.
 \end{ejercicio}
 \begin{obs}
-    Como $\pi^q(X,x_0)$ es un grupo, la biyección $p^{(X,x_0)}$ nos permite pasar esta estructura de grupo a $\bIq$ de manera que $p^{(X,x_0)}$ se vuelva un isomorfismo de grupos.
+    Como $\Pi_q(X,x_0)$ es un grupo, la biyección $p^{(X,x_0)}$ nos permite pasar esta estructura de grupo a $\bIq$ de manera que $p^{(X,x_0)}$ se vuelva un isomorfismo de grupos.
 
-    Análogo a $\Pi_q$, veamos ahora cómo asociar a cada función continua $f:(X,x_0)\to(Y,y_0)$ la función inducida
+    Análogo a $\Pi_q$, veamos ahora cómo asocia a cada función continua $f:(X,x_0)\to(Y,y_0)$ su función inducida
     \[
     f_+:\bIq\to[(\Iq/\pIq,\bigast),(Y,y_0)],
     \]

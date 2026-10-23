@@ -1,5 +1,23 @@
 \documentclass{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{fontspec}
+%\usepackage[spanish, bidi=basic, provide=*]{babel}
+%\babelprovide[import, onchar=ids fonts]{spanish}
+%\babelfont{rm}{Noto Sans}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{colormaps}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%?
+
+
 \usepackage{topologia}
+
+%\newcommand{\interior}{\mathrm{int}}
+
 \newtheorem{teorema}{Teorema}[subsection]
 \newtheorem{lema}[teorema]{Lema}
 \newtheorem{prop}[teorema]{Proposición}
@@ -38,6 +56,7 @@
 \include{1.Preeliminar}
 \include{2.Grupo de homotopía}
 \include{3.Fundamentos de la teoría de categorías}
+\include{4.El funtor Pi_q}
 %\include{2.Topología}
 \include{Referencias}
 \end{document}

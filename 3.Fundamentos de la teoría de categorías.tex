@@ -275,7 +275,7 @@ La noción de naturalidad fue estudiada por Samuel Eilenberg y Saunders Mac Lane
             &=f_*(\overline{\varphi}_{(X,x_0)}(\alpha)).
         \end{split}
     \end{equation*}
-    Se sigue que \ref{eq:Pi_0_eq_pi_0} conmuta, para toda $(X,x_0)\in \Top_*$. Lo anterior muestra que $\Pi_0\cong_{\overline{\varphi}} \pi_0 U$.
+    Se sigue que el diagrama \ref{eq:Pi_0_eq_pi_0} conmuta, para toda $(X,x_0)\in \Top_*$. Lo anterior muestra que $\Pi_0\cong_{\overline{\varphi}} \pi_0 U$.
 \end{ejemplo}
 %%%%%%%%%%%%%%%%% Fragmento de la clase 09 del 31/08/26 finilazida el 07 de enero de 2026
 
@@ -296,7 +296,7 @@ La noción de naturalidad fue estudiada por Samuel Eilenberg y Saunders Mac Lane
     \end{enumerate}
     tal que para cualquier familia de morfismos $(f_i:P\to P_i)_{i\in I}$, existe un único morfismo $f:P\to\prod_{i\in I}P_i$ tal que, para toda $j\in I$, el siguiente diagrama conmuta
     \[
-\begin{tikzcd}[every label/.append style = {font = \small},column sep=normal, row sep=normal]
+\begin{tikzcd}[every label/.append style = {font = \small}]
    P \arrow[dd,"f"'{xshift=-1.75pt}]  \arrow[dr,"f_j"] \\
    & P_j  \\
    \prod_{i\in I}P_i  \arrow[ur,"p_j"']
@@ -599,11 +599,11 @@ además, $\bar{f}(*)=\bar{f}(x_j,j)=f(x_j)=y_0$, por lo tanto, $\bar{f}:(\bigvee
         x, & \text{ si } i=j.
     \end{cases}
     \]
-    para todo $j\in I$. Donde consideramos $\pivee_{i\in I}X_i:=\bigcup_{j\in I}\overline{X}_j$ tiene la topología relativa a $\prod_{i\in I}X_i$.
+    para todo $j\in I$. Donde $\pivee_{i\in I}X_i:=\bigcup_{j\in I}\overline{X}_j$ tiene la topología relativa a $\prod_{i\in I}X_i$.
 
-    %Si $I$ es finito, entonces $\overline{\varphi}$ es un homeomorfismo.
+    Si $I$ es finito, entonces $\overline{\varphi}$ es un homeomorfismo.
     
 \end{obs}
-%%%%% Clase 8 del 31/08/2026 terminada el 09/09/2026
+%%%%% Clase 9 del 31/08/2026 terminada el 09/09/2026
     
-%%%%% Clase 10 del 02/09/26 inciada el 09/09/26
+
