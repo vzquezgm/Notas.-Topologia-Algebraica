@@ -117,7 +117,8 @@
     $\Leftarrow)$ De manera recíproca, mostremos que $p$ es cociente. Sea $g:Y\to Z$ una función. Por hipó- tesis $g$ es continua si y sólo $g\circ p$ es continua. Por \ref{prop:topo_cociente}, se sigue que $p$ es cociente.
 \end{dem}
 \begin{prop}
-    Sean $(X,\tau_X)$ un espacio topológico, $p:X\to Y$ una función cociente y $q:X\to Y'$ es una función sobreyectiva constante en $p^{-1}(\{y\})$ para toda $y\in Y$ . Entonces $q$ es cociente de $X$ si y sólo si existe un único homeomorfismo $Y\cong_\psi Y'$ tal que el siguiente diagrama conmuta
+\label{prop:homomorphis between quotient}
+    Sean $(X,\tau_X)$ un espacio topológico, $p:X\to Y$ una función cociente y $q:X\to Y'$ una función sobreyectiva tal que $q$ es constante en $p^{-1}(\{y\})$ para toda $y\in Y$ y $p$ es constante en  $q^{-1}(\{y'\})$ para toda $y'\in Y$. Entonces $q$ es cociente de $X$ si y sólo si existe un único homeomorfismo $Y\cong_\psi Y'$ tal que el siguiente diagrama conmuta
     \[
     \begin{tikzcd}[column sep=0.65cm, row sep=0.85cm] 
         X\arrow[r,"q"] \arrow[d,"p"'] & Y'\\
@@ -272,3 +273,11 @@ Por \ref{prop:propiedad_universal_cociente}, $g$ es continua (cociente) si y só
 \begin{definicion}
     
 \end{definicion}
+\begin{prop}
+    Sea $X,Y,Z$ espacios topológicos. Se tiene la siguiente contención 
+    \begin{equation*}
+        \Phi(\map(X\times Z,Y))\subseteq \map(X,\map(Z,Y)).
+    \end{equation*}
+    Donde $\map(Z,Y)$ tiene la topología compacto abierta.
+\end{prop}
+%%%%%%%%% Agregar la demostración en la sección de topología compacto abierta
