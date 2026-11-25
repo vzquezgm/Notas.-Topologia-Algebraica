@@ -671,7 +671,7 @@ Si $p:I^2\to I^2/\partial I^2$ es la proyección natural, entonces la composici�
 \end{tikzcd}
 \end{equation*}
 genera un lazo en $S^2$, pues $p(\mu(0))=p(\mu(1))$, cuya imagen es $S^2$.
-%%%%% Clase 10 del 02/09/26 inciada el 09/09/26
+%%%%% Clase 10 del 02/09/26 terminada el 29/09/26
 
 %%%%% Clase 11 del 09/09/26 inciada el 29/09/26
 
@@ -1671,8 +1671,3432 @@ Entre otras propiedades importantes del funtor $\Pi_q$ está la de preserva prod
     Se sigue que $F$ es un isomorfismo.
 \end{dem}
 \begin{ejercicio}
+    % ID: 16
     Ver que $F$ es inyectiva también en el caso $q=0$.
+\end{ejercicio}
+\begin{definicion}
+    Sea $X,Y,Z$ conjuntos. Definimos
+    \begin{equation*}
+        \Phi:\text{Fun}(X\times Z,Y)\to\text{Fun}(X,\text{Fun}(Z,Y))
+    \end{equation*}
+    tal que $\Phi(F)(x)(z)=F(x,z)$.
+\end{definicion}
+\begin{ejercicio}
+    Mostrar que $\Phi$ es una biyección (dar la inversa).
+\end{ejercicio}
+\begin{prop}
+    Sea $X,Y,Z$ espacios topológicos. Se tiene la siguiente contención 
+    \begin{equation*}
+        \Phi(\map(X\times Z,Y))\subseteq \map(X,\map(Z,Y)).
+    \end{equation*}
+    Donde $\map(Z,Y)$ tiene la topología compacto abierta.
+\end{prop}
+%%%%%%%%% Agregar la demostración en la sección de topología compacto abierta
+\begin{prop}
+    Sea $X,Y,Z$ espacios topológicos. Entonces la función
+    \begin{equation*}
+        \Phi:\map(X\times Z,Y))\to \map(X,\map(Z,Y)).
+    \end{equation*}    
+    es biyectiva para todo espacio $X$ si y sólo si la función
+    \begin{align*}
+        ev:\map(Z,Y)\times Z&\to Y\\
+        (f,z)&\mapsto f(z)
+    \end{align*}
+   es continua.
+\end{prop}
+\begin{dem}
+    $\Rightarrow)$ Si $\Phi$ es biyectiva para todo espacio $X$, en particular lo es para $X=\map(Z,Y)$, i.e.,
+    \begin{equation*}
+        \Phi:\map(\map(Z,Y)\times Z,Y)\to\map(\map(Z,Y),\map(Z,Y))
+    \end{equation*}
+    es biyectiva. Se sigue que $\Phi^{-1}(\id_{\map(Z,Y)})=ev$ es continua.
+%%%%% Clase 11 del 09/09/26 inciada el 29/09/26 y terminada el 23/10/23 !?
+
+%%%% Clase 12 del 07/09/26 inciada el 23/10/26 
+    $\Leftarrow)$ Supongamos que $ev$ es continua, por la proposición anterior %agregar etiqueta Phi bien definida 
+    basta ver que 
+    $$
+    \Phi^{-1}(\map(X,\map(Z,Y)))\subseteq 
+    \map(X\times Z,Y).
+    $$
+    Sea $g:X\to \map(Z,Y)$ continua. Entonces el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep = 1.2cm]
+            X\times Z\arrow[d, "g\times\id_Z"']\arrow[r, "\Phi^{-1}(g)"] &
+            Y\\
+            \map(Z,Y)\times Z  \arrow[ur, "ev"']
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $\Phi^{-1}(g)=ev\circ g\times\id_Z$. Dado que $ev$ y $g\times\id_Z$ son continuas, se sigue que $\Phi^{-1}(g)$ es continua.
+\end{dem}
+\begin{ejercicio}
+    Mostrar que si $Z$ es localmente compacto, entonces $ev$ es continua y, por lo tanto, $\Phi$ es una biyección.
+\end{ejercicio}
+Consideremos $Z=I$, por el ejercicio anterior tenemos una biyección 
+\begin{equation*}
+    \map(X\times I)\cong_{\Phi}\map(X,\map(I,Y)).
+\end{equation*}
+Consideremos los espacios basados $(X,x_0)$, $(Y,y_0)$ y $\Omega(Y,y_0)$. Ahora consideremos 
+\begin{equation*}
+    \Phi_1:\map(X\times I,(Y,y_0))\to \map((X,x_0),(\Omega(Y,y_0),c_{y_0}))
+\end{equation*}
+Sea $F:X\times I\to Y$ continua. Queremos ver que necesita $\Phi_1(F)(x)$ para que sea un lazo en $Y$ y basado en $y_0$, i.e., queremos que cumpla que
+\begin{align*}
+    \Phi(F)(x)(0)&=F(x,0)=y_0\text{ \;y }\\
+    \Phi(F)(x)(1)&=F(x,1)=y_0
+\end{align*}
+para toda $x\in X$. También queremos ver que necesitamos para que $\Phi(F)(x_0)$ sea el lazo $c_{y_0}$, i.e.,
+\begin{equation*}
+    \Phi(F)(x_0)(t)=F(x_0,t)=y_0 \text{ para toda } t\in I.
+\end{equation*}
+
+Consideremos $A=(X\times\partial I)\cup (\{x_0\}\times I)$ y el espacio $X\times I/A$ que denotamos por $S(X,x_0)=SX$ que se llama la \textit{suspensión reducida de} $(X,x_0)$. Cuando $X$ no tiene punto base, tenemos la \textit{suspensión}
+\[
+\Sigma X=X\times I/X\cup\partial I.
+\]
+
+ La aplicación de la suspensión en un algún espacio $X\times I$ se puede visualizar como sigue 
+
+ \begin{center}\begin{tikzpicture}[scale=1, thick, line join=round, line cap=round]
+
+    % ==========================================
+    % 1. CILINDRO ( X x I )
+    % ==========================================
+    \begin{scope}[shift={(0,0)}]
+        % Base inferior
+        \draw (0,0) ellipse (1.0 and 0.25);
+        \node[right] at (1.1, 0) {$X \times \{0\}$};
+        
+        % Base superior
+        \draw (0,3) ellipse (1.0 and 0.25);
+        \node[right] at (1.1, 3) {$X \times \{1\}$};
+        
+        % Generatrices (Líneas laterales)
+        \draw (-1.0,0) -- (-1.0,3);
+        \draw (1.0,0) -- (1.0,3);
+        
+        % Etiqueta principal del espacio
+        \node[font=\large] at (0, -0.8) {$X \times I$};
+    \end{scope}
+    
+    % ==========================================
+    % 2. FLECHA DEL COCIENTE 
+    % ==========================================
+    \draw[->, >=stealth, thick, decorate, decoration={snake, amplitude=0.4mm, segment length=2.5mm, post length=2mm}] (2.3, 1.5) -- (3.8, 1.5);
+    
+    % ==========================================
+    % 3. ESPACIO COCIENTE ( \Sigma X )
+    % ==========================================
+    \begin{scope}[shift={(5.4, 1.5)}]
+        % Coordenadas clave
+        \coordinate (N) at (0, 1.5);   % Polo Norte
+        \coordinate (S) at (0, -1.5);  % Polo Sur
+        \coordinate (W) at (-1.0, 0);  % Extremo Izquierdo
+        \coordinate (E) at (1.0, 0);   % Extremo Derecho
+        
+        % Contorno del doble cono
+        \draw (N) -- (W) -- (S) -- (E) -- cycle;
+        
+        % Ecuador (X x {1/2})
+        \draw[dashed] (E) arc (0:180:1.0 and 0.25);
+        \draw (W) arc (180:360:1.0 and 0.25);
+        
+        % ==========================================
+        % LÍNEAS DE IDENTIFICACIÓN (Capa inferior)
+        % ==========================================
+        % Se dibujan antes para que queden "por debajo" de los puntos
+        \coordinate (P) at (2.2, 0);
+        \draw[->, dashed, blue, thick, shorten >=2pt] (N) to[out=0, in=90] (P);
+        \draw[->, dashed, blue, thick, shorten >=2pt] (S) to[out=0, in=270] (P);
+        
+        % ==========================================
+        % PUNTOS BASE (Capa superior)
+        % ==========================================
+        % Se dibujan al final para que tapen el origen y destino de las líneas
+        \fill (N) circle (2pt);
+        \fill (S) circle (2pt);
+        \fill[blue] (P) circle (2pt);
+        
+        % Etiqueta del punto base con texto centrado
+        \node[right, align=center] at (2.4, 0) {Punto base \\ $[X \times \partial I]$};
+        
+        % Etiqueta principal del espacio
+        \node[font=\large] at (0, -2.3) {$\Sigma X$};
+    \end{scope}
+
+\end{tikzpicture}\end{center}
+
+Ahora tomemos $f:(SX,*)\to(Y,y_0)$ y consideremos
+\begin{equation*}
+    \begin{tikzcd}[column sep=0.7cm]
+        X\times I\arrow[r,"p"] & SX\arrow[r,"f"] & Y
+    \end{tikzcd}
+\end{equation*}
+Entonces generamos la siguiente función
+\begin{equation*}
+    \Phi:\map((SX,*),(Y,y_0))\to \map((X,x_0),(\Omega(Y,y_0),c_{y_0}))
+\end{equation*}
+tal que $\Phi(f)=\Phi_1(f\circ p)$.
+\begin{ejercicio}
+    Mostrar que $\Phi$ es un lazo y que es biyectiva.
+\end{ejercicio}
+\begin{ejercicio}
+    Mostrar que existe un ismorfismo 
+    $$\overline{\Phi}:[(SX,*),(Y,y_0)]\to [(X,x_0),(\Omega(Y),c_{y_0})]$$
+    tal que el siguiente diagrama conmuta
+    \begin{equation*}
+    \begin{tikzcd}[column sep=1cm, row sep=1.2cm]
+        \map((SX,*),(Y,y_0)) \arrow[r, "\Phi"] \arrow[d] & \map((X,x_0),(\Omega(Y,y_0),c_{y_0})) \arrow[d] \\
+        {[(SX,*),(Y,y_0)]} \arrow[r, "\overline{\Phi}"] & {[(X,x_0),(\Omega(Y,y_0),c_{y_0})]}
+    \end{tikzcd}
+\end{equation*}
+\end{ejercicio}
+\begin{definicion}
+    Sea $(X,x_0)$ y $(Y,y_0)$ espacios basados, el producto reducido de $X,Y$ se define como $X\wedge Y=X\times Y/X\vee Y$.
+\end{definicion}
+\begin{nota}
+    El producto reducido no es el producto en $\Top_*$.
+\end{nota}
+\begin{prop}
+\label{prop:S1 wedge Sn cong Sn+1}
+    $S^1\wedge S^n\cong S^{n+1}$
+\end{prop}
+\begin{dem}
+    Hagamos 
+    \begin{align*}
+        S^{n}&=\{x\in\R^{n+2}:\|x\|=1,x_{n+2}=0 \};\\
+        S^{n+1}_+&=\{x\in\R^{n+2}:\|x\|=1,x_{n+2}\geq 0 \};\\
+        S^{n+1}_-&=\{x\in\R^{n+2}:\|x\|=1,x_{n+2}\leq 0 \}\text{\; y}\\
+        D^{n+1}&=\{x\in\R^{n+2}:\|x\|\leq 1,x_{n+2}=0 \}.
+    \end{align*}
+    Recordemos que $S^1\cong I/\partial I$. Sea $\rho_\pm:D^{n+1}\to S_{\pm}^{n+1}$ tal que
+    \begin{equation*}
+        \rho_{\pm}(x_1,\ldots,x_{n+1},0)=\big(x_1,\ldots,x_{n+1},\textstyle\pm\sqrt{1-\sum_{\leq n}x_i^2}\big)
+    \end{equation*}
+    Entonces $\rho_\pm$ es un homeomorfismo con inversa la proyección $p:S_\pm^{n+1}\to D^{n+1}$ tal que 
+    \begin{equation*}
+        p(x_1,\ldots,x_{n+1},x_{n+2})=(x_1,\ldots,x_{n+1},0).
+    \end{equation*}
+    Sea $h:I\times S^{n+1}\to S^{n+1}$ dado por 
+    \begin{equation*}
+        h(t,x)=\begin{cases}
+            \rho_-(2tx+(1-2t)e), & \text{ si } 0\leq t\leq\nicefrac{1}{2};\\
+            \rho_+(2(1-t)x+(2t-1)e), & \text{ si } \nicefrac{1}{2}\leq t\leq 1.
+        \end{cases}
+    \end{equation*}
+    Donde $x=(x_1,\ldots,x_{n+1},0)$ y $e=(1,0,\ldots,0)$. Por el lema del pegado, $h$ está bien definida y es continua, pues $\rho_\pm$ son continuas y coinciden en $t=\nicefrac{1}{2}$. Entonces $h$ pasa al cociente y define una función continua $\widetilde{h}:I/\partial I\times S^{n}\to S^{n+1}$. Entonces $\widetilde{h}$ pasa al cociente y define un homeomorfismo $\overline{h}:S^1\wedge S^n\to S^{n+1}$  tal que el siguiente diagrama conmuta.
+    \begin{equation*}
+    \begin{tikzcd}[row sep = 1.2cm]
+         I/\partial I\times S^n \arrow[r,"\widetilde{h}"] \arrow[d] & S^{n+1}\\
+        S^1\wedge S^n\arrow[ur, dashed,"\overline{h}"']
+    \end{tikzcd}
+    \end{equation*}
+    \end{dem}
+\begin{ejercicio}
+\label{eje:SX cong S wedge S1}
+    Mostrar que $SX\cong S\wedge S^1$. Hint: Considere el siguiente diagrama
+    \begin{equation*}
+        \begin{tikzcd}
+            X\times I\arrow[r]\arrow[d] & X\times I/\partial I\arrow[d]\\
+            SX\arrow[r,dashed] & X\wedge S^1
+        \end{tikzcd}
+    \end{equation*}
+\end{ejercicio}
+%%%% Clase 12 del 07/09/26 inciada el 23/10/26 terminada el 02/11/2026
+
+%%%% Clase 13 del 09/09/26 inciada el 23/10/26
+\begin{ejercicio}
+\label{eje:X wedge Y conmute}
+    Mostrar que hay un homeomorfismo canónico $X\wedge Y\cong Y\wedge X$.
+\end{ejercicio}
+\begin{coro}
+\label{coro:SS^n cong Sn+1}
+    $SS^n\cong S^{n+1}$.
+\end{coro}
+\begin{dem}
+    Por \ref{eje:SX cong S wedge S1} y \ref{eje:X wedge Y conmute}, $SX\cong X\wedge S^1\cong S^1\wedge X$ y, por \ref{prop:S1 wedge Sn cong Sn+1}, $SS^n\cong S^1\wedge S^n\cong S^{n+1}$.
+\end{dem}
+\begin{definicion}
+    Definimos el producto 
+    \begin{align*}
+        \mu:\Omega(Y,y_0)\times\Omega(Y,y_0)&\to \Omega(Y,y_0)\\
+        (\alpha,\beta)&\mapsto \alpha*\beta.
+    \end{align*}
+    y la función $j:\Omega(Y,y_0)\to\Omega(Y,y_0)$ tal que $j(\alpha)=\overline{\alpha}$.
+\end{definicion}
+\begin{ejercicio}
+    Mostrar que $\mu$ y $j$ son continuas, donde $\Omega(Y,y_0)$ tiene la topología compacto abierta.
+\end{ejercicio}
+\begin{definicion}
+    Sean $[f],[g]\in [(X,x_0),(\Omega(Y,y_0),c_{y_0})]$. Definimos
+    \[
+    [f]\#[g]=[\mu(f,g)],
+    \]
+    donde 
+    \begin{equation*}
+        \begin{tikzcd}[column sep=0.75cm]
+            X\arrow[r, "f\times g"] & \Omega(Y,y_0)\times\Omega(Y,y_0)\arrow[r, "\mu"] & \Omega(Y,y_0)
+        \end{tikzcd}
+    \end{equation*}
+    Se prueba que este producto no depende del representante.
+\end{definicion}
+\begin{definicion}
+    Sea $(X,x_0)$ un espacio basado. Tenemos por definición
+    \begin{equation*}
+        SX=X\times I/(X\times\partial I\cup \{x_0\}\times I).
+    \end{equation*}
+    Definimos un coproducto $\nu:SX\to SX\wedge SX$ como sigue: consideremos primero $\rho: X\times I\to SX\times SX$ tal que
+    \begin{equation*}
+        \rho(x,t)=\begin{cases}
+            ([x,2t],*),   &\text{ si } 0\leq t\leq \nicefrac{1}{2};\\
+            (*,[x,2t-1]), &\text{ si } \nicefrac{1}{2}\leq t\leq 1.
+        \end{cases}
+    \end{equation*}
+    por el lema del pegado, $\rho$ está bien definida y es continua. Notemos que $\im\rho\subseteq SX\wedge SX.  $ 
+    Veamos que $\rho$ para al cociente 
+    \begin{align*}
+        \rho(x,0)&=([x,0],*)=(*,*);\\
+        \rho(x,1)&=(*,[x,1])=(*,*);\\
+        \rho(x_0,t)&=(*,*),
+    \end{align*}
+\end{definicion}
+por lo tanto, $\rho$ pasa al cociente y define la función continua $\nu:SX\to SX\wedge SX$ tal que
+\begin{equation*}
+    \begin{tikzcd}[column sep=0.9cm, row sep =0.9cm]
+        X\times I\arrow[r,"\rho"] \arrow[d]& X\times X\arrow[d]\\
+        SX\arrow[r,"\nu", dashed] & X\wedge X
+    \end{tikzcd}
+\end{equation*}
+Además tenemos $\iota:SX\to SX$ tal que $\iota[x,t]=[x,1-t]$.
+\begin{definicion}
+    Sea $[\varphi],[\psi]\in[(SX,*),(Y,y_0)]$. Definimos el producto 
+    \begin{equation*}
+        [\varphi]\cdot[\psi]=[(\phi\wedge \psi)\circ\nu],
+    \end{equation*}
+    donde  
+    \begin{equation*}
+        \begin{tikzcd}[column sep=0.8cm]
+            SX\arrow[r, "\nu"] & SX\wedge SX\arrow[r, "\varphi\wedge \psi"] & Y.
+        \end{tikzcd}
+    \end{equation*}
+    Se demuestra que esta definición no depende de los representantes. Además el inverso $[\varphi]^{-1}=[\varphi\circ\iota]$. En el caso de $\Omega(Y,y_0)$ el inverso $[f]^{-1}=[j\circ f]$.
+
+    Se puede ver que 
+    $$([(X,x_0,(\Omega(Y,y_0),c_{y_0})],\#)$$ 
+    es un grupo, al igual que $([(SX,*),(Y,y_0)],\cdot)$. Por esto se dice que $\Omega(Y,y_0)$ es un \textit{$H$-grupo} y $SX$ es un \textit{$H$-cogrupo}.
+\end{definicion}
+
+%%%% Poner definicion de H-(co)grupo
+\begin{prop}
+\label{prop:over Phi isomorphism}
+    Sean $(X,x_0)$ y $(Y,y_0)$ espacios basados. Entonces la biyección
+    \begin{equation*}
+        \overline{\Phi}:[(SX,*),(Y,y_0)]\to[(X,x_0),(\Omega(Y,y_0),c_{y_0})]
+    \end{equation*}
+    es un isomorfismo de grupos.
+\end{prop}
+\begin{dem}
+    Sean $\varphi,\psi:(SX,*)\to(Y,y_0)$ continuas. Por definición $[\varphi]\cdot[\psi]=[(\varphi\wedge \psi)\circ\nu]$, entonces
+    \begin{equation*}
+        \overline{\Phi}([\varphi]\cdot[\psi])=[\Phi((\varphi\wedge \psi)\circ\nu)].
+    \end{equation*}
+    Notemos que
+    \begin{align*}
+        \Phi((\varphi\wedge \psi)\circ\nu))(x)(t)&=
+        ((\varphi\wedge \psi)\circ\nu)[x,t]\\
+        &=\begin{cases}
+            \varphi[x,2t], &\text{ si } 0\leq t\leq \nicefrac{1}{2};\\
+            \psi[x,2t-1], &\text{ si } \nicefrac{1}{2}\leq t \leq 1.
+        \end{cases}
+    \end{align*}
+    Ahora $\Phi(\phi),\Phi(\psi):(X,x_0)\to (\Omega(Y,y_0),c_{y_0})$ están dadas por $\Phi(\phi)(x)(t)=\phi[x,t]$ y $\Phi(\psi)(x)(t)=\psi[x,t]$ y el producto $$[\Phi(\phi)]\#[\Phi(\psi)]$$ 
+    en $[(X,x_0),(\Omega(Y,y_0),c_{y_0})]$ está dado por la composición 
+     \begin{equation*}
+        \begin{tikzcd}[column sep=0.75cm]
+            X\arrow[r, "\Phi(\varphi)\times \Phi(\psi)"] &[1.2cm] \Omega(Y,y_0)\times\Omega(Y,y_0)\arrow[r, "\mu"] & \Omega(Y,y_0)
+        \end{tikzcd}
+    \end{equation*}
+   Entonces, 
+    \begin{align*}
+        \mu(\Phi(\varphi)\times\Phi(\psi)(x))(t)&=\mu((\Phi(\varphi)(x),\Phi(\psi)(x))(t)\\
+        &=(\Phi(\varphi)(x)*\Phi(\psi)(x))(t)\\
+        &=\begin{cases}
+            \Phi(\varphi)(x)(2t), &\text{ si } 0\leq t\leq \nicefrac{1}{2};\\
+            \Phi(\varphi)(x)(2t-1), &\text{ si } \nicefrac{1}{2}\leq t \leq 1.
+        \end{cases}\\
+        &=\begin{cases}
+            \varphi[x,2t], &\text{ si } 0\leq t\leq \nicefrac{1}{2};\\
+            \psi[x,2t-1], &\text{ si } \nicefrac{1}{2}\leq t \leq 1.
+        \end{cases}
+    \end{align*}
+    Se sigue que 
+    \begin{equation*}
+        \overline{\Phi}([\varphi]\cdot[\psi])=\overline{\Phi}([\varphi])\#\Phi([\psi]).
+    \end{equation*}
+\end{dem}
+\begin{coro}
+    Sea $(X,x_0)$ un espacio basado. Entonces $\Pi_n(X,x_0)\cong \Pi_{n-1}(\Omega(X,x_0),c_{x_0})$ e inductivamente $\Pi_n(X,x_0)\cong \Pi_0(\Omega^n(X),c_{x_0})$, donde $\Omega^n(X)=\Omega\cdots\Omega(X,x_0).$
+\end{coro}
+%%%% Clase 13 del 09/09/26 inciada el 02/11/26 terminada el 02/11/2026
+
+%%%% Clase 14 del 11/09/26 inciada el 02/10/26
+\begin{dem}
+    Por \ref{eq:iso_In/partial_In_to_Sn} $S^n\cong I^n/\partial I^n$. Como consecuencia de \ref{obs:Pi_q cong (Sq,*)}, $\Pi_n(X,x_0)\cong[(S^n,*),(X,x_0)]$. De \ref{coro:SS^n cong Sn+1}, se sigue que $[(S^n,*),(X,x_0)]\cong [(SS^{n-1},*),(X,x_0)]$, por \ref{prop:over Phi isomorphism}
+    \begin{equation*}
+        [(SS^{n-1},*),(X,x_0)]\cong_{\hspace{0.5mm}\overline{\Phi}}[(S^{n-1},*),(\Omega(X,x_0),c_{x_0})]\cong \Pi_{n-1}(\Omega(X,x_0),c_{x_0}).
+    \end{equation*}
+    Por lo tanto, $\Pi_n(X,x_0)\cong \Pi_{n-1}(\Omega(X,x_0),c_{x_0})$. De manera inductiva, $\Pi_n(X,x_0)\cong \Pi_{0}(\Omega^n(X,x_0),c_{x_0})$.
+\end{dem}
+Vamos a describir al espacio $\Omega X^n$, para eso usemos el siguiente resultado.
+\begin{nota}
+     Sean $(X,x_0), (Y,y_0)$ y $(Z,z_0)$ espacios basados, donde $X,Y$ son compactos y Hausdorff. Hagamos $\map_*(X,Y)=\map((X,x_0),(Y,y_0))$ (el conjunto de funciones basadas de $X$ a $Y$). Entonces
+     \begin{equation*}
+         \map_*(X\wedge Y,Z)\cong\map_*(X,\map_*(Y,Z))
+     \end{equation*}
+     En particular $\map(S^{n-1}\wedge S^1,Z)\cong \map(S^{n-1},\map(S^1,Z))$, entonces $\map_*(S^n,Z)\cong\map_*(S^{n-1},\Omega Z)$. Aplicando inducción
+     \begin{equation*}
+         \map_*(S^n,Z)\cong \map((S^0,-1),(\Omega^nZ,*))
+     \end{equation*}
+\end{nota}
+\begin{ejercicio}
+    Mostrar que se tienen los siguientes homeomorfismos
+    \begin{equation*}
+        \map((S^0,-1),(Y,y_0)\cong \map(\{1\},Y)\cong Y,
+    \end{equation*}
+    para cualquier espacio $Y$.
+\end{ejercicio}
+\begin{definicion}
+    Sea $(X,x_0)$ un espacio basado, el cono reducido de $(X,x_0)$ se define como
+    \begin{equation*}
+        X\times I/(X\times\{1\}\cup\{x_0\}\times I)
+    \end{equation*}
+    De manera análoga, el cono no reducido de $X$ es simplemente $CX=X\times I/X\times\{1\}$.
+\end{definicion}
+\begin{ejercicio}
+\label{eje:f extended to CX}
+    Sea $f:(X,x_0)\to(Y,y_0)$ una función continua basada. Entonces $f\cong c_{y_0}$ si y sólo si $f$ se extiende a $C(X,x_0)$.
+\end{ejercicio}
+\begin{nota}
+    Se tiene un encaje 
+    \begin{align*}
+        \iota:X&\hookrightarrow CX\\
+        x&\mapsto [x,0].
+    \end{align*}
+    Entonces $f:X\to Y$ se extiende al cono reducido si y solo si existe $F:C(X,x_0)\to Y$ tal que el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep=0.9cm]
+            X\arrow[r,"\iota",hook]\arrow[dr,"f"'] & C(X,x_0)\arrow[d,"F",dashed]\\
+            & Y
+        \end{tikzcd}
+    \end{equation*}
+\end{nota}
+\begin{nota}
+    El ejercicio \ref{eje:f extended to CX} también es válido para funciones continuas no necesariamente basadas, tomando el cono no reducido $CX$.
+\end{nota}
+\begin{lema}
+\label{lema: C(S^q,s_0) cong Dq+1}
+    $C(S^q,s_0)\cong D^{q+1}$.
+\end{lema}
+\begin{dem}
+    Sea $h:S^q\times I\to D^{q+1}$ tal que $h(s,t)=(1-t)s+ts_0.$ Claramente $h$ está bien definida y
+    $h(s,0)=s_0$, $h(s_0,t)=s_0$. De manera recíproca, si $h(s,t)=h(s',t')$, entonces $(s',t')=(s',t')$ o $(s,t),(s',t')\in S^q\times\{1\}\cup\{s_0\}\times I$. Por \ref{prop:homomorphis between quotient}, existe un único homeomorfismo $\overline{h}:C(S^q,s_0)\to D^{q-1}$ tal que el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep=0.9cm]
+            S^q\times I\arrow[r,"h"]\arrow[d,"p"'] & C(X,x_0)\\
+            C(S^q,s_0) \arrow[ur,"\overline{h}"',dashed]
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $h[s,0]=h(s,0)=s.$
+\end{dem}
+\begin{prop}
+    Sea $[\alpha]\in\Pi_q(X,x_0)$. Entonces $[\alpha]=[c_{x_0}]$ si y sólo si $\alpha$ se extiende a $D^{q+1}.$
+\end{prop}
+\begin{dem}
+    $\Rightarrow)$ Si $[\alpha]=e$, por \ref{eje:f extended to CX}, existe $\title{\alpha}:C(S^q,s_0)\to X$ tal que $\widetilde{\alpha}\circ \iota=\alpha$. Por \ref{lema: C(S^q,s_0) cong Dq+1}, el siguiente diagrama conmuta
+    \begin{equation}
+    \label{eq:C(Sq,s) diagram}
+        \begin{tikzcd}[row sep = 1cm]
+            D^{q+1} &\arrow[l,"h"', "\cong"] C(S^q,s_0) \arrow[r,dashed, "\widetilde{\alpha}"] & X \\
+                & S^q\arrow[ul, bend left=10, "i"] \arrow[ur, bend right=10, "\alpha"']\arrow[u, hook, "\iota"]& 
+        \end{tikzcd}
+    \end{equation}
+    Sea $\overline{\alpha}=\widetilde{\alpha}\circ \overline{h}^{\hspace{0.5mm}-1}:D^{q+1}\to X$. Como \ref{eq:C(Sq,s) diagram} conmuta, se tiene que $\overline{\alpha}\circ i=\alpha$. 
+
+    $\Leftarrow)$ Si $\alpha$ se extiende a $D^{q+1}$, entonces existe $\beta:D^{q+1}\to X$ tal que $\beta\circ i=\alpha$. Sea $\widetilde{\alpha}=\beta\circ\overline{h}:C(S^q,s_0)\to X$. Entonces
+    \begin{align*}
+        \widetilde{\alpha}\circ\iota &=\beta\circ \overline{h}\circ \iota\\
+        &=\beta\circ i\\
+        &=\alpha.
+    \end{align*}
+    Por lo tanto, $\ref{eq:C(Sq,s) diagram}$ conmuta, por \ref{eje:f extended to CX}, $[\alpha]=e$.
+\end{dem}
+\begin{prop}
+\label{prop: dot and cat distributive}
+    Sea $S$ un conjunto con dos operaciones $\#,\cdot$ tales que
+    \begin{enumerate}[label=(\arabic*)]    
+        \item  $\#$ y $\cdot$ tienen un elemento neutro en común, i.e., existe $e\in S$ tal que para todo $x\in S$
+        \begin{equation*}
+            e\# x=x\#e=x=e\cdot x=x\cdot e.
+        \end{equation*}
+        \item  $\#$ y $\cdot$ se distribuyen mutuamente, i.e., para todo $x,y,z,w\in S$
+        \begin{equation*}
+            (w\#x)\cdot(y\#z)=(w\cdot y)\#(x\cdot z).
+        \end{equation*}
+    \end{enumerate}
+    Entonces $\#=\cdot$ son conmutativas y asociativas.
+\end{prop}
+\begin{dem}
+    Veamos que las operaciones son iguales. Sea $x,y,z,w\in S$, entonces 
+    \begin{align*}
+        x\#y&=(x\cdot e)\#(e\cdot y)\\
+        &=(x\# e)\cdot(e\# y)\\
+        &=x\cdot y
+    \end{align*}
+    $S$ es abeliano, pues
+    \begin{align*}
+        x\#y&=(e\cdot x)\#(y\cdot e)\\
+        &=(e\# y)\cdot(x\#e)\\
+        &=y\cdot x=y\# x.
+    \end{align*}
+    Para la asociativa, tenemos que
+    \begin{align*}
+        x\#(y\#z)&=(x\cdot e)\#(y\cdot z)\\
+        &=(x\# y)\cdot(e\#z)\\
+        &=(x\# y)\# z.
+    \end{align*}
+\end{dem}
+\begin{ejercicio}
+\label{eje: dot and cat distributive}
+    Sea $(X,x_0)$ un espacio basado. Para $n\geq 2$, el conjunto $[(SS^{n-2},*),(\Omega X),c_{y_0})]$ tiene dos operaciones $\cdot$ y $\#$ que tienen neutro en común $[c_{y_0}]$. Mostrar que $\cdot$ y $\#$ se distribuyen mutuamente.
+\end{ejercicio}
+\begin{coro}
+    $\Pi_n(X,x_0)$ es abeliano para $n\geq 2$.
+\end{coro}
+\begin{dem}
+    Por \ref{obs:Pi_q cong (Sq,*)} y $\ref{prop:over Phi isomorphism}$
+    \begin{align*}
+        \Pi_n(X,x_0)&\cong[(S^n,*),(X,x_0)]\\
+        &\cong [(SS^{n-1},*),(X,x_0)]\\
+        &\cong[(S^{n-1},*),(\Omega(X,x_0),c_{x_0})]\\
+        &\cong[(SS^{n-2},*),(\Omega(X,x_0),c_{x_0})].
+    \end{align*}
+    Por $\ref{eje: dot and cat distributive}$, $\Pi_n(X,x_0)$ es abeliano.
+\end{dem}
+%%%% Clase 14 del 11/09/26 inciada el 02/11/26 terminada el 03/11/2026
+
+%%%% Clase 15 del 14/09/26 inciada el 03/11/26
+Sea $(X,A,a_0)$, donde $X$ es un espacio topológico y $a_0\in A\subseteq X$. Existe una relación entre $\Pi_q(X,a_0)$ y $\Pi_q(A,a_0)$ que está dado por $\Pi_q(X,A,a_0)$ y que está definido como sigue
+\begin{definicion}
+    Definimos 
+    \begin{equation*}
+        \Pi_q(X,A,a_0)=[(D^q,S^{q-1},*),(X,A,a_0)]
+    \end{equation*}
+    con $*\in S^{q-1}\subseteq D^q$, para $q\geq 1$ que es un conjunto basado si $q=1$, un grupo si $q\geq 2$ y un grupo abeliano si $g\geq 3$. En particualr, si $A=\{a_0\}$, tenemos
+    \begin{align*}
+        [(D^q,S^{q-1},*),(X,\{a_0\},a_0)]&\cong [(D^q/S^{q-1},*),(X,a_0)]\\
+        &\cong[(S^q,*),(X,a_0)]\\
+        &\cong [(S^q,*),(X,a_0)]\\
+        &\cong \Pi_q(X,a_0).
+    \end{align*}
+\end{definicion}
+\begin{prop}
+    Sea $f:(D^q,S^{q-1},*)\to(X,A,a_0)$ continua. Entonces $[f]=[c_{x_0}]\in\Pi_q(X,A,a_0)$ si y sólo si $f\cong g \text{ rel } S^{q-1}$, donde $g(D^q)\subseteq A$.
+\end{prop}
+\begin{dem}
+    $\Leftarrow$) Supongamos que $f \cong g \text{ rel } S^{q-1}$ y que $g(D^q) \subseteq A$. Queremos demostrar que $[f] = [c_{a_0}] $.
+    
+    Primero, veamos que $[f] = [g]$. Sea $F: D^q \times I \to X$ la homotopía relativa a $S^{q-1}$ entre $f$ y $g$. 
+    Como $F$ es relativa a $S^{q-1}$, se cumple que $F(x, t) = f(x)$ para todo $x \in S^{q-1}$ y $t \in I$. 
+    Dado que $f$ es basada, entonces $f(S^{q-1}) \subseteq A$ y $f(*) = a_0$. Por lo tanto, $F(x,t) \in A$ para $x \in S^{q-1}$ y $F(*,t) = a_0$ para todo $t$, i.e., $F$ es una homotopía basada en $(A,a_0)$, lo que implica que $[f] = [g]$.
+    
+    Ahora veamos que la clase de $g$ es trivial. Como $g(D^q) \subseteq A$, la función $g$ mapea todo el disco dentro del subespacio $A$.
+    Sabemos que el disco $D^q$ es contráctil hacia su punto base $* \in S^{q-1}$, i.e., existe una contracción $r_t: D^q \to D^q$ (donde $r_0 = \text{id}$ y $r_1(x) = *$).
+    Componiendo esta contracción con $g$, definimos $K(x,t) = g(r_t(x))$.
+    Dado que la imagen de $g$ vive en $A$, la imagen de $K$ también está en $A$. 
+    Se sigue que $K$ es una homotopía basada en $(A,a_0)$ desde $g$ hasta $c_{a_0}$. Por lo tanto, $[g] = [c_{a_0}]$.
+   
+    $\Rightarrow)$: Supongamos que $[f] = [c_{a_0}]$. Queremos hallar una aplicación $g$ con imagen contenida en $A$ tal que $f \cong g \text{ rel } S^{q-1}$.
+    
+    Por hipótesis, existe una homotopía $H: D^q \times I \to X$ basada en $(A,a_0)$ entre $f$ y la constante $c_{a_0}$, la cual cumple las siguientes condiciones:
+    \begin{itemize}
+        \item[(1)] $H(x,0) = f(x)$ para todo $x \in D^q$.
+        \item[(2)] $H(x,1) = a_0$ para todo $x \in D^q$.
+        \item[(3)] $H(x,t) \in A$ para todo $x \in S^{q-1}$ y $t \in I$.
+        \item[(4)] $H(*,t) = a_0$ para todo $t \in I$.
+    \end{itemize}
+    Definimos $u_1: D^q \to D^q \times I$ tal que
+    \begin{equation*}
+        u_1(x) = 
+        \begin{cases} 
+            (2x, 1) & \text{si } 0 \le \|x\| \le 1/2 \\ 
+            \left(\frac{x}{\|x\|}, 2 - 2\|x\|\right) & \text{si } 1/2 \le \|x\| \le 1.
+        \end{cases}
+    \end{equation*}
+    Observamos que si $\|x\| = 1$ (es decir, en la frontera $S^{q-1}$), entonces $u_1(x) = (x, 0)$. 
+    
+    Como $D^q \times I$ es un subconjunto convexo, podemos definir $u_t: D^q \to D^q \times I$ como la homotopía entre la inclusión estándar de la base $u_0(x) = (x,0)$ y $u_1(x)$:
+    \begin{equation*}
+        u_t(x) = (1-t)u_0(x) + t u_1(x)
+    \end{equation*}
+    
+    Componemos nuestra homotopía original $H$ con esta deformación para definir la nueva homotopía $F: D^q \times I \to X$:
+    \begin{equation*}
+        F(x,t) = H(u_t(x))
+    \end{equation*}
+    
+    Verificamos que $F$ cumple lo requerido:
+    \begin{itemize}
+        \item  $F(x,0) = H(u_0(x)) = H(x,0) = f(x)$.
+        \item Si $x \in S^{q-1}$ ($\|x\|=1$), vimos que $u_1(x) = (x,0) = u_0(x)$, por lo que $u_t(x) = (x,0)$ para todo $t$. En consecuencia, $F(x,t) = H(x,0) = f(x)$ para todo $t$. Esto prueba que $F$ es relativa a $S^{q-1}$.
+        \item Definimos $g(x) = F(x,1) = H(u_1(x))$. Por la construcción de $u_1$,
+        $$u_1(D^q)=D^q\times\{1\}\cup S^{q-1}\times I.$$ Por las propiedades (2) y (3) de la homotopía $H$, ambas regiones son mapeadas dentro de $A$. Así, $g(D^q) \subseteq A$.
+    \end{itemize}
+    
+    Con esto queda demostrado que $f \cong g \text{ rel } S^{q-1}$ con $g(D^q) \subseteq A$.
+\end{dem}
+\begin{prop}
+    Sea $(X,A,a_0)$ un espacio basado. Entonces existe una sucesión exacta larga
+    \begin{equation*}
+        \begin{tikzcd}[column sep=0.5cm]
+            \cdots\arrow[r] & \Pi_{q+1}(X,A,a_0)\arrow[r,"\partial_{q-1}^{(X,A)}"] & [0.55cm]\Pi_q(A,a_0)\arrow[r,"i_*"] &\Pi_q(X,a_0)\arrow[r,"j_*"]& \Pi_q(X,A,a_0,)\arrow[r,"\partial_{q}^{(X,A)}"] & [0.52cm]\Pi_{q-1}(X,a_0)\arrow[r]&\cdots
+        \end{tikzcd}
+    \end{equation*}
+    donde $\partial_q^{(X,A)}[\alpha]=[\alpha|_{S^{q-1}}]$. 
+    
+    Notemos que $\partial_q$ es una transformación natural del funtor $\Pi_q(X,A,A_0)$ en el funtor $\Pi_{q-1}(A,a_0),$ i.e., el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep=0.8cm]
+            \Pi_{q+1}(X,A,a_0)\arrow[r,"\partial_{q-1}^{(X,A)}"]\arrow[d,"f_\#"] & [0.55cm]\Pi_q(A,a_0)\arrow[d,"(f|A)_{\#}"]\\
+            \Pi_{q+1}(Y,B,b_0)\arrow[r,"\partial_{q-1}^{(Y,B)}"] & [0.55cm]\Pi_q(B,b_0)
+        \end{tikzcd}
+    \end{equation*}
+\end{prop}
+\begin{nota}
+    Como se verá más adelante, una sucesión de homomorfismos es exacta si la imagen de un homomorfismo es igual al kernel del siguiente homomorfismo.
+\end{nota}
+\begin{nota}
+    Recordar que al principop de la sucesión aparecen conjuntos basados que no son grupos.
+\end{nota}
+
+\subsection{Aplicaciones cubrientes}
+
+Buscamos ahora calcular los grupos de homotopía de $S^1$. Consideremos la función $\exp:\R\to S^1$ tal que $\exp(t)=2^{2\pi it}$. $\exp$ es un homomorfismo de $(\R,+)$ en $(S^1,\cdot)$, i.e., 
+\begin{equation*}
+    \exp(s+t)=\exp^{s}\exp^{t}
+\end{equation*}
+con $\ker\exp=\Z$ y $\exp[n,n+1]=S^1$, para toda $n\in \Z$. Una \textit{propiedad toplógica} de $\exp$ es la siguiente: si tomamos una vecindad $V$ de $1$, existen vecindades ajenas $V_n$ de $n\in \Z$ tal que $\exp|_{V_n}:V_n\to U$ está bien definida y es un homeomorfismo para toda $n\in \Z$.
+\begin{center}
+\begin{tikzpicture}[scale=1.1, >=stealth, every node/.style={font=\normalsize}]
+
+    % --- Columna izquierda: Mapeo general ---
+    \node (R_left) at (-4.5, 2.5) {$\mathbb{R}$};
+    \node (S1_left) at (-4.5, 0.7) {$S^1$};
+    \draw[->, thick] (R_left) -- node[left] {$\exp$} (S1_left);
+    %\node at (-4.5, -0.3) {$\exp(t) = e^{2\pi i t}$};
+
+    % --- Parte superior: La recta real R y los abiertos V_i ---
+    \draw[thick] (-2.6, 2.5) -- (3.6, 2.5);
+    
+    \foreach \x in {-2, -1, 0, 1, 2, 3} {
+        % Marcas de los enteros
+        \draw (\x, 2.4) -- (\x, 2.6);
+        % Números debajo
+        \node[below] at (\x, 2.25) {$\x$};
+        % Etiquetas V_i más cerca de la recta
+        \node[above] at (\x, 2.58) {$V_{\x}$};
+        % Paréntesis que representan los intervalos abiertos
+        \node[font=\footnotesize] at (\x - 0.35, 2.5) {$($};
+        \node[font=\footnotesize] at (\x + 0.35, 2.5) {$)$};
+    }
+
+    % --- Flecha central de proyección ---
+    \draw[->, thick] (0.5, 1.8) -- node[right] {$\exp$} (0.5, 1.2);
+
+    % --- Centro: El círculo S^1 en C ---
+    \def\cx{0.5}
+    \def\cy{-0.2}
+    \def\rad{1.2}
+    
+    % Círculo principal (sin w)
+    \draw[thick] (\cx, \cy) circle (\rad);
+    
+    % Punto 1 y vecindad abierta U en el círculo
+    \draw (\cx + \rad - 0.1, \cy) -- (\cx + \rad + 0.1, \cy);
+    \node[right] at (\cx + \rad + 0.08, \cy) {$1$};
+    \node at (\cx + \rad - 0.35, \cy) {$U$};
+    
+    % Marcas del arco abierto U (en +-25 grados)
+    \draw (\cx + \rad*cos{25} - 0.08, \cy + \rad*sin{25} - 0.04) -- (\cx + \rad*cos{25} + 0.08, \cy + \rad*sin{25} + 0.04);
+    \draw (\cx + \rad*cos{-25} - 0.08, \cy + \rad*sin{-25} + 0.04) -- (\cx + \rad*cos{-25} + 0.08, \cy + \rad*sin{-25} - 0.04);
+
+    % Inclusión en los complejos
+    \node at (2.8, \cy) {$\subset \quad \mathbb{C}$};
+
+    % --- Derecha: Detalle de un abierto V_i, restricción y arco U ---
+    % Intervalo V_i
+    \draw[thick] (4.3, 1.0) -- (5.3, 1.0);
+    \draw (4.8, 0.9) -- (4.8, 1.1);
+    \node[font=\footnotesize] at (4.3, 1.0) {$($};
+    \node[font=\footnotesize] at (5.3, 1.0) {$)$};
+    \node[above] at (4.8, 1.08) {$V_i$};
+
+    % Flecha de la restricción entre el intervalo y el arco
+    \draw[->, thick] (4.8, 0.75) -- node[right] {$\exp|_{V_i}$} (4.8, 0.05);
+
+    % Arco U aislado abajo
+    \draw[thick] (3.6, -0.6) +(-25:1.2) arc (-25:25:1.2);
+    \draw (4.8 - 0.08, -0.6) -- (4.8 + 0.08, -0.6);
+    \node[right] at (4.85, -0.6) {$1$};
+    \node at (4.3, -0.6) {$U$};
+
+\end{tikzpicture}
+\end{center}
+\begin{definicion}
+     Una \textit{aplicación cubriente} es una función continua y sobreyectiva $p:E\to X$  con la siguiente propiedad: para todo $x\in X$ tiene una vecindad abierta $U_x$ tal que existe una partición abierta $\{V_\alpha:\alpha\in \Lambda\}$ de $p^{-1}(U_x)$ de tal manera que $p|_{V_\alpha}:V_\alpha\to U_x$ es un homeomorfismo para cada $\alpha\in\Lambda$.
+
+     A $E$ le decimos el \textit{espacio total}, a $X$ el \textit{espacio base}, a los $V_\alpha$ \textit{hojas de la aplicación cubriente} y a la vecindad $U_x$ le decimos \textit{vecindad cubierta parejamente}. Dado $x\in X$, $p^{-1}(x)$ se le llama \textit{fibra sobre el punto $x$}.
+\end{definicion}
+\begin{ejercicio}
+    Mostrar que $\exp:\R\to S^1$ es una aplicación cubriente.
+\end{ejercicio}
+\begin{lema}
+    Sea $p:E\to X$ una aplicación cubriente. Entonces, para cada $x\in X$, las fibras $p^{-1}(x)$ es discreta.
+\end{lema}
+\begin{dem}
+    Sea $x\in X$ y $U_x$ una vecindad abierta de $x$ cubierta parejamente. Entonces existe una partición $\{V_\alpha:\alpha\in \Lambda\}$ de $p^{-1}(U_x)$. Tomemos $a\in p^{-1}(x)$, entonces existe  $\alpha\in\Lambda$ tal que $a\in V_\alpha$ y $p|V_\alpha\to U_x$ es un homeomorfismo, por lo tanto, $p^{-1}(x)\cap V_\alpha=\{a\}$, pues $p|V_\alpha\to U_x$ es inyectiva, por lo tanto, $p^{-1}(x)$ tiene la topología discreta.
+    \begin{center}
+\begin{tikzpicture}[scale=1, >=stealth]
+
+    % --- Espacio total E (simétrico y con bordes ondulados) ---
+    \draw[thick] (-1.0, 1.3) 
+        to[out=105, in=-105] (-1.0, 1.95) 
+        to[out=75, in=-75] (-1.0, 2.6) 
+        to[out=12, in=168] (0, 2.6) 
+        to[out=-12, in=-168] (1.0, 2.6) 
+        to[out=-75, in=75] (1.0, 1.95) 
+        to[out=-105, in=105] (1.0, 1.3) 
+        to[out=-168, in=-12] (0, 1.3) 
+        to[out=168, in=12] (-1.0, 1.3) -- cycle;
+    \node[right] at (1.15, 1.95) {$E$};
+
+    % --- Puntos discretos de la fibra p^{-1}(x) ---
+    \foreach \y in {1.5, 1.8, 2.1, 2.4} {
+        \fill (-0.35, \y) circle (1.2pt);
+    }
+    \node[right, font=\small] at (-0.25, 1.95) {$p^{-1}(x)$};
+
+    % --- Flecha de la aplicación cubriente p (pequeña y centrada) ---
+    \draw[->, thick] (0, 0.95) -- node[right] {$p$} (0, 0.45);
+
+    % --- Espacio base X (contorno ondulado) ---
+    \draw[thick] (-1.15, 0) 
+        to[out=55, in=170] (-0.2, 0.22) 
+        to[out=-10, in=155] (1.15, 0.05) 
+        to[out=-45, in=10] (0.25, -0.22) 
+        to[out=190, in=-55] (-1.15, 0) -- cycle;
+    \node[right] at (1.25, 0) {$X$};
+
+    % --- Punto x en la base X ---
+    \fill (-0.35, 0) circle (1.3pt);
+    \node[right, font=\small] at (-0.3, 0) {$x$};
+
+\end{tikzpicture}
+\end{center}
+\end{dem}
+\begin{ejercicio}
+    Mostrar que una aplicación cubriente es un homomorfismo local.
+\end{ejercicio}
+\begin{ejercicio}
+    Todo homeomorfismo local es una función abierta.
+\end{ejercicio}
+\begin{definicion}
+    Sea $p:E\to X$ una aplicación cubriente y $f:Y\to X$ una función continua. Un \textit{levantamiento de $f$} es una función continua $F:Y\to E$ tal que el diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[column sep=0.85cm, row sep =0.85cm]
+            & E \arrow[d,"p"]\\
+            Y\arrow[ur,"F",dashed]\arrow[r,"f"'] & X
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $p\circ F=f$.
+\end{definicion}
+\begin{prop}
+    Sea $p:E\to X$ una aplicación cubriente y $f:Y\to X$ continua con $Y$ conexo. Supongamos que tenemos un levantamiento de $F_1,F_2$ de $f$ tal que $F_1(y_0)=F(y_0)$ para algún $y_0\in Y$. Entonces $F_1=F_2$.
+\end{prop}
+%%%% Clase 15 del 14/09/26 inciada el 03/11/26 terminada el 04/11/2026
+
+%%%% Clase 16 del 16/09/26 inciada el 04/11/26
+\begin{dem}
+    Sea $A=\{y\in Y:F_1(y)=F_2(y)\}$ y $B=\{y\in Y:F_1(y)\neq F_2(y)\}$. Entonces $Y=A\cup B$ y $A\cap B=\emptyset$. Sea $y\in Y$, entonces $f(y)\in X.$ Sea $U$ una vecindad de $f(y)$ cubierta parejamente, i.e., existe una partición abierta $\{V_\alpha:\alpha\in\Lambda\}$ de $p^{-1}(U)$. Si $y\in A$, entonces $F_1(y)=F_2(y)\in V_{\alpha}$, para algún $\alpha\in\Lambda$. Como $F_1,F_2$ son continuas, tenemos que  $W=F^{-1}(V_\alpha)\cap F^{-1}(V_\alpha)$ es una vecindad abierta de $y$. Además, si $y'\in W$, entonces $F_1(y'), F_2(y')\in V_\alpha$ y 
+    \begin{equation*}
+        p\circ F_1(y')=f(y')=p\circ F_2(y'),
+    \end{equation*}
+    como $p|_{V_\alpha}$ es inyectiva, se sigue que $F_1(y')=F_2(y')$, entonces $y'\in A$, i.e., $W\subseteq A$, por lo tanto, $A$ es abierto.
+
+    Ahora supongamos que $y\in B$, entonces $F_1(y)\neq F_2(y)$, por lo tanto, $F_1(y)\in V_{\alpha}$ y $F_2(y)\in V_{\beta}$. Si $\alpha=\beta$, entonces $F_1(y)=F_2(y)$ lo cuál es una contradicción, por lo tanto, $\alpha\neq\beta$. Sea $O=F^{-1}(V_\alpha)\cap F^{-1}(V_\beta)$ (abierto) y $y\in O$. Sea $y'\in O$, entonces $F_1(y')\in V_{\alpha}$ y $F_2(y')\in V_{\beta}$, se sigue que $F_1(y')\neq F_2(y')$, entonces $y'\in B$, i.e., $O\subseteq B$, por lo tanto, $B$ es abierto.
+
+    Dado que $y_0\in A$ y $Y$ es conexo, entonces $B=\emptyset$., por lo tanto, $Y=B$.
+\end{dem}
+\begin{ejemplo}
+    Sea $\pi:\R^2\to\R$ tal que $\pi(x,y)=x$. Mostremos que $\pi$ no es una aplicación cubriente. Sea $F_r:\R^2\to\R^2$ tal que $F_r(t,rt)$ para cada $r\in\R$. Entonces $F_r(0,0)=(0,0)$ y $\pi F_r(t)=\pi(t,rt)=t$. 
+
+    Todas las funciones son levantamientos de $\id_{\R}$ que coinciden en $(0,0)$, con $\R$ conexo, sin embargo todas son distintas. 
+
+    Notemos además que $\pi$ no tiene fibras discretas.
+\end{ejemplo}
+\begin{prop}
+\label{prop:levantamiento_unico_conexo}
+    Sean $p:E\to X$ una aplicación cubriente y $\sigma:I\to X$ una trayectoria tal que $\sigma(0)=x_0$ y $\sigma(1)=x_1$. Sea $a_0\in p^{-1}(x_0)$. Entonces existe un único levantamiento de $\sigma$, $\widetilde{\sigma}_{a_0}:I\to E$ tal que $\widetilde{\sigma}_{a_0}(0)=a_0$.
+    \begin{center}
+\begin{tikzpicture}[scale=1.1, >=stealth]
+
+    % --- Intervalo I (izquierda) ---
+    \draw[thick] (-3.4, 0) -- (-2.4, 0);
+    \draw[thick] (-3.4, -0.12) -- (-3.4, 0.12);
+    \draw[thick] (-2.4, -0.12) -- (-2.4, 0.12);
+    \node[below] at (-2.9, -0.12) {$I$};
+
+    % --- Flecha de la trayectoria \sigma ---
+    \draw[->, thick] (-2.15, 0) -- node[above] {$\sigma$} (-1.55, 0);
+
+    % --- Flecha del levantamiento \widetilde{\sigma}_{a_0} ---
+    \draw[->, thick, loosely dashed] (-2.6, 0.3) -- node[above left] {$\widetilde{\sigma}_{a_0}$} (-1.2, 1.45);
+
+    % --- Espacio total E (simétrico y con bordes ondulados) ---
+    \draw[thick] (-1.0, 1.3) 
+        to[out=105, in=-105] (-1.0, 1.95) 
+        to[out=75, in=-75] (-1.0, 2.6) 
+        to[out=12, in=168] (0, 2.6) 
+        to[out=-12, in=-168] (1.0, 2.6) 
+        to[out=-75, in=75] (1.0, 1.95) 
+        to[out=-105, in=105] (1.0, 1.3) 
+        to[out=-168, in=-12] (0, 1.3) 
+        to[out=168, in=12] (-1.0, 1.3) -- cycle;
+    \node[left] at (-1.1, 1.95) {$E$};
+
+    % --- Puntos discretos de la fibra p^{-1}(x_0) y etiqueta a_0 más grande ---
+    \foreach \y in {1.5, 1.8, 2.1, 2.4} {
+        \fill (-0.55, \y) circle (1.3pt);
+    }
+    \node[right] at (-0.48, 2.1) {$a_0$};
+
+    % --- Flecha de la aplicación cubriente p ---
+    \draw[->, thick] (0, 1.0) -- node[right] {$p$} (0, 0.48);
+
+    % --- Espacio base X (contorno ondulado ligeramente más amplio) ---
+    \draw[thick] (-1.35, 0) 
+        to[out=60, in=170] (-0.2, 0.36) 
+        to[out=-10, in=150] (1.3, 0.1) 
+        to[out=-45, in=10] (0.25, -0.36) 
+        to[out=190, in=-50] (-1.35, 0) -- cycle;
+    \node[below] at (0.1, -0.42) {$X$};
+
+    % --- Trayectoria y puntos marcados de x_0 a x_1 dentro de X ---
+    \draw[thick] (-0.55, -0.02) to[out=45, in=-135] (0.4, 0.06);
+    \fill (-0.55, -0.02) circle (1.3pt);
+    \fill (0.4, 0.06) circle (1.3pt);
+    \node[left] at (-0.58, -0.04) {$x_0$};
+    \node[right] at (0.43, 0.06) {$x_1$};
+
+\end{tikzpicture}
+\end{center}
+\end{prop}
+\begin{dem}
+    Para cada $x\in \sigma(I)$ existe una vecindad abierta $U_x$ cubierta parejamente. Consideremos $\{U_x\cap \sigma(I):x\in\sigma(I)\}$ cubierta abierta de $\sigma(I)$ que es compacta. Por lo tanto, existe una subcubierta finita $\{U_{x_i}\cap \sigma(I):1\leq i\leq n\}$. Entonces $\{\sigma^{-1}(U_{x_i}):1\leq i\leq n\}$ es una cubierta abierta de $I$ que es un espacio métrico compacto. Por lo tanto, existe un número de Lebesgue de la cubierta, digamos $\epsilon>0$, de manera que si $A\subseteq I$ tal que $\diam A<\epsilon$, entonces $A\subseteq\sigma^{-1}(U_{x_i})$ para algún $i\in\{1,\ldots,n\}$.
+    %%%%% Seria bueno agregar demostración 
+    
+    Sea $k>0$ un entero tal que $\nicefrac{1}{k}<\epsilon$ y consideremos la partición de $I$ dada como $t_0=0<t_1<\cdots<t_k=1$, donde $t_i=\nicefrac{i}{k}$. Para cada $i\in\{1,\ldots,k\}$, enumeremos $U_i$ de manera que $ [t_{i-1},t_i]\subseteq\sigma^{-1}(U_i)$. Notemos que $x_0=\sigma(0)\in U_1$, entonces $a_0\in p^{-1}(x_0)\subseteq p^{-1}(U_1)$. Sea $V_1$ la hoja de $p^{-1}(U_1)$ que contiene a $a_0$. Definamos $\widetilde{\sigma}_1:[0,1/k]\to V_1\subseteq E$ mediante la siguiente composición
+    \begin{equation*}
+        \begin{tikzcd}[column sep=0.95cm]
+            \text{[}0, 1/k\text{]
+            } \arrow[r,"\sigma"] & U_1\arrow[r,"(p\hspace{0.1mm}|_{V_1})^{-1}","\cong"'] & V_1
+        \end{tikzcd}
+    \end{equation*}
+    Entonces $\widetilde{\sigma}_1$ es levantamiento de $\sigma|_{[0,1/k]}$ tal que $\widetilde{\sigma}_1(0)=a_0$. Hagamos $a_1=\sigma(1/k)\in U_1\cap U_2$. Dado que
+    \begin{equation*}
+        \widetilde{\sigma}_1(1/k)=(p|V_1)^{-1}(a_1)\implies p(\widetilde{\sigma}_1(1/k))=p|_{V_1}(\widetilde{\sigma}_1(1/k))=a_1
+    \end{equation*}
+    entonces $\widetilde{\sigma}_1(1/k)\in p^{-1}(a_1)\subseteq p^{-1}(U_2)$. Tomemos $V_2$ la hoja de $p^{-1}(U_2)$ que contiene a $a_1$. Definamos $\widetilde{\sigma}_2:[1/k,2/k]\to V_2\subseteq E$ mediante la composición 
+     \begin{equation*}
+        \begin{tikzcd}[column sep=0.95cm]
+            \text{[} 1/k,2/k\text{]
+            } \arrow[r,"\sigma"] & U_2\arrow[r,"(p\hspace{0.1mm}|_{V_2})^{-1}","\cong"'] & V_1
+        \end{tikzcd}
+    \end{equation*}
+    Entonces $\widetilde{\sigma}_2$ es levantamiento de $\sigma|_{[1/k,2/k]}$ tal que $$\widetilde{\sigma}_2(1/k)=a_1=\widetilde{\sigma}_1(0).$$
+    De manera inductiva, existen únicos levantamientos $\widetilde{\sigma}_i:[t_{i-1},t_{i}]\to E$ 
+    de $\sigma|_{[t_{i-1},t_i]}=\sigma\circ \In_i$
+    para toda $i\in\{1,\ldots k\}$ tal que $$\widetilde{\sigma}_i(t_{i})=\widetilde{\sigma}_{i+1}(t_i), \text{ siempre que } 1\leq i\leq k-1.$$  
+    Donde $\In_i:[t_{i-1},t_i]\hookrightarrow I$ es la inclusión natural.
+    Por el lema del pegado, existe una única función continua $\widetilde{\sigma}_{a_0}:I\to E$ tal que $\widetilde{\sigma}_{a_0}(0)=\widetilde{\sigma}_i(0)=a_0$ y el triángulo superior del siguiente diagrama conmuta, para toda $i\in\{1,\ldots,k\}$
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1.2cm, row sep = 1.2cm]
+             \text{[} t_{i-1}, t_i\text{]
+            } \arrow[d,hook, "\In_i"']\arrow[r,"\widetilde{\sigma}_i"] & E\arrow[d,"p"]\\
+            I \arrow[r, "\sigma"']\arrow[ur, "\sigma_{a_0}"',dashed]& X
+        \end{tikzcd}
+    \end{equation*}
+    Como $\widetilde{\sigma}_i$ es levantamiento de $\sigma\circ\In_i$, entonces el cuadrado exterior del diagrama anterior conmuta, por lo que
+    \begin{align*}
+        p\circ\widetilde{\sigma}_{a_0}\circ\In_i&=p\circ \widetilde{\sigma}_i\\
+        &=\sigma\circ \In_i
+    \end{align*}
+    para toda $i\in\{1,\ldots,k\}$, por lo tanto, $p\circ \widetilde{\sigma}_{a_0}=\sigma$. Finalmente $\widetilde{\sigma}_{a_0}$ es un único levantamiento de $\sigma$ en $a_0$ porque $I$ es conexo.
+\end{dem}
+\begin{lema}
+    \label{lema:lema 1 cubriente}
+    Sea $p:E\to X$ continua y sobreyectiva. Son equivalentes las siguientes afirmaciones.
+    \begin{enumerate}
+        \item[(1)] $p$ es una aplicación cubriente.
+        \item[(2)] Para todo abierto $U\subseteq X$, existe un espacio discreto $\Lambda$ y un homeomorfismo $\psi:p^{-1}(U)\to U\times \Lambda$ tal que el siguiente triángulo conmuta
+        \begin{equation}
+        \label{lema: diagrama_1_cubriente}
+            \begin{tikzcd}[column sep=0.2cm]
+                p^{-1}(U)\arrow[rr,"\psi","\cong"']\arrow[dr, "p'"'] & & U\times \Lambda\arrow[dl,"\pi_1"]\\
+                & U &
+            \end{tikzcd}
+        \end{equation}
+        donde $p'$ es la restricción de $p$ a $p^{-1}(U)$ y $\pi_1$ es la proyección natural a $U$.
+    \end{enumerate}
+\end{lema}
+\begin{dem}
+    (1) $\Rightarrow$ (2) Sea $U$ abierto en $X$ y $a\in p{-1}(U)$, entonces existe una partición abierta $\{V_\alpha:\alpha\in\Lambda\}$ de $p^{-1}(U)$. Consideremos $\Lambda$ con la topología discreta.
+    
+    Entonces existe única $\alpha\in \Lambda$ tal que $a\in V_{\alpha}$. Definamos 
+    \begin{align*}
+        \varphi: p^{-1}(U)&\to\Lambda\\
+        a&\mapsto \alpha
+    \end{align*}
+    Se sigue que $\varphi$ es continua, pues si $ I\subseteq\Lambda$, entonces
+  $$\varphi^{-1}(I)=\medcup_{\alpha\in I}V_\alpha$$ 
+  es un conjunto abierto. Por la propiedad universal del producto en $\Top$, existe una única función continua $\psi:p^{-1}(U)\to U\times \Lambda$ tal que el siguiente diagrama conmuta
+  \begin{equation*}
+        \begin{tikzcd}[row sep = 1cm]
+            U\arrow["\pi_1"',from=r]\arrow[from=rd, bend left=10, "p'"] & U\times \Lambda \arrow[from=d, dashed, "\psi"'] & \Lambda \arrow[from=l, "\pi_2"] \arrow[from = dl, bend right=10, "\varphi"'] \\
+                             &  p^{-1}(U) & 
+        \end{tikzcd}
+    \end{equation*}
+    Sea $\nu:U\times \Lambda\to p^{-1}(U)$ tal que $\nu(x,\alpha)=(p|_{V_\alpha})^{-1}(x)$ que es continua,
+    \begin{align*}
+        &\nu(\psi(a))=\nu(p(a),\alpha)=(p|_{V_\alpha})^{-1}(p(a))=a,
+    \end{align*}
+    y también se cumple que
+    \begin{align*}
+        \psi(\nu(x,\alpha))&=\psi((p|_{V_\alpha})^{-1}(x))\\
+        &=(p((p|_{V_\alpha})^{-1}(x)),\varphi((p|_{V_\alpha})^{-1}(x)))\\
+        &=(x,\alpha).
+    \end{align*}
+    Por lo tanto, $\psi$ es un homeomorfismo.
+
+    (b)$\Rightarrow$ (a) Sea $U$ abierto en $X$, entonces existe un espacio $\Lambda$ discreto y $\psi:p^{-1}(U)\to U\times \Lambda$ un homeomorfismo tal que el diagrama \ref{lema: diagrama_1_cubriente}. Dado que $\Lambda$ es discreto, entonces la proyección $\pi_{1,\alpha}:U\times \{\alpha\}\to U$ es un homeomorfismo para todo $\alpha\in\Lambda$. Hagamos $V_\alpha=\psi^{-1}(U\times \{\alpha\})$, entonces $\{V_\alpha:\alpha\in \Lambda\}$ es una familia de abiertos disjunta. Notemos que $\psi^{-1}|_{V_\alpha}:V_\alpha\to U\times\{\alpha\}$ es un homeomorfismo y se tiene que
+    \begin{equation*}
+        p|_{V_\alpha}=\pi_{\alpha,1}\circ \psi^{-1}|_{V_\alpha}:V_\alpha\to U,
+    \end{equation*}
+    i.e., $p|_{V_\alpha}$ es un homeomorfismo. Finalmente
+    \begin{equation*}
+        p^{-1}(U)=\psi^{-1}(U\times\Lambda)=\medcup_{\alpha\in\Lambda}V_\alpha.
+    \end{equation*}
+    Se sigue que $p$ es una aplicación cubriente.
+\end{dem}
+\begin{lema}
+    \label{lema: lema_2_aplicacion_cubriente}
+    Sea $p:E\to X$ una aplicación cubriente y $U\subseteq X$ abierto cubierto parejamente. Consideremos el siguiente  cuadrado
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1.2cm, row sep =1.2cm]
+        Z\arrow["\varphi",r] \arrow["i", hook,d] & p^{-1}(U)\arrow[hook,r]\arrow[d, "p'"]& [-6.5mm] E\arrow[d, "p"]\\
+        Z\times I\arrow[r, "H"']\arrow[ur, "\widetilde{H}", dashed] & U \arrow[r, hook]& X
+        \end{tikzcd}
+    \end{equation*}
+    donde $Z$ es un espacio arbitario, $H$ es una homotopía y $\varphi$ es una función continua tal que el cuadrado conmuta, i.e., $p\circ \varphi=H(-,0)$. Entonces existe una homotopía $\widetilde{H}:Z\times I\to p^{-1}(U)$ que levanta a $H$ y que comienza en $\varphi$, i.e., $\widetilde{H}$ hace conmutar los dos triángulos.
+\end{lema}
+%%%% Clase 16 del 16/09/26 inciada el 04/11/26 terminada el 08/11/2026
+
+%%%% Clase 17 del 18/09/26 inciada el 08/11/26
+\begin{dem}
+    Consideremos el diagrama 
+    \begin{equation*}
+        \begin{tikzcd}[row sep=1cm]
+            Z \arrow[r,"\varphi"]\arrow[d, hook]& p^{-1}(U)\arrow[r, shift left=0.6ex, "\psi"]
+      \arrow[r, <-, shift right=0.6ex, "\psi^{-1}"']\arrow[d,"p'"] & U\times \Lambda\arrow[dl,"\pi_1"]\arrow[d,"\pi_2"]\\
+      Z\times I \arrow[r,"H"']& U & \Lambda
+        \end{tikzcd}
+    \end{equation*}
+    Definamos $\widetilde{H}:Z\times I\to p^{-1}(U)$ tal que 
+    \begin{equation*}
+       \widetilde{\rule{0pt}{1.6ex}H}_t=\psi^{-1}\circ (H_t\times\pi_2\circ\psi\circ\varphi), \text{ para toda } t\in I.
+    \end{equation*}
+    Entonces $\widetilde{H}$ es continua y satisface
+    \begin{align*}
+        p\circ\widetilde{\rule{0pt}{1.6ex}H}_t&=p\circ\psi^{-1}\circ (H_t\times\pi_2\circ\psi\circ\varphi)\\
+        &=\pi_1\circ  (H_t\times\pi_2\circ\psi\circ\varphi)\\
+        &=H_t
+    \end{align*}
+    por lo tanto, $p\circ\widetilde{\rule{0pt}{1.6ex}H}=H$. Por otro lado 
+    \begin{align*}
+        \widetilde{\rule{0pt}{1.6ex}H}(z,0)&=\psi^{-1}(H(z,0),\pi_2\psi\varphi(z))\\
+        &=\psi^{-1}(p\varphi(z),\pi_2\psi\varphi(z))\\
+        &=\psi^{-1}(\pi_1\psi\varphi(z),\pi_2\psi\varphi(z))\\
+        &=\psi^{-1}\psi\varphi(z)\\
+        &=\varphi(z).
+    \end{align*}
+\end{dem}
+\begin{definicion}
+    Una función continua $p:E\to X$ es una \textit{fibración } si tiene la siguiente propiedad: para cualquiera dos funciones continuas $f:Z\to E$ y $H:I\times Z\to X$ tales que el siguiente cuadrado conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep=1.2cm, column sep=1.2cm]
+            Z \arrow[r,"f"] \arrow[hook,d] & E\arrow[d, "p"]\\
+            Z\times I \arrow[ur, "\widetilde{H}", dashed]\arrow[r, "H"] & X
+        \end{tikzcd}
+    \end{equation*}
+    Entonces existe $\widetilde{H}:Z\times I\to E$ continua tal que hace conmutar los dos triángulos. 
+\end{definicion}
+\begin{teorema}
+\label{teo:cubirente implica fibracion}
+    Toda aplicación cubriente es una fibración.
+\end{teorema}
+\begin{dem}
+    Sean $\varphi:Y\to E$ y $H:I\times Y\to X$ funciones continuas tales que el siguiente cuadrado conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep=1.2cm, column sep=1.2cm]
+            Y \arrow[r,"\varphi"] \arrow[hook,d, "i"] & E\arrow[d, "p"]\\
+            Y\times I \arrow[r, "H"] & X
+        \end{tikzcd}
+    \end{equation*}
+    Para construir $\widetilde{H}$ vamos a hacer lo siguiente: para cada punto $y\in Y$ una vecindad abierta $A_y$ de $y$ y una función continua $\widetilde{H}^y:A_y\times E$ tal que conmutan los dos triángulos de manera que coincidan en las intersecciones y definen a $\widetilde{H}:Y\times I\to E$.
+
+    Sea $y\in Y$ y consideremos $H(\{y\}\times I)\subseteq X$. Cada punto $H(y,t)\in X$ con $t\in I$ tiene una vecindad abierta $U_{(y,t)}$ en $X$ cubierta parejamente. Tomemos $H^{-1}(U_{(y,t)})\subseteq Y\times I$. Estos son abiertos que cubren a $\{y\}\times I$. Para cada punto $(y_0,t)\in \{y_0\}\times I$, existe un básico $A_t\times B_t\subseteq Y\times I$ tal que
+    \begin{equation*}
+        (y,t)\in A_t\times B_t\subseteq H^{-1}(U_{(y,t)})
+    \end{equation*}
+    Como $\{y\}\times I$. Como $\{y\}\times I$ es compacto y métrico, por el lema de Lebesgue, existe una subcubierta finita $\{B_j:1\leq j \leq n\}\subseteq\{B_t:t\in I\}$ y una partición de $I$: $0=t_0<t_1<\cdots<t_k=1$ de manera que $[t_{i-1},t_i]\subseteq B_j$ para alguna $j\in\{1,\ldots,n\}$. Tomemos los abiertos correspondientes  $\{A_j:1\leq j \leq n\}\subseteq\{A_t:t\in I\}$ y sea 
+    $A_y=\bigcap_{i\leq n}A_i$ que es una vecinidad abierta de $y\in Y$. Entonces tenemos que $A_y\times [t_{i},t_{i-1}]\subseteq A_j\times B_j$, entonces
+    \begin{equation*}
+        H(A_y\times [t_{i-1},t_i])\subseteq U_{j_i},
+    \end{equation*}
+    donde $U_{j_i}$ es alguno de los abiertos $U_{(y,t)}$. Dado que $p\circ\varphi(y)=H(y,0)$, entonces $\varphi(A_y)\subseteq p^{-1}(U_{j_1})$, por \ref{lema: lema_2_aplicacion_cubriente}, existe una función continua $\widetilde{H}^{y}_1:A_y\times [0,t_1]\to p^{-1}(U_{j_1})\subseteq E$ tal que el cuadrado conmuta
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1.2cm, row sep =1.2cm]
+        A_y\arrow["\varphi|_{A_y}",r] \arrow["i_0", hook,d] & p^{-1}(U_{j_1})\arrow[d, "p'"]\\
+        A_y\times [0,t_1]\arrow[r, "H|_{A_y\times [0,t_1]}"]\arrow[ur, "\widetilde{H}_1^y", dashed] & U_{j_1}
+        \end{tikzcd}
+    \end{equation*}
+    que es un levantamiento de $H|_{A_y\times [0,t_1]}$. 
+    Ahora, notemos que $H(A_y\times [t_1,t_2])\subseteq U_{j_2}$, entonces $p\widetilde{H}^{y}_1(y,t_1)=H(y,t_1)\subseteq U_{j_1}\cap U_{j_2}$, por lo tanto,
+    \begin{equation*}
+        \widetilde{\rule{0pt}{1.6ex}H}^y_1(y,t_1)\in p^{-1}(U_{j_1}\times U_{j_2})\subseteq p^{-1}(U_{j_2}).
+    \end{equation*}
+    Entonces, por el \ref{lema: lema_2_aplicacion_cubriente}, existe una función continua $\widetilde{H}_2^y:A_y\times[t_1,t_2]\to p^{-1}(U_{j})$ tal que hace conmutar el siguiente diagrama
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1.2cm, row sep =1.2cm]
+            A_y\times\{t_1\}\arrow["\widetilde{H}^{y}_1",r]\arrow[d,hook,"i_1"] & p^{-1}(U_{j_2})\arrow["p'",d]\\
+            A_y\times[t_1,t_2]\arrow[r,"H|_{A_y\times [t_1,t_2]}"]\arrow[ur, "\widetilde{H}_2^y", dashed] & U_{j_2}
+        \end{tikzcd}
+    \end{equation*}
+    que es un levantamiento de $H|_{A_y\times [t_1,t_2]}$. De manera inductiva, existe $\widetilde{H}_i^y:A_y\times [t_{i-1},t_i]\to p^{-1}(U_{j_i})\subseteq E$ tal que hace conmutar el siguiente diagrama 
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1.2cm, row sep =1.2cm]
+            A_y\times\{t_{i-1}\}\arrow["\widetilde{H}^{y}_{i-1}",r]\arrow[d,hook,"i_{i-1}"] & p^{-1}(U_{j_i})\arrow["p'",d]\\
+            A_y\times[t_1,t_2]\arrow[r,"H|_{A_y\times [t_{i-1},t_i]}"]\arrow[ur, "\widetilde{H}_i^y", dashed] & U_{j_i}
+        \end{tikzcd}
+    \end{equation*}
+    para toda $i\in\{1,\ldots, k\}$, donde $\widetilde{H}^{y}_{0}=\varphi|_{A_y}$. Por el lema del pegado, existe una única función continua $\widetilde{H}:A_y\times I\to E$  tal que 
+    \begin{equation*}
+    \begin{tikzcd}[column sep=1.2cm, row sep =1.2cm]
+        A_y\arrow[r,"\varphi|_{A_y}"]\arrow[d,hook] & E\arrow[d,"p"]\\
+        A_{y}\times I\arrow[r,"H"]\arrow[ur,"\widetilde{H}^y",dashed] & X
+    \end{tikzcd}
+    \end{equation*}
+    para cada $y\in Y$. Notemos que $\{A_y\times I:y\in Y\}$ es una cubierta abierta de $Y\times I$. Veamos que las intersecciones no vacías $\widetilde{H}^y$ son iguales.
+
+    Sea $y\in A_{y_0}\cap A_{y_1}$. Entonces 
+    \begin{align*}
+        p\circ \widetilde{H}^{y_0}(y,t)=H(y,t)=p\circ \widetilde{H}^{y_1}(y,t)
+    \end{align*}
+    por lo tanto, $\widetilde{H}^{y_0}(y,-)$ y $\widetilde{H}^{y_1}(y,-)$ son levantamientos de la trayectoria $H(y,-)$ y empiezan en
+    \begin{equation*}
+        \widetilde{H}^{y_0}(y,0)=\varphi(y)=\widetilde{H}^{y_1}(y,0)
+    \end{equation*}
+    por \ref{prop:levantamiento_unico_conexo}, $\widetilde{H}^{y_0}(y,t)=\widetilde{H}^{y_0}(y,t)$ para toda $t\in I$. Por el lema del pegado, existe una única función $\widetilde{H}:Y\times I\to E$ tal que el diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep=1.2cm, column sep=1.2cm]
+            Y \arrow[r,"\varphi"] \arrow[hook,d, "i"] & E\arrow[d, "p"]\\
+            Y\times I \arrow[r, "H"]\arrow[ur, "\widetilde{H}"] & X
+        \end{tikzcd}
+    \end{equation*}
+\end{dem}
+%%%% Clase 17 del 18/09/26 inciada el 08/11/26 terminada el 09/11/2026
+
+%%%% Clase 18 del 21/09/26 inciada el 09/11/26
+\begin{prop}
+\label{prop:levantamientos homotop son homotop}
+    Sea $p:E\to X$ aplicación cubriente. Consideremos las trayectorias $\alpha,\beta:I\to X$ tal que $\alpha(0)=\beta(0)=x_0$, $\alpha(1)=\beta(1)=x_1$ y $a\in p^{-1}(x_0)$. Si $\alpha\simeq\beta\rel$, entonces $\widetilde{\alpha}_{a}\simeq\widetilde{\beta}_a\rel$.
+\end{prop}
+\begin{dem}
+    Sea $H:I\times I\to X$ tal que $H(s,0)=\alpha(s)$ y $H(s,1)=\beta(s)$. Dado que $p\circ\widetilde{\alpha}_a=\alpha$, por \ref{teo:cubirente implica fibracion}, existe $\widetilde{H}:I\times I\to E$ tal que el diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep=1.2cm, column sep=1.2cm]
+            I
+            \arrow[r,"\widetilde{\alpha}_a"] \arrow[hook,d] & E\arrow[d, "p"]\\
+            I\times I \arrow[r, "H"]\arrow[ur, "\widetilde{H}"] & X
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $p\circ\widetilde{H}=H$ y $\widetilde{H}(s,0)=\widetilde{\alpha}_a(s)$. Además tenemos que $H(0,t)=x_0$ y $H(1,t)=x_1$ para toda $t\in I$, entonces $p\widetilde{H}(0,t)=x_0$, por lo tanto, $\widetilde{H}(0,t)\in p{-1}(x_0)$ para toda $t\in I$. Pero las fibras de $p$ son discretas, por lo tanto, $\widetilde{H}(0,-)$ es constante y $\widetilde{H}(0,0)=\widetilde{\alpha}_{a}(0)=a$, por lo tanto, 
+    $$\widetilde{H}(0,t)=a\; \text{ para todo } t\in I.$$ 
+    De forma similar $\widetilde{H}(1,t)=\widetilde{\alpha}_a(1)$, se sigue que $\widetilde{H}$ es una homotopía$\rel$. Ahora $\widetilde{H}(-,t):I\to E$ es una trayectoria tal que
+    \begin{equation*}
+        p\widetilde{H}(s,1)=H(s,1)=\beta(s)
+    \end{equation*}
+    que empieza en $\widetilde{H}(0,1)=a$, por \ref{prop:levantamiento_unico_conexo}, $\widetilde{H}(-,t)=\widetilde{\beta}_a$, por lo tanto, $\widetilde{\alpha}\simeq\widetilde{\beta}_a\rel$.
+\end{dem}
+\begin{coro}
+    Sean $p:E\to X$ una aplicación cubriente, $x_0\in X$ y $a\in p^{-1}(x_0)$. Entonces 
+    $$p_{\#}:\Pi_1(E,a)\to\Pi_1(X,x_0)$$ 
+    es inyectivo.
+\end{coro}
+\begin{dem}
+    Sea $\gamma:(I,\partial I)\to (E,a)$. Supongamos $p_\#[\gamma]=[c_{x_0}]$, i.e., $\gamma\simeq c_{x_0}$. Ahora, $\gamma$ es el levantamiento de $\gamma$ tal que $\gamma(0)=a=\gamma(1)$ y $c_a$ es el levantamiento de $c_{x_0}$ tal que $c_a(0)=a$, por \ref{prop:levantamientos homotop son homotop}, $\gamma\simeq c_a\rel$, por lo tanto, $[\gamma]=e$, i.e., $p_\#$ es inyectiva.
+\end{dem}
+\begin{prop}
+    Sea $f:Z\to Y$ continua y $Z$ conexo por trayectorías. Sea $y_0\in Y$ y $z_0,z_1\in f^{-1}(x_0).$ Entonces $f_{\#}(\Pi_1(Z,z_0))$, $f_{\#}(\Pi_1(Z,z_1))\subseteq \Pi_1(Y,y_0)$ son subgrupos conjugados.
+\end{prop}
+\begin{ejercicio}
+    Sea $f:X\to Y$ continua y $\sigma,\beta,\gamma:I\to X$ trayectorias de $x_0$ a $x_1$. Mostrar que
+    Mostrar que 
+    \begin{equation*}
+        f\circ(\alpha*\beta*\gamma)=f\circ\alpha*f\circ\beta*f\circ\gamma
+    \end{equation*}
+    y $f\circ\overline{\sigma}=\overline{f\circ\sigma}$.
+\end{ejercicio}
+\begin{dem}
+    Sea $\sigma:I\to Z$ una trayectoria tal que $\sigma(0)=z_0$ y $\sigma(1)=z_1$, entonces $[f\circ\sigma]\in\Pi_1(y,y_0)$. Consideremos el diagrama
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1.2cm, row sep=1.2cm]
+            \Pi_1(Z,z_0)\arrow["f_\#",d]\arrow[r,"\vec{\sigma}","\cong"'] & \Pi_1(Z,z_1)\arrow["f_\#",d]\\
+            \Pi_1(Y,y_0)\arrow["\overrightarrow{f\circ\sigma}","\cong"',r] & \Pi_1(Y,y_0)
+        \end{tikzcd}
+    \end{equation*}
+    Este diagrama conmuta, pues si $[\alpha]\in \Pi_1(Z,z_0),$ entonces
+    \begin{align*}
+        f_\#\circ\vec{\sigma}\hspace{0.5mm}[\alpha]&=f_\#[\overline{\sigma}*\alpha*\sigma]\\
+        &=[f\circ\overline{\sigma}*f\circ\alpha*f\circ\sigma]\\
+        &=[\overline{f\circ\sigma}*f\circ\alpha*f\circ\sigma]\\
+        &=\overrightarrow{f\circ\sigma}[\alpha].
+    \end{align*}
+\end{dem}
+Sea $[\beta]\in\Pi_1(Y,y_0)$, entonces 
+\begin{align*}
+    \overrightarrow{f\circ\sigma}[\beta]&=[\overline{f\circ\sigma}*\beta*f\circ\sigma]\\
+    &=[\overline{f\circ\sigma}][\beta][f\circ\sigma]\\
+    &=[f\circ\sigma]^{-1}[\beta][f\circ\sigma],
+\end{align*}
+por lo tanto, $\overrightarrow{f\circ\sigma}$ es el homomorfismo conjugado del elemento $[f\circ\sigma]$. Se tiene que
+\begin{align*}
+    f_\#(\Pi_1(Z,z_1))&= f_{\#}(\vec{\sigma}(\Pi_1(Z,z_0)))\\
+    &=\overrightarrow{f\circ\sigma}(f_{\#}(\Pi_1(Z,z_0)))\\
+    &=[f\circ\sigma]^{-1}f_\#(\Pi_1(Z,z_0))[f\circ\sigma]
+\end{align*}
+\begin{ejercicio}
+    Sea $p:E\to X$ una aplicación cubriente y $E$ conexo por trayectorías. Sea $x_0\in X$, entonces la familia
+    \begin{equation*}
+        \{p_\#(\Pi_1(E,a))\subseteq \Pi_1(X,x_0):a\in p^{-1}(x_0)\}
+    \end{equation*}
+    es una clase de conjugación completa de $\Pi_1(X,x_0).$
+\end{ejercicio}
+\begin{ejercicio}
+   Sean $X$ un conjunto y $G$ un grupo. Demuestre que hay una biyección entre las acciones por la derecha de $G$ en $X$ y las acciones por la izquierda de $G$ en $X$.
+\end{ejercicio}
+\begin{notacion}
+    Dado $x\in X$, $G_x\subseteq G$ es el subgrupo de isometrías y $O(x)$ la órbita.
+\end{notacion}
+\begin{prop}
+    Sea $\cdot:G\times X\to X$ una acción continua. Dado $x\in X$, definimos
+    \begin{align*}
+        \gamma_x:G&\to O(x)\subseteq X\\
+        g&\mapsto g\cdot x
+    \end{align*}
+    Entonces existe una biyección continua $\overline{\gamma}_x:G/G_x\to O(x)$ tal que el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1cm, row sep=1cm]
+            G\arrow[r,"\gamma_x"]\arrow[d,"\pi"'] & O(x)\\
+            G/G_x\arrow[ur,"\overline{\gamma}_x"']
+        \end{tikzcd}
+    \end{equation*}
+    Además, si $G$ es compacto y $X$ Hausdorff, entonces $\widetilde{\gamma}_x$ es un homeomorfismo.
+\end{prop}
+\begin{dem}
+    Veamos que $\gamma_x$ pasa al cociente. Tenemos que $g\sim gh$, donde $h\in G_x$, entonces
+    \begin{align*}
+        \gamma_x(gh)&=(gh)\cdot x\\
+        &g\cdot(h\cdot x)\\
+        &=g\cdot x\\
+        &=\gamma_x(g).
+    \end{align*}
+    como $\gamma_x$ es sobreyectiva, $\overline{\gamma}_x$ lo es.
+\end{dem}
+\begin{ejercicio}
+    Mostrar que $\overline{\gamma}_x$ es inyectiva.
+\end{ejercicio}
+\begin{nota}
+    Sea $G$ un subgrupo de $K$, tenemos una acción $\cdot:K\times G\to K$ dada por $k\cdot g=kg$ y el cociente de esta acción se denota como $K/G$, donde las órbitas de esta acción 
+    $$O(k)=\{k\cdot g=kg:g\in G\}$$ 
+    son las clases laterales izquierdas.
+\end{nota}
+\begin{ejercicio}
+    Sea $X$ un espacio. Mostrar que hay una acción por la derecha $\cdot: X^n\times S_n\to X^n$ tal que
+    \begin{align*}
+        (x_1,\ldots,x_n)\cdot \rho=(x_{\rho(1)},\ldots,x_{\rho(n)})
+    \end{align*}
+\end{ejercicio}
+\begin{definicion}
+    Sea $p:E\to X$ una aplicación cubriente. Para cada $x_0\in X$ definamos la acción
+    \begin{align*}
+        \cdot:p^{-1}(x_0)\times \Pi_1(X,x_0)&\to p^{-1}(x_0)\\
+        (a,[\alpha])&\mapsto \widetilde{\alpha}_a(1)
+    \end{align*}
+\end{definicion}
+\begin{ejercicio}
+    Mostrar que la acción anterior esta bien definida y que es por la derecha.
+\end{ejercicio}
+%%%% Clase 18 del 21/09/26 inciada el 09/11/26 terminada el 10/11/2026
+
+%%%% Clase 19 del 23/09/26 inciada el 10/11/26
+
+\noindent
+\begin{minipage}[t]{0.72\textwidth}
+\begin{ejemplo}
+Sea $G = \R$ con la suma y $X = S^1 \times S^1$ el $2$-toro. Consideremos la acción $\R \times (S^1 \times S^1) \to S^1 \times S^1$ dada por
+\[
+t \cdot (\omega_1, \omega_2) = \left(e^{2\pi i t}\omega_1, \, e^{2\pi i \alpha t}\omega_2\right),
+\]
+donde $\alpha \in \R$ es irracional.
+\end{ejemplo}
+
+\begin{ejercicio}
+Ver que esta acción es libre.
+\end{ejercicio}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.24\textwidth}
+\vspace{0pt}
+\centering
+\begin{tikzpicture}[scale=1.8, >=Stealth]
+    \draw[thick, postaction={decorate, decoration={markings, mark=at position 0.55 with {\arrow[scale=1.2]{>}}}}] (0,0) -- (1,0);
+    \draw[thick, postaction={decorate, decoration={markings, mark=at position 0.55 with {\arrow[scale=1.2]{>}}}}] (0,1) -- (1,1);
+    \draw[thick, postaction={decorate, decoration={markings, mark=at position 0.55 with {\arrow[scale=1.2]{>}}}}] (0,0) -- (0,1);
+    \draw[thick, postaction={decorate, decoration={markings, mark=at position 0.55 with {\arrow[scale=1.2]{>}}}}] (1,0) -- (1,1);
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+
+Para cada $(\omega_1, \omega_2) \in S^1 \times S^1$, las órbitas $\mathcal{O}(\omega_1, \omega_2) = \R \cdot (\omega_1, \omega_2)$ son densas en $S^1 \times S^1$. Además, como la acción es libre, el estabilizador es trivial, es decir, $\R_{(\omega_1, \omega_2)} = \{0\}$, por lo que se tiene el siguiente diagrama conmutativo:
+
+\begin{center}
+\begin{minipage}[c]{0.52\textwidth}
+\centering
+\begin{tikzcd}[row sep=2.5em, column sep=2em]
+\R \arrow[d, "\pi"'] \arrow[r, "\gamma_{(\omega_1,\omega_2)}"] & \mathcal{O}(\omega_1, \omega_2)\mathrlap{\;\subset S^1 \times S^1} \\
+\R/\R_{(\omega_1,\omega_2)}\cong\R \arrow[ur, "\bar{\gamma}_{(\omega_1,\omega_2)}"'] & 
+\end{tikzcd}
+\hspace{3.5em}
+\end{minipage}%
+\begin{minipage}[c]{0.42\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.95]
+    % Contorno exterior del 2-toro (dona)
+    \draw[thick] (0,0) ellipse (2.1cm and 1.15cm);
+    % Agujero central
+    \draw[thick] (-0.85,0.1) .. controls (-0.4,-0.3) and (0.4,-0.3) .. (0.85,0.1);
+    \draw[thick] (-0.68,-0.02) .. controls (-0.3,0.25) and (0.3,0.25) .. (0.68,-0.02);
+    % Trazo de la órbita enrollándose en el toro
+    \draw[semithick] (-0.68,-0.02) .. controls (-1.1,-0.3) and (-1.3,-0.85) .. (-0.7,-1.08);
+    \draw[semithick, densely dashed] (-0.7,-1.08) .. controls (-0.2,-0.9) and (-0.2,-0.35) .. (-0.3,-0.16);
+    \draw[semithick] (-0.3,-0.16) .. controls (-0.1,-0.55) and (0.1,-0.95) .. (0.5,-1.11);
+    \draw[semithick, densely dashed] (0.5,-1.11) .. controls (0.8,-0.8) and (0.6,-0.3) .. (0.45,-0.14);
+    \draw[semithick] (0.45,-0.14) .. controls (0.8,-0.4) and (1.2,-0.75) .. (1.55,-0.77);
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+
+Sin embargo, aunque $\bar{\gamma}_{(\omega_1, \omega_2)} \colon \R \to \mathcal{O}(\omega_1, \omega_2)$ es una biyección continua, no es un homeomorfismo (es decir, $\R \not\cong \mathcal{O}(\omega_1, \omega_2)$), ya que $\R$ es localmente conexo, mientras que $\mathcal{O}(\omega_1, \omega_2)$ no es localmente conexo como subespacio de $S^1 \times S^1$.
+
+\begin{prop}
+\label{prop:fibras de p-1(x_0)}
+Sea $p \colon E \to X$ una aplicación cubriente y sea $x_0 \in X$.
+\begin{enumerate}[label=\arabic*)]
+    \item Dado $a \in p^{-1}(x_0)$, se cumple que $\Pi_1(X, x_0)_a = p_{\#}\Pi_1(E, a)$.
+    \item Si $E$ es conectable por trayectorias, entonces la acción $p^{-1}(x_0) \times \Pi_1(X, x_0) \to p^{-1}(x_0)$ es transitiva.
+\end{enumerate}
+\end{prop}
+
+\begin{dem}
+(2) Sean $a_0, a_1 \in p^{-1}(x_0)$. Como $E$ es conectable por trayectorias, existe una trayectoria $\sigma \colon I \to E$ tal que $\sigma(0) = a_0$ y $\sigma(1) = a_1$. Consideremos el lazo $p \circ \sigma$ en $(X, x_0)$, de modo que $[p \circ \sigma] \in \Pi_1(X, x_0)$. Como $\sigma$ es el levantamiento de $p \circ \sigma$ que inicia en $a_0$, es decir, $\widetilde{(p \circ \sigma)}_{a_0} = \sigma$, entonces
+    \[
+    a_0 \cdot [p \circ \sigma] = \widetilde{(p \circ \sigma)}_{a_0}(1) = \sigma(1) = a_1.
+    \]
+    Por lo tanto, la acción es transitiva.
+
+
+(1) Por definición de estabilizador, tenemos que
+    \[
+    \Pi_1(X, x_0)_a = \left\{ [\alpha] \in \Pi_1(X, x_0) \;\middle|\; a \cdot [\alpha] = a \text{ (es decir, } \widetilde{\alpha}_a(1) = a\text{)} \right\}.
+    \]
+    Sea $[\alpha] \in \Pi_1(X, x_0)_a$. Como $\widetilde{\alpha}_a(0) = a = \widetilde{\alpha}_a(1)$, el levantamiento $\widetilde{\alpha}_a$ es un lazo en $(E, a)$, por lo tanto $[\widetilde{\alpha}_a] \in \Pi_1(E, a)$ y entonces
+    \[
+    p_{\#}[\widetilde{\alpha}_a] = [p \circ \widetilde{\alpha}_a] = [\alpha].
+    \]
+    Por lo tanto, $[\alpha] \in p_{\#}\Pi_1(E, a)$, de donde $\Pi_1(X, x_0)_a \subset p_{\#}\Pi_1(E, a)$.
+
+    Recíprocamente, sea $[\beta] \in \Pi_1(E, a)$, de manera que $p_{\#}[\beta] = [p \circ \beta]$. Por unicidad de los levantamientos, $\widetilde{(p \circ \beta)}_a = \beta$, por lo tanto
+    \[
+    a \cdot [p \circ \beta] = \widetilde{(p \circ \beta)}_a(1) = \beta(1) = a.
+    \]
+    En consecuencia, $p_{\#}[\beta] \in \Pi_1(X, x_0)_a$, y por lo tanto $p_{\#}\Pi_1(E, a) \subset \Pi_1(X, x_0)_a$.
+\end{dem}
+
+\begin{coro}
+\label{coro:biyeccion_fibra_cosets}
+Sea $p \colon E \to X$ una aplicación cubriente con $E$ un espacio conexo por trayectorias y sea $x_0 \in X$. Entonces cada $a \in p^{-1}(x_0)$ define una biyección
+\[
+\Pi_1(X, x_0) / p_{\#}\Pi_1(E, a) \xrightarrow{\;\bar{\gamma}_a\;} p^{-1}(x_0).
+\]
+\end{coro}
+
+\begin{dem}
+Por la proposición anterior, tenemos que la acción $p^{-1}(x_0) \times \Pi_1(X, x_0) \to p^{-1}(x_0)$ es transitiva, así que para cada $a \in p^{-1}(x_0)$, su órbita es todo $p^{-1}(x_0)$. Por una proposición anterior sobre acciones de grupos, tenemos una biyección
+\[
+\Pi_1(X, x_0) / \Pi_1(X, x_0)_a \xrightarrow{\;\bar{\gamma}_a\;} p^{-1}(x_0),
+\]
+y como por la proposición anterior $\Pi_1(X, x_0)_a = p_{\#}\Pi_1(E, a)$, se obtiene el resultado.
+\end{dem}
+
+\begin{prop}
+$\Pi_1(S^1, 1) \cong \Z$.
+\end{prop}
+
+\begin{dem}
+Consideremos la aplicación cubriente $\exp \colon \R \to S^1$ dada por $\exp(t) = e^{2\pi i t}$ y tomemos $x_0 = 1 \in S^1$. Como $\R$ es conexo por trayectorias y $\exp^{-1}(1) = \Z$, por el corolario anterior para cada $a \in \exp^{-1}(1) = \Z$ tenemos una biyección
+\[
+\Pi_1(S^1, 1) / \exp_{\#}\Pi_1(\R, a) \xrightarrow{\;\bar{\gamma}_a\;} \Z = \exp^{-1}(1).
+\]
+Como $\R \simeq \sing$, se tiene que $\Pi_1(\R, a) \cong 0$, por lo que obtenemos una biyección
+\[
+\Pi_1(S^1, 1) \xrightarrow{\;\gamma_a\;} \Z
+\]
+para cada $a \in \Z$.
+
+Recordemos que $\gamma_a[\alpha] = \widetilde{\alpha}_a(1)$. En particular, para $a = 0$ se tiene $\gamma_0[\alpha] = \widetilde{\alpha}_0(1)$, de modo que para el lazo constante $c_1$ se cumple $\gamma_0[c_1] = (\widetilde{c}_1)_0(1) = c_0(1) = 0$. Por lo tanto, tomaremos $\gamma_0$.
+
+Veamos cómo son todos los elementos de $\Pi_1(S^1, 1)$. Sea $\varepsilon = \exp|_I \colon I \to S^1$, que es un lazo basado en $1$, y para cada $n \in \Z$ consideremos $\varepsilon^n \colon I \to S^1$ dado por
+\[
+\varepsilon^n(t) = e^{2\pi i n t}.
+\]
+Para calcular $\gamma_0[\varepsilon^n]$, consideremos $\widetilde{\varepsilon}_0^n \colon I \to \R$ dado por $\widetilde{\varepsilon}_0^n(t) = nt$, el cual es el levantamiento de $\varepsilon^n$ que empieza en $0 \in \R$, ya que $\widetilde{\varepsilon}_0^n(0) = 0$ y
+\[
+(\exp \circ \widetilde{\varepsilon}_0^n)(t) = \exp(nt) = e^{2\pi i n t} = \varepsilon^n(t).
+\]
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+ & \R \arrow[d, "\exp"] \\
+I \arrow[ur, "\widetilde{\varepsilon}_0^n"] \arrow[r, "\varepsilon^n"'] & S^1
+\end{tikzcd}
+\]
+Entonces $\gamma_0[\varepsilon^n] = \widetilde{\varepsilon}_0^n(1) = n$. Por lo tanto,
+\[
+\Pi_1(S^1, 1) = \left\{ [\varepsilon^n] \;\middle|\; n \in \Z \right\}.
+\]
+\end{dem}
+
+\begin{ejercicio}
+Ver que $\gamma_0$ es un homomorfismo y, por lo tanto, un isomorfismo. En particular, $[\varepsilon] = [\varepsilon^1]$ es un generador de $\Pi_1(S^1, 1)$ y $[\varepsilon^{-1}]$ también.
+\end{ejercicio}
+
+\begin{definicion}
+Sea $G$ un grupo y $X$ un espacio topológico. Una acción continua $G \times X \to X$ es \textit{propiamente discontinua} si dado $x \in X$, existe una vecindad abierta $U_x$ de $x$ en $X$ tal que para cada $g \neq e$ en $G$,
+\[
+U_x \cap g \cdot U_x = \varnothing;
+\]
+es decir, si $g_1 \neq g_2$ en $G$, entonces $g_1 \cdot U_x \cap g_2 \cdot U_x = \varnothing$.
+\end{definicion}
+
+\begin{lema}
+Si $G \times X \to X$ es una acción propiamente discontinua con $X \neq \varnothing$, entonces $G$ tiene la topología discreta.
+\end{lema}
+
+\begin{dem}
+Sea $x_0 \in X$ y tomemos una vecindad abierta $U_{x_0} \subset X$ de $x_0$ como en la definición. Consideremos la acción evaluada en $(e, x_0) \in G \times X$, cuya imagen es $e \cdot x_0 = x_0 \in U_{x_0}$. Como la acción es continua en $(e, x_0)$, existe una vecindad abierta $W \subset G \times X$ de $(e, x_0)$ tal que si $(g, x) \in W$, entonces $g \cdot x \in U_{x_0}$.
+
+Sea $A \times V \subset G \times X$ un abierto básico tal que $(e, x_0) \in A \times V \subset W$. Entonces $e \in A \subset G$, donde $A$ es abierto en $G$ y cumple que si $g \in A$, entonces $(g, x_0) \in A \times V \subset W$, por lo que $g \cdot x_0 \in U_{x_0}$. Como además $x_0 \in U_{x_0}$, se tiene $g \cdot x_0 \in g \cdot U_{x_0}$, de modo que
+\[
+g \cdot x_0 \in U_{x_0} \cap g \cdot U_{x_0} \neq \varnothing,
+\]
+lo cual implica que $g = e$. Por lo tanto, $A = \{e\}$, y en consecuencia $\{e\}$ es un abierto en $G$.
+
+Sea ahora $g \in G$ y consideremos el homeomorfismo $L_g \colon G \to G$ dado por $L_g(g') = g g'$. Como $L_g(\{e\}) = \{g\}$, se sigue que $\{g\}$ es un abierto en $G$ para todo $g \in G$. Por lo tanto, $G$ tiene la topología discreta.
+\end{dem}
+
+\begin{ejercicio}
+Ver que toda acción propiamente discontinua es libre.
+\end{ejercicio}
+%%%% Clase 19 del 23/09/26 inciada el 10/11/26 terminada el 10/11/2026
+
+%%%% Clase 20 del 25/09/26 inciada el 10/11/26
+\begin{prop}
+    Sea $G\times X\xrightarrow{\bigdot} X$ una acción continua. Entonces $\pi:X\to X/G$ es abierta, por lo tanto, es una identificación abierta.
+\end{prop}
+\begin{dem}
+    Sea $V\subseteq X$ abierto, como $p$ es una identifucación, tenemos que ver que $\pi^{-1}\pi(V)$ es abierto. Mostremos que
+    \begin{equation*}
+        \pi^{-1}\pi(V)=\medcup_{g\in G}g\cdot V.
+    \end{equation*}
+    
+    Si $x\in V$, entonces $\pi(g\cdot x)=\pi(x)\in \pi(V)$, por lo tanto, $g\cdot x\in \pi^{-1}\pi(V)$. De manera recíproca, si $a\in\pi^{-1}\pi(V)$, entonces $\pi(a)=\pi(x)$, para algún $x\in X$. Entonces, existe $g\in G$ tal que $a=g\cdot x\in g\cdot V$. Como $g\cdot V\cong V$, entonces $\pi^{-1}\pi(V)$ es unión de abiertos, por lo tanto, $\pi(V)$ es abierto.
+\end{dem}
+\begin{ejercicio}
+    Sea $G\times X\xrightarrow{\bigdot} X$ una acción propiamente discontinua, entonces $\pi:X\to X/G$ es una aplicación cubriente.
+\end{ejercicio}
+\begin{ejercicio}
+    Sea $G\times X\xrightarrow{\bigdot} X$ una acción continua libre tal que $G$ es finito y $X$ es Hausdorff. Mostrar que la acción es propiamnete discontinua y, por lo tanto, $\pi:X\to X/G$ es una aplicación cubiente.
+\end{ejercicio}
+\begin{definicion}
+    El espacio proyectivo real de dimensión $n$, que se denota como $\R P^n$, se define como el cociente $\R^{n+1}-\{0\}/\sim$, donde $v\sim w$ si existe $\lambda\in \R$ difente de cero tal que $v=\lambda w$.
+\end{definicion}
+\begin{ejercicio}
+    Mostrar que la inclusión $\iota:S^n\hookrightarrow \R^{n+1}-\{0\}$ pasa al los cocientes y define un homeomorfismo canónico $\overline{\iota}:S^n/\Z_2\to \R P^n$ tal que el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1cm, row sep=1cm]
+            S^n\arrow[r,"\iota", hook]\arrow[d,"\pi_1"] & \R^{n+1}-\{0\}\arrow["\pi_2",d]\\
+            S^n/\Z_2\arrow["\overline{\iota}",r] & P \R^n
+        \end{tikzcd}
+    \end{equation*}
+    y que $S^1/\Z_2\cong S^1,$ por lo tanto, $\R P^1\cong S^1.$
+\end{ejercicio}
+\begin{definicion}
+    Sea $p:E\to X$ una aplicación cubriente. Dada una trayectoria $\sigma:I\to X$ tal que $\sigma(0)=x_0$ y $\sigma(1)=x_1$, definimos  
+    \begin{align*}
+        \widearc{\sigma}:p^{-1}(x_0)&\to p^{-1}(x_1)\\
+        a&\mapsto \widetilde{\sigma}_a(1)
+    \end{align*}
+\end{definicion}
+\begin{lema}
+    \label{lema: lema_A_cubrientes}
+    Sea $p:E\to X$ una aplicación cubriente. Sean $\alpha,\tau:I\to X$ tal que $\sigma(0)=x_0$, $\sigma(1)=\tau(0)=x_1$ y $\tau(1)=x_2$. Entonces
+    \begin{enumerate}
+        \item[(1)] $\widearc{(\sigma*\tau)}=\widearc{\tau}*\widearc{\sigma}$
+        \item[(2)] $\sigma\simeq\tau\rel$, entonces $\widearc{\tau}=\widearc{\sigma}$ 
+        \item[(3)] La inversa de $\widearc{\sigma}$ es $\widearc{\overline{\sigma}}.$
+    \end{enumerate}
+\end{lema}
+\begin{dem}
+    (1) Por definición
+    \begin{align*}
+        \widearc{(\sigma*\tau)}(a)=\widetilde{(\sigma*\tau)}_a(1)
+    \end{align*}
+    Notemos que
+    \begin{align*}
+        p\circ (\widetilde{\sigma}_a*\widetilde{\tau}_{\widetilde{\sigma}_a(1)})&=p\circ \widetilde{\sigma}_a*p\circ\widetilde{\tau}_{\widetilde{\sigma}_a(1)}=\sigma*\tau
+    \end{align*}
+    y $(\widetilde{\sigma}_a*\widetilde{\tau}_{\widetilde{\sigma}_a(1)})(0)=\widetilde{\sigma}_a(0)=a$. Por \ref{prop:levantamiento_unico_conexo}, $\widetilde{\sigma}_a*\widetilde{\tau}_{\widetilde{\sigma}_a(1)}=\widetilde{(\sigma*\tau)}_a$, por lo tanto,
+    \begin{align*}
+        \widetilde{(\sigma*\tau)}_a(1)&=(\widetilde{\sigma}_a*\widetilde{\tau}_{\widetilde{\sigma}(1)})(1)\\
+        &=\widetilde{\tau}_{\widetilde{\sigma}_a(1)}(1).
+    \end{align*}
+    Por oto lado,
+    \begin{align*}
+        \widearc{\tau}*\widearc{\sigma}(a)= \widearc{\tau}(\widetilde{\sigma}_a(1))=\widetilde{\tau}_{\widetilde{\sigma}_a(1)}(1)
+    \end{align*}
+    Se sigue que $\widearc{(\sigma*\tau)}=\widearc{\tau}*\widearc{\sigma}$.
+
+    (2) Si $\sigma\simeq\tau\rel$, por \ref{prop:levantamientos homotop son homotop}, $\widetilde{\sigma}\simeq\widetilde{\tau}\rel$, donde $a\in p^{-1}(x_0)$. Por lo tanto
+    \begin{align*}
+        \widearc{\sigma}(a)&=\widetilde{\sigma}_a(1)\\
+        &=\widetilde{\tau}_a(1)\\
+        &=\widearc{\tau}(a).
+    \end{align*}
+
+    (3) Tenemos que $\sigma*\overline{\sigma}\simeq c_{x_0}$, por el inciso (2), 
+    \begin{equation*}
+        \widearc{(\sigma*\overline{\sigma})}=\widetilde{c}_{x_0}=\id_{p^{-1}(x_0)},
+    \end{equation*}
+    por el inciso (1), 
+    \begin{equation*}
+        \widearc{\overline{\sigma}}\circ\widearc{\sigma}=\id_{p^{-1}(x_0)},
+    \end{equation*}
+    de manera similar, $\widearc{\sigma}\circ\widearc{\overline{\sigma}}=\id_{p^{-1}(x_1)}$.
+\end{dem}
+\begin{coro}
+    Sea $p:E\to X$ una aplicación cubriente. Entonces las fibras sobre los puntos de una misma componente por trayectoria tienen la misma cardinalidad.
+\end{coro}
+\begin{lema}
+    \label{lema:lema_B_levantamiento}
+    Sea $p:E\to X$ una aplicación cubriente. Sean $\sigma,\gamma:I\to X$ trayectorias de $x_0$ a $x_1$ y $a_0\in p^{-1}(x_0)$. Si $\sigma*\overline{\gamma}$ es un lazo tal que $(\sigma*\overline{\gamma})_{a_0}$ es un lazo. Entonces $\widetilde{\sigma}_{a_0}(1)=\widearc{\gamma}_{a_0}(1).$
+\end{lema}
+\begin{dem}
+    Por definición, tenemos que
+    \begin{align*}
+        \widearc{(\sigma*\overline{\gamma})}(a_0)=\widetilde{(\sigma*\overline{\gamma})}(1)=a_0
+    \end{align*}
+    por \ref{lema: lema_A_cubrientes} (1) y (3),
+    \begin{align*}
+        \widearc{(\sigma*\overline{\gamma})}(a_0)&=\widearc{\overline{\gamma}}\circ\widearc{\sigma}(a_0)\\
+        &=\widearc{{\gamma}}^{\hspace{0.5mm}-1}\circ\widearc{\sigma}(a_0)\\
+        &=a_0
+    \end{align*}
+    la ultima igualdad se sigue de la hipótesis. Se sigue que $\widearc{\sigma}(a_0)=\widearc{{\gamma}}(a_0)$, por lo tanto, 
+    $$\widetilde{\sigma}_{a_0}(1)=\widearc{\gamma}_{a_0}(1).$$
+\end{dem}
+\begin{ejercicio}
+    Sea $p:E\to X$ una aplicación cubriente. Entonces los abiertos de $X$ cubiertos parejamente son una base de la topología de $X$ y las hojas sobre estos abiertos son una base de la topología de $E$.
+\end{ejercicio}
+\begin{teorema}[de levantamiento]
+\label{teo:teo_levantamiento}
+    Sea $p:(E,a_0)\to (X,x_0)$ una aplicación cubriente y $(Y,y_0)$ un espacio conexo y localmente conexo por trayectorias (por lo tanto, $Y$ es conexo por trayectorias). Sea $f:(Y,y_0)\to(X,x_0)$ continua. Entonces existe un levantamineto $\tilde{f}:(Y,y_0)\to (E,a_0)$ de $f$ si y sólo si $f_\#(\Pi_1(Y,y_0))\subseteq p_\#(\Pi_1(E,a_0)).$
+\end{teorema}
+\begin{dem}
+    $\Leftarrow)$ Dado $y\in Y$, sea $\sigma_y:I\to Y$ una trayectoria de $y_0$ a $y.$ Consideremos $f\circ\sigma:I\to X$, entonces $f\circ\sigma(0)=x_0$. Definamos 
+    \begin{align*}
+        \tilde{f}:Y&\to E\\
+        y&\mapsto \widearc{(f\circ\sigma)}(a_0)
+    \end{align*}
+    $\tilde{f}$ es un levantamiento de $f$ pues 
+    \begin{align*}
+        p\circ \tilde{f}(y)&=p\circ \widearc{(f\circ\sigma)}(a_0)\\
+        &=p\circ \widetilde{f\circ \sigma}_{a_0}(1)\\
+        &=f\circ \sigma(1)\\
+        &=f(y).
+    \end{align*}
+    Mostremos que $\tilde{f}$ no depende de de la trayectoria $\sigma_y$. Sea $\tau_y:I\to Y$ una trayectroia de $y_0$ a $y$, entonces $[\sigma_y*\overline{\tau}_y]\in \Pi_1(Y,y_0)$. Por hipótesis y \ref{prop:fibras de p-1(x_0)} 
+    \begin{equation*}
+        f_\#\Pi_1(Y,y_0)\subseteq p_\#\Pi_1(E,a_0))= \Pi_1(X,x_0)_{a_0}.
+    \end{equation*}
+    %%%% Clase 20 del 25/09/26 inciada el 10/11/26 terminada el 10/11/2026
+
+    %%%% Clase 21 del 28/09/26 inciada el 10/11/26
+    por lo tanto,
+\[
+f_{\#}[\sigma * \bar{\tau}] = [f \circ (\sigma * \bar{\tau})] = [(f \circ \sigma) * (f \circ \bar{\tau})] \in \Pi_1(X, x_0)_{a_0}.
+\]
+Entonces,
+\[
+a_0 \cdot [(f \circ \sigma) * (f \circ \bar{\tau})] = \widetilde{(f \circ \sigma * f \circ \bar{\tau})}_{a_0}(1) = a_0,
+\]
+es decir, $\widetilde{(f \circ \sigma * f \circ \bar{\tau})}_{a_0}$ es un lazo basado en $a_0$, y por el lema \ref{lema:lema_B_levantamiento},
+\[
+\widetilde{(f \circ \sigma)}_{a_0}(1) = \widetilde{(f \circ \tau)}_{a_0}(1).
+\]
+En particular,
+\[
+\tilde{f}(y_0) = \widetilde{(f \circ c_{y_0})}_{a_0}(1) = (\tilde{c}_{x_0})_{a_0}(1) = c_{a_0}(1) = a_0.
+\]
+
+ Veamos la continuidad de $\tilde{f}$ en $y \in Y$. Sea $A \subset E$ un abierto tal que $\tilde{f}(y) \in A$; entonces existe una hoja $V$ sobre un abierto $U$ tal que $\tilde{f}(y) \in V \subset A$ y $f(y) \in U$, de manera que $p|_V \colon V \cong U$ es un homeomorfismo con inverso $p|_V^{-1}$. Como $f$ es continua y $Y$ es localmente conectable por trayectorias, existe $W$ una vecindad de $y$ que es conectable por trayectorias tal que $f(W) \subset U$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1, >=Stealth, every node/.style={font=\scriptsize}]
+    % --- Vecindad abierta W (izquierda, punteada) ---
+    \draw[semithick, dashed] plot [smooth cycle, tension=0.8] coordinates {
+        (-2.25, -0.05) (-1.9, 0.58) (-0.8, 0.58) (-0.5, 0.0) (-0.95, -0.55) (-1.95, -0.52)
+    };
+    \node[font=\footnotesize] at (-2.15, 0.68) {$W$};
+
+    % Puntos y trayectorias en la zona de Y
+    \fill (-3.1, -0.1) circle (1.2pt) node[below left=1pt] {$y_0$};
+    \fill (-1.85, -0.08) circle (1.2pt) node[below=2pt] {$y$};
+    \fill (-1.05, 0.05) circle (1.2pt) node[right=1pt] {$y'$};
+
+    \draw[semithick] (-3.1, -0.1) .. controls (-2.7, 0.15) and (-2.3, 0.12) .. node[above=1pt, pos=0.45] {$\sigma$} (-1.85, -0.08);
+    \draw[semithick] (-1.85, -0.08) .. controls (-1.55, 0.08) and (-1.3, 0.1) .. node[above=1pt, pos=0.5] {$\tau$} (-1.05, 0.05);
+
+    % --- Hoja abierta V (arriba derecha, punteada) ---
+    \draw[semithick, dashed] plot [smooth cycle, tension=0.8] coordinates {
+        (1.9, 1.15) (2.3, 1.78) (3.65, 1.78) (4.0, 1.2) (3.55, 0.62) (2.35, 0.62)
+    };
+    \node[font=\footnotesize] at (4.18, 1.55) {$V$};
+
+    % Puntos y trayectorias en la zona de E (a_0 recolocado para mejor estética y sin encimarse)
+    \fill (0.9, 0.75) circle (1.2pt) node[below=1pt] {$a_0$};
+    \fill (2.4, 1.1) circle (1.2pt) node[below=0pt] {$\tilde{f}(y)$};
+    \fill (3.45, 1.33) circle (1.2pt) node[below=0pt] {$\tilde{f}(y')$};;
+
+    \draw[semithick] (0.9, 0.75) .. controls (1.4, 1.1) and (1.9, 1.25) .. node[above left=0pt, pos=0.42] {$\widetilde{(f\circ\sigma)}_{a_0}$} (2.4, 1.1);
+    \draw[semithick] (2.4, 1.1) .. controls (2.75, 1.3) and (3.1, 1.35) .. (3.45, 1.33);
+
+    % Etiqueta exterior de p^{-1} \circ f \circ \tau
+    \node (pftau) at (2.9, 1.55) {$p^{-1} \circ f \circ \tau$};
+    %\draw[->, thin, shorten >=2pt] (pftau) -- (3.0, 1.39);
+
+    % --- Abierto U (abajo derecha, punteado) ---
+    \draw[semithick, dashed] plot [smooth cycle, tension=0.8] coordinates {
+        (1.95, -1.2) (2.35, -0.58) (3.7, -0.58) (4.05, -1.15) (3.55, -1.73) (2.35, -1.73)
+    };
+    \node[font=\footnotesize] at (4.23, -1.45) {$U$};
+
+    % Puntos y trayectorias en la zona de X
+    \fill (0.7, -1.2) circle (1.2pt) node[below left=0pt] {$x_0$};
+    \fill (2.4, -1.1) circle (1.2pt) node[below = 1pt] {$f(y)$};
+    \fill (3.3, -0.87) circle (1.2pt) node[right=1pt] {$f(y')$};
+
+    \draw[semithick] (0.7, -1.2) .. controls (1.1, -0.85) and (1.8, -0.9) .. node[above=1pt, pos=0.45] {$f\circ\sigma$} (2.4, -1.1);
+    \draw[semithick] (2.4, -1.1) .. controls (2.75, -0.88) and (3.0, -0.85) .. (3.3, -0.87);
+
+    % Etiqueta exterior de f \circ \tau
+    %\node[font=\footnotesize] (ftau) at (4.5,-2) {$X$};
+    %\node[font=\footnotesize] (ftau) at (-3,-2) {$Y$};
+    \node (ftau) at (3.05,-1.1) {$f \circ \tau$};
+    %\draw[->, thin, shorten >=2pt] (ftau) -- (2.9, -0.93);
+
+    % --- Flecha curva superior p^{-1} \circ f : W -> V ---
+    \draw[->, semithick, shorten <=3pt, shorten >=3pt]
+        (-1.2, 0.75) .. controls (-0.2, 2) and (1, 2) .. node[above=2pt, font=\footnotesize] {$p^{-1} \circ f$} (2, 1.7);
+
+    % --- Flechas globales \tilde{f} y f ---
+    \draw[->, semithick] (-0.35, 0.3) -- node[above left=1pt, font=\footnotesize] {$\tilde{f}$} (0.55, 0.75);
+    \draw[->, semithick] (-0.35, -0.3) -- node[below left=1pt, font=\footnotesize] {$f$} (0.55, -0.95);
+
+    % --- Flechas cortas, alineadas y centradas p|_V y p^{-1} entre V y U ---
+    \draw[->, semithick] (2.85, 0.45) -- node[left=2pt, font=\footnotesize] {$p|_V$} (2.85, -0.45);
+    \draw[->, semithick] (3.2, -0.45) -- node[right=2pt, font=\footnotesize] {$(p|V)^{-1}$} (3.2, 0.45);
+\end{tikzpicture}
+\end{center}
+
+Veamos que $\tilde{f}(W) \subset V$. Sea $y' \in W$; para definir $\tilde{f}(y')$, tenemos una trayectoria $\sigma$ de $y_0$ a $y$ y otra trayectoria $\tau \colon I \to W$ que va de $y$ a $y'$, así que $\sigma * \tau$ va de $y_0$ a $y'$. Consideremos $f \circ (\sigma * \tau)$, que va de $x_0$ a $f(y')$, y la trayectoria $\widetilde{(f \circ \sigma)}_{a_0} * (p|_V^{-1} \circ f \circ \tau)$ en $E$, la cual está bien definida pues $\widetilde{(f \circ \sigma)}_{a_0}(1) = \tilde{f}(y) = p|_V^{-1}(f(y)) = (p|_V^{-1} \circ f \circ \tau)(0)$. Entonces
+\[
+p \circ \left( \widetilde{(f \circ \sigma)}_{a_0} * (p|_V^{-1} \circ f \circ \tau) \right) = (f \circ \sigma) * (f \circ \tau) = f \circ (\sigma * \tau),
+\]
+por lo que, por unicidad de los levantamientos y por definición de $\tilde{f}$, se tiene que
+\[
+\tilde{f}(y') = \left( \widetilde{(f \circ \sigma)}_{a_0} * (p|_V^{-1} \circ f \circ \tau) \right)(1) = (p|_V^{-1} \circ f \circ \tau)(1) \in V.
+\]
+Por lo tanto, $\tilde{f}(W) \subset V \subset A$, de donde se sigue que $\tilde{f}$ es continua.
+\end{dem} % <-- Descomentar si el \begin{dem} del teorema del levantamiento está abierto antes
+\begin{ejercicio}
+    Muestra la implicación de ida del teorema del levantamiento.
+\end{ejercicio}
+\begin{ejercicio}
+Sea $p \colon E \to X$ una aplicación cubriente. Ver que $E$ es localmente conexo por trayectorias si y sólo si $X$ es localmente conexo por trayectorias.
+\end{ejercicio}
+
+\begin{definicion}
+Sea $X$ un espacio topológico. Tomemos la categoría $\textsf{AC}(X)$ cuyos objetos son las aplicaciones cubrientes sobre $X$ y cuyos morfismos son las funciones continuas $h \colon E \to E'$ tales que conmuta el siguiente diagrama:
+\[
+\begin{tikzcd}[column sep=small]
+E \arrow[rr, "h"] \arrow[dr, "p"'] & & E' \arrow[dl, "p'"] \\
+& X &
+\end{tikzcd}
+\]
+Claramente, un isomorfismo en $\textsf{AC}(X)$ es un homeomorfismo $h \colon E \to E'$ tal que $p' \circ h = p$.
+
+Los automorfismos de una aplicación cubriente $p \colon E \to X$ forman un grupo bajo la composición que denotamos por $G(p)$; sus elementos se conocen como \textit{transformaciones cubrientes}. Notemos que
+\[
+G(p) \subset \mathrm{Homeo}(E)
+\]
+es un subgrupo (tomando la topología discreta).
+\end{definicion}
+
+\begin{definicion}
+Se dice que un espacio $X$ es \textit{$n$-conexo}, con $n \geq 0$, si $\Pi_q(X) \cong 0$ para todo $q \leq n$. En particular, $0$-conexo es conexo por trayectorias y $1$-conexo es simplemente conexo.
+\end{definicion}
+
+\begin{definicion}
+Sea $p \colon (E, a_0) \to (X, x_0)$ una aplicación cubriente y supongamos que $E$ es $0$-conexo. Decimos que $p$ es \textit{normal} si $p_{\#}\Pi_1(E, a_0) \subset \Pi_1(X, x_0)$ es un subgrupo normal. Como $E$ es $0$-conexo, la definición no depende de los puntos base.
+\end{definicion}
+
+\begin{prop}
+\label{prop:G(p) cong Pi_1(X) / p Pi(E)}
+Sea $p \colon (E, a_0) \to (X, x_0)$ una aplicación cubriente tal que $E$ es $0$-conexo y localmente $0$-conexo. Supongamos que $p$ es normal. Entonces
+\[
+G(p) \cong \Pi_1(X, x_0) / p_{\#}\Pi_1(E, a_0).
+\]
+\end{prop}
+
+\begin{dem}
+Definimos un homomorfismo $\varphi \colon \Pi_1(X, x_0) \to G(p)$ como sigue. Sea $[\alpha] \in \Pi_1(X, x_0)$ y consideremos el levantamiento $\tilde{\alpha}_{a_0}$ y su punto final $a_1 = \tilde{\alpha}_{a_0}(1) \in p^{-1}(x_0)$. Tenemos el siguiente diagrama:
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+ & \left(E, \tilde{\alpha}_{a_0}(1)\right) \arrow[d, "p"] \arrow[dl, "h^{-1}"', shift right=0.9ex, dashed] \\
+(E, a_0) \arrow[ur, "h"', shift right=1ex, dashed] \arrow[r, "p"'] & (X, x_0)
+\end{tikzcd}
+\]
+Vimos que los subgrupos $p_{\#}\Pi_1(E, a_0)$ y $p_{\#}\Pi_1(E, a_1)$ son conjugados, pero como $p_{\#}\Pi_1(E, a_0)$ es normal, entonces $p_{\#}\Pi_1(E, a_0) = p_{\#}\Pi_1(E, a_1)$. Por el teorema del levantamiento, existen funciones continuas
+\[
+h \colon (E, a_0) \to \left(E, \tilde{\alpha}_{a_0}(1)\right),
+\]
+ \text{ tal que } $p \circ h = p$ y
+\[
+h^{-1} \colon \left(E, \tilde{\alpha}_{a_0}(1)\right) \to (E, a_0)\; \text{ tal que }\; p \circ h^{-1} = p.
+\]
+Entonces $h^{-1} \circ h \colon (E, a_0) \to (E, a_0)$ satisface $p \circ (h^{-1} \circ h) = p$, y como $\id_E$ es un levantamiento de $p$ que coincide con $h^{-1} \circ h$ en $a_0$ y $E$ es conexo, por unicidad de los levantamientos se tiene que $h^{-1} \circ h = \id_E$. De forma similar, $h \circ h^{-1} = \id_E$; por lo tanto, $h \in G(p)$. Definimos entonces $\varphi \colon \Pi_1(X, x_0) \to G(p)$ tal que $\varphi[\alpha] = h$.
+
+Veamos que $\varphi$ está bien definido. Si $\alpha \simeq \alpha'\rel$, entonces $\tilde{\alpha}_{a_0} \simeq \tilde{\alpha}'_{a_0}\rel$ por un resultado anterior; por lo tanto, $\tilde{\alpha}'_{a_0}(1) = \tilde{\alpha}_{a_0}(1)$. Entonces el homeomorfismo $h'$ asociado a $\alpha'$ también satisface $p \circ h' = p$ y $h'(a_0) = \tilde{\alpha}_{a_0}(1) = h(a_0)$, y como $E$ es conexo, $h = h'$. Por lo tanto, $\varphi$ está bien definido.
+
+Mostremos ahora que \textit{$\varphi$} es suprayectivo. Dado $h \in G(p)$,
+\[
+\begin{tikzcd}[column sep=small]
+E \arrow[rr, "h"] \arrow[dr, "p"'] & & E \arrow[dl, "p"] \\
+& X &
+\end{tikzcd}
+\]
+consideremos una trayectoria $\sigma \colon I \to E$ tal que $\sigma(0) = a_0$ y $\sigma(1) = h(a_0) \in p^{-1}(x_0)$; por lo tanto, $[p \circ \sigma] \in \Pi_1(X, x_0)$. Sea $\varphi[p \circ \sigma] = f$, el cual es un homeomorfismo tal que 
+$p \circ f = p$ y 
+$$f(a_0) = \widetilde{(p \circ \sigma)}_{a_0}(1).$$ 
+Pero $\widetilde{(p \circ \sigma)}_{a_0}(1) = \sigma(1) = h(a_0)$, por lo tanto $f(a_0) = h(a_0)$, y como $E$ es conexo, $f = h$. Por lo tanto, $\varphi[p \circ \sigma] = h$.
+
+Mostremos ahora que \textit{$\varphi$} es un homomorfismo. Sean $[\alpha], [\beta] \in \Pi_1(X, x_0)$. Entonces $\varphi([\alpha * \beta]) = h$ es el homeomorfismo definido como sigue: para determinar $\widetilde{(\alpha * \beta)}_{a_0}(1)$, vemos que
+\[
+\widetilde{(\alpha * \beta)}_{a_0} = \tilde{\alpha}_{a_0} * \tilde{\beta}_{\tilde{\alpha}_{a_0}(1)},
+\]
+por lo tanto, $\widetilde{(\alpha * \beta)}_{a_0}(1) = \tilde{\beta}_{\tilde{\alpha}_{a_0}(1)}(1)$. Entonces
+\[
+h \colon (E, a_0) \to \left(E, \tilde{\beta}_{\tilde{\alpha}_{a_0}(1)}(1)\right) 
+\]
+y $ p \circ h = p$.
+
+%%%% Clase 21 del 28/09/26 inciada el 10/11/26 terminada el 11/11/2026
+
+%%%% Clase 22 del 30/09/26 inciada el 11/11/26
+Ahora $\varphi[\alpha]=h_1$ satisface que $h_1:(E_1,a_0)\to (E,\tilde{\alpha}_{a_0}(1))$ y $p\circ h_1=p$; y $\varphi[\beta]=h_2$ satisface que $h_2:(E_1,a_0)\to (E,\tilde{\beta}_{a_0}(1))$ y $p\circ h_2=p$. Consideremos la trayectoría
+\begin{equation*}
+    \begin{tikzcd}[column sep=0.85cm]
+        I\arrow[r,"\tilde{\beta}_{a_0}"] & E\arrow[r,"h_1","\cong"'] & E
+    \end{tikzcd}
+\end{equation*}
+Entonces,
+\begin{align*}
+    p\circ h_1\circ \tilde{\beta}_{a_0}=p\circ \tilde{\beta}_{a_0}=\beta
+\end{align*}
+por lo tanto, $h_1\circ \tilde{\beta}_{a_0}$ es un levantamiento de $\beta$ y $h_1\circ \tilde{\beta}_{a_0}(0)=h_1(a_0)$, entonces 
+\begin{equation*}
+    h_1\circ \tilde{\beta}_{a_0}=\tilde{\beta}_{h_1(a_0)}.
+\end{equation*}
+Se sigue que
+\begin{align*}
+    h_1\circ h_2(a_0)&=h_1(\tilde{\beta}_{a_0}(1))\\
+    &=\tilde{\beta}_{h_1(a_0)}(1)
+\end{align*}
+Además $p\circ h_1\circ h_2=p\circ h_2=p$, pero $h$ es levantamineto de $p$ tal que $h(a_0)=\tilde{\beta}_{h_1(a_0)}(1)$, como $E$ es conexo, por \ref{prop:levantamiento_unico_conexo}, $h_1\circ h_2=p$. Por lo tanto,
+\begin{align*}
+    \varphi[\alpha*\beta]=h=h_1\circ h_2=\varphi[\alpha]\circ\varphi[h_2].
+\end{align*}
+
+Veamos que la sucesión 
+\begin{equation*}
+    \begin{tikzcd}[column sep=0.75cm]
+        1\arrow[r] &[-0.4cm]p_\#\Pi_1(E,a_0)\arrow[r, "\iota",hook]& \Pi_1(X,x_0)\arrow[r,"\varphi"] & G(p)\arrow[r]&[-0.4cm] 1
+    \end{tikzcd}
+\end{equation*}
+es exacta. Mostremos que $\ker\varphi=\im\iota$. Sea $[\gamma]\in\Pi_1(E,a_0)$, entonces $p_\#[\gamma]=[p\circ\gamma]$, por lo que $\varphi[p\circ \gamma]=h$ es la transformación cubriente que satisface que 
+\begin{equation*}
+    h(a_0)=\widetilde{(p\circ\gamma)}_{a_0}(1)=\gamma(1)=a_0
+\end{equation*}
+por lo tanto, $h$ es un levantamiento de $p$ tal que $h(a_0)=a_0$. Como $E$ es conexo, por \ref{prop:levantamiento_unico_conexo}, 
+\begin{align*}
+    \id_E=h=\varphi[p\circ h]=\varphi(p_\#[\gamma]).
+\end{align*}
+Por lo tanto, $\im\iota\subseteq\ker\varphi$. 
+
+Ahora sea $[\alpha]\in\Pi_1(X,x_0)$ y supongamos que $\varphi[\alpha]=\id_E$, entonces 
+\begin{equation*}
+    \varphi[\alpha](a_0)=\tilde{\alpha}_{a_0}(1)=\id_E(a_0)=a_0,
+\end{equation*}
+por lo tanto, $\tilde{\alpha}_{a_0}$ es un lazo, entonces $[\tilde{\alpha}_{a_0}]\in\Pi_1(E,a_0)$, i.e., $\ker\varphi\subseteq \im\iota$.
+
+Por lo tanto, existe un isomorfismo 
+\begin{equation*}
+    \begin{tikzcd}
+        \raisebox{0.55ex}{$\Pi_1(X,x_0)$} \,\Big/\, \raisebox{-0.55ex}{$p_\#\Pi_1(E,a_0)$}\arrow[r,"\varphi", "\cong"']& G(p)
+    \end{tikzcd}
+\end{equation*}
+\end{dem}
+\begin{coro}
+    Sea $p:(E,a_0)\to(X,x_0)$ una aplicación cubriente tal que $X$ es localmente 0-conexo y $E$ es 1-conexo. Entonces $G(p)\cong \Pi_1(X,x_0)$.
+\end{coro}
+\begin{ejercicio}
+\label{eje: G cong G(p)}
+    Sea $Y$ conexo y $G\times Y\xrightarrow{\bigdot} Y$ una acción propiamiente discontinua y $p:Y\to Y/G$ la aplicación abierta. Entonces la función $\iota:G\to G(p)$ dado por $\iota(g)=\overline{g}$, es un isomorfismo donde $\overline{g}:Y\to Y$ es $\overline{g}(y)=g\cdot y.$ 
+\end{ejercicio}
+\begin{prop}
+    \label{prop: p normal iff G(p) transitivo}
+    Sea $p:(E,a_0)\to(X,x_0)$ una aplicación cubriente tal que $E$ es conexo y localmente 0-conexo. Entonces $p$ es normal si y sólo si $G(p)$ actúa transitivamente en $p^{-1}(x_0)$.
+\end{prop}
+\begin{dem}
+    $\Rightarrow)$ Si $p$ es normal, por \ref{prop:G(p) cong Pi_1(X) / p Pi(E)}, tenemos el siguiente diagrama
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1cm, row sep=1cm]
+            & (E,a_1)\arrow[d, "p"]\\
+            (E,a_0)\arrow[ur, "h"]\arrow[r,"p"] & (X,x_0) 
+        \end{tikzcd}
+    \end{equation*}
+    Como $p$ es normal, $p\#\Pi_1(E,a_0)=p\#\Pi_1(E,a_1)$, por \ref{teo:teo_levantamiento}, existe $h\in G(p)$ tal que $h(a_0)=a_1$, por lo tanto la acción de $G(p)$ es transitiva en las fibras.
+
+    $\Leftarrow)$ Si $G(p)$ actúa transitivamente en $p^{-1}(x_0),$ entonces dados $a_0,a_q\in p^{-1}(x_0)$, existe $h\in G(p)$ tal que $h(a_0)=a_1$, entonces $h_\#(\Pi_1(E,a_0))=\Pi_1(E,a_1)$. Por lo tanto,
+    \begin{equation*}
+        p_\#\Pi_1(E,a_1)=p_\#h_\#\Pi_1(E,a_0)=p\#\Pi_1(E,a_0).
+    \end{equation*}
+    Sabemos que $\{p\#\Pi_1(E,a)):a\in p^{-1}(x_0)\}$ es una clase de conjugación completa en $\Pi_1(X,x_0)$, por lo tanto, dado $p_\#\Pi_1(E,a_0)$ y $[\alpha]\in\Pi_1(X,x_0)$, existe $a_1\in p^{-1}(x_0)$ tal que
+    \begin{equation*}
+        [\alpha]^{-1}p_\#\Pi_1(E,a_0)[\alpha]=p_\#\Pi_1(E,a_1)=p\#\Pi_1(E,a_0),
+    \end{equation*}
+    entonces $p\#\Pi_1(E,a_0)$ es normal, por lo tanto, $p$ es una aplicación cubriente normal.
+\end{dem}
+\begin{coro}
+    Sea $G\times Y\xrightarrow{\bigdot} Y$ una acción propiamente discontinua donde $Y$ es conexo y localmente 0-conexo. Entonces $\pi:(Y,y_0)\to(Y/G,[y_0])$ es normal.
+\end{coro}
+\begin{dem}
+    Por \ref{eje: G cong G(p)}, tenemos un isomorfismo $\iota:G\to G(p)$, dado que $G$ actúa transitivamente en $\pi^{-1}[y_0]$, se sigue
+    por \ref{prop: p normal iff G(p) transitivo}, $\pi$ es normal.
+\end{dem}
+\begin{prop}
+    Sea $p:E\to X$ una aplicación cubriente normal tal que $E$ es conexo y localmente 0-conexo. Consideremos la acción $G(p)\times E \xrightarrow{\bigdot} E$ tal que $h\cdot a=h(a)$. Entonces $X\cong E/G(p)$.
+\end{prop}
+\begin{dem}
+    La acción $\bigdot$ es continua porque $G(p)$ es continua porque $G(p)$ es un grupo discreto.
+
+    Sea $a_0,a_1$ tal que $\pi(a_0)=\pi(a_1)$, entonces existe $h\in G(p)$ tal que $h(a_0)=h\cdot a=a_1$, por lo tanto $p(a_0)=ph(a_0)=p(a_1)$. Ahora, sea $a_0,a_1\in E$ tal que $p(a_0)=a(a_1)=x_0$. Como $p$ es normal \ref{prop: p normal iff G(p) transitivo}, $G(p)$ actua transitivamente en $p^{-1}(x_0)$, por lo tanto, existe $h\in G(p)$ tal que $h\bigdot a_0=h(a_0)=a_1$. Entonces $\pi(a_0)=\pi(a_1)$. Por \ref{prop:homomorphis between quotient}, existe un único homeomorfismo $\psi: X\to E/G(p)$ tal que el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[column sep = 0.85cm, row sep = 0.85cm]
+            E\arrow["\pi",r]\arrow["p"',d] & E/G(p)\\
+            X \arrow["\psi"', ur]
+        \end{tikzcd}
+    \end{equation*}
+\end{dem} 
+Sea $X$ un espacio y supongamos existe una aplicación cubriente $p:E\to X$ \textit{universal}, i.e., que $E$ es 1-conexo. Dado $x\in X$ existe un vecindad abierta $U_x$ de $x$ cubierta parejamente. Sea $[\beta]\in \Pi_1(U_x,x)$. Sea $a_0\in p^{-1}(x)$ y $V$ la hoja sobre $U_x$ tal que $a_0\in V$. Tomemos $p|_V:V\to U_x$ el cual es es un homeomorfismo. Consideremos $\tilde{\beta}_{a_0}=(p|_V)^{-1}\circ\beta$, entonces $p|_V\circ\tilde{\beta}_{a_0}=\beta$, por lo tanto, $(p|_V)_{\#}[\tilde{\beta}_{a_0}]=[\beta]$. Tenemos el siguiente diagrama conmutativo
+\begin{equation*}
+    \begin{tikzcd}[column sep=1cm, row sep =1cm]
+        \Pi_1(V,a_0)\arrow[r,"j_\#"] \arrow["(p|V)_\#"',d]& \Pi_1(E,a_0) \arrow[d, "p_\#"]&[-1.2cm] \cong\{1\}\\
+         \Pi_1(U_x,x)\arrow["i_\#",r] & \Pi_1(E,x)
+    \end{tikzcd}
+\end{equation*}
+Entonces
+\begin{align*}
+    i_\#[\beta]&=i_\#(p|_V)(p|_V)_{\#}[\tilde{\beta}_{a_0}]\\
+    &=p_\#j_\#[\tilde{\beta}_{a_0}]\\
+    &=p_\#[c_{a_0}]\\
+    &=[c_{x}],
+\end{align*}
+por lo tanto, $i_\#$ es el homomorfismo trivial.
+%%%% Clase 22 del 30/09/26 inciada el 11/11/26 terminada el 13/11/2026
+
+%%%% Clase 23 del 02/10/26 inciada el 13/11/26
+\begin{definicion}
+Sea $X$ un espacio localmente $0$-conexo. Decimos que una aplicación cubriente $p \colon E \to X$ es \textit{universal} si $E$ es $1$-conexo.
+\end{definicion}
+
+\begin{ejercicio}
+Si existe una aplicación cubriente universal sobre $X$, entonces es única salvo isomorfismo.
+\end{ejercicio}
+
+\begin{teorema}[Teorema de clasificación]
+Sea $X$ un espacio conexo, localmente $0$-conexo y semilocalmente $1$-conexo. Sea $\textsf{ACC}(X)$ la clase de clases de isomorfismo de aplicaciones cubrientes $p \colon E \to X$ donde $E$ es conexo, y sea $\textsf{CCS}(\Pi_1(X, x_0))$ el conjunto de clases de conjugación de subgrupos de $\Pi_1(X, x_0)$. Entonces existe una biyección $\varphi \colon \textsf{ACC}(X) \to \textsf{CCS}(\Pi_1(X, x_0))$ dada por 
+$$\varphi\left[\hspace{0.65mm}\begin{smallmatrix} E \\ \mathllap{\scriptstyle p\,}\downarrow \\ X \end{smallmatrix}\right] = \left[p_{\#}\Pi_1(E, a_0)\right],$$ donde $a_0 \in p^{-1}(x_0)$. En particular, $\textsf{ACC}(X)$ es un conjunto.
+\end{teorema}
+
+\begin{proof}[Bosquejo de la demostración]
+Sea $H \subset \Pi_1(X, x_0)$ un subgrupo. Para construir una aplicación cubriente asociada a $H$, consideremos el conjunto de trayectorias que inician en $x_0$:
+\[
+P(X, x_0) = \left\{ \sigma \colon I \to X \text{ continua} \;\middle|\; \sigma(0) = x_0 \right\}.
+\]
+Definimos una relación de equivalencia en $P(X, x_0)$ como sigue: dadas $\sigma, \tau \in P(X, x_0)$, decimos que $\sigma \sim \tau$ si y sólo si $\sigma(1) = \tau(1)$ y $[\sigma * \bar{\tau}] \in H \subset \Pi_1(X, x_0)$.
+
+\begin{center}
+\begin{tikzpicture}[scale=1.0, >=Stealth, every node/.style={font=\footnotesize}]
+    \fill (0,0) circle (1.3pt) node[left=2pt] {$x_0$};
+    \fill (3.2,0) circle (1.3pt) node[right=2pt] {$\sigma(1) = \tau(1)$};
+    
+    \draw[semithick, postaction={decorate, decoration={markings, mark=at position 0.55 with {\arrow{>}}}}]
+        (0,0) .. controls (1.0, 0.75) and (2.2, 0.75) .. node[above=2pt] {$\sigma$} (3.2,0);
+    \draw[semithick, postaction={decorate, decoration={markings, mark=at position 0.55 with {\arrow{>}}}}]
+        (0,0) .. controls (1.0, -0.75) and (2.2, -0.75) .. node[below=2pt] {$\tau$} (3.2,0);
+\end{tikzpicture}
+\end{center}
+
+Sea $E_H = P(X, x_0) / {\sim}$ y definamos $p_H \colon E_H \to X$ mediante $p_H(\langle \sigma \rangle) = \sigma(1) \in X$, donde $\langle \sigma \rangle$ denota la clase de equivalencia de $\sigma$. Consideremos como punto base a la clase de la trayectoria constante $\langle c_{x_0} \rangle \in E_H$, la cual satisface $p_H(\langle c_{x_0} \rangle) = x_0$.
+
+Se dota a $E_H$ de una topología adecuada de manera que $p_H \colon E_H \to X$ sea una aplicación cubriente y $E_H$ resulte conectable por trayectorias. Entonces definimos $\psi \colon \textsf{CCS}(\Pi_1(X, x_0)) \to \textsf{ACC}(X)$ como 
+$$\psi[H] = \left[\hspace{2mm}\begin{smallmatrix} E_H \\ \mathllap{\scriptstyle p_H\,}\downarrow \\ X \end{smallmatrix}\right]$$ 
+y se prueba que $\varphi$ es la inversa de $\psi$, ya que $p_H$ tiene la propiedad de que 
+$$(p_H)_{\#}\left(\Pi_1(E_H, \langle c_{x_0} \rangle)\right) = H.$$
+\end{proof}
+
+\begin{nota}
+El grupo $\Pi_1(X, x_0)$ tiene dos subgrupos canónicos:
+\begin{enumerate}[label=\arabic*)]
+    \item $H = \Pi_1(X, x_0)$, para el cual $E_{\Pi_1(X, x_0)} \cong X$ y se tiene el isomorfismo de aplicaciones cubrientes:
+    \[
+    \begin{tikzcd}[column sep=0.2cm, row sep=normal]
+    E_{\Pi_1(X, x_0)} \arrow[rr, "\cong"] \arrow[dr, "p_{\Pi_1(X, x_0)}"'] & & X \arrow[dl, "\id_X"] \\
+    & X &
+    \end{tikzcd}
+    \]
+    \item $H = \{1\}$, donde 
+    $$\begin{tikzcd}[row sep=0.55cm]
+        E_{1}\arrow["p_{\{1\}}",d]\\
+        X
+    \end{tikzcd}$$ 
+    es la aplicación cubriente universal.
+\end{enumerate}
+\end{nota}
+
+\begin{ejemplo}
+Sea $X = S^1$. Como $\Pi_1(S^1, 1) \cong \Z$, existe una correspondencia biyectiva
+\[
+\textsf{ACC}(S^1) \longleftrightarrow \left\{ H \subset \Z \;\middle|\; H \text{ es un subgrupo} \right\}.
+\]
+Los subgrupos de $\Z$ son $\{0\}$, $\Z$ y $m\Z$ con $m > 1$, a los cuales les corresponden respectivamente las siguientes aplicaciones cubrientes:
+\[
+\begin{tikzcd}[row sep=normal]
+\R \arrow[d, "\exp"'] \\
+S^1
+\end{tikzcd}
+\qquad\qquad
+\begin{tikzcd}[row sep=normal]
+S^1 \arrow[d, "\id_{S^1}"'] \\
+S^1
+\end{tikzcd}
+\qquad\qquad
+\begin{tikzcd}[row sep=normal]
+S^1 \arrow[d, "p_m"'] \\
+S^1
+\end{tikzcd}
+\]
+\end{ejemplo}
+
+\begin{lema}
+Sea $p_m \colon S^1 \to S^1$ dada por $p_m(z) = z^m$, con $m > 1$. Entonces $p_m$ es una aplicación cubriente.
+\end{lema}
+
+\begin{dem}
+La función $p_m$ es un homomorfismo continuo de grupos topológicos con núcleo
+\[
+\ker p_m = \left\{ 1, \omega, \omega^2, \dots, \omega^{m-1} \right\} \cong \Z_m, \quad \text{donde } \omega = e^{\frac{2\pi i}{m}}.
+\]
+Como $p_m$ es suprayectivo y es una identificación (al ser cerrado por la compacidad de $S^1$), tenemos el diagrama conmutativo
+\[
+\begin{tikzcd}[row sep=1cm, column sep=1cm]
+S^1 \arrow[r, "p_m"] \arrow[d, "\pi"'] & S^1 \\
+S^1 / \ker p_m \arrow[ur, "\bar{p}_m"', "\cong" sloped] &
+\end{tikzcd}
+\]
+donde tanto $p_m$ como la proyección canónica $\pi$ son identificaciones compatibles; por lo tanto, $\bar{p}_m$ es un homeomorfismo. Por un resultado anterior, como la acción de $\ker p_m \cong \Z_m$ sobre $S^1$ es propiamente discontinua, $\pi \colon S^1 \to S^1 / \ker p_m$ es una aplicación cubriente. El resultado se sigue entonces del siguiente ejercicio.
+\end{dem}
+
+\begin{ejercicio}
+Consideremos el diagrama conmutativo
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+E \arrow[r, "q"] \arrow[d, "p"'] & Y \\
+X \arrow[ur, "h"'] &
+\end{tikzcd}
+\]
+donde $p$ es una aplicación cubriente, $q$ es continua y $h$ es un homeomorfismo tal que $h \circ p = q$. Ver que $q$ es una aplicación cubriente (por lo que, en particular, $p_m$ es una aplicación cubriente).
 \end{ejercicio}
 
 
+\begin{ejercicio}
+Consideremos ahora el diagrama conmutativo inducido en el grupo fundamental
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+\Pi_1(S^1, 1) \arrow[r, "(p_m)_{\#}"] \arrow[d, "\gamma_0"', "\cong"'{ sloped, pos=0.5, anchor=south }] & \Pi_1(S^1, 1) \arrow[d, "\gamma_0", "\cong"'{ sloped, pos=0.5, anchor=north }] \\
+\Z \arrow[r, dashed, "\cdot m"'] & \Z
+\end{tikzcd}
+\]
+Ver que el homomorfismo inducido en $\Z$ por $(p_m)_{\#}$ consiste en multiplicar por $m$. Por lo tanto, $(p_m)_{\#}\left(\Pi_1(S^1, 1)\right) = m\Z$.
+\end{ejercicio}
+
+\subsection{Espacios de adjunción}
+
+Consideremos un espacio $X$, un subespacio cerrado $A \subset X$ y una función continua $f \colon A \to Y$, donde $Y$ es un espacio topológico. Queremos pegarle al espacio $Y$ el espacio $X$ usando la función $f$; el espacio resultante se denota por $Y \cup_f X$ y se caracteriza mediante el siguiente diagrama:
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+A \arrow[r, "f"] \arrow[d, "i"', hook] & Y \arrow[d] \\
+X \arrow[r] & Y \cup_f X
+\end{tikzcd}
+\]
+Formalmente, $Y \cup_f X$ se define como el cociente
+\[
+Y \cup_f X = (X \sqcup Y) / {\sim},
+\]
+donde la relación de equivalencia $\sim$ está definida como sigue: dados $u, u' \in X \sqcup Y$, se tiene que $u \sim u'$ si se satisface alguna de las siguientes condiciones:
+\begin{enumerate}[label=\arabic*)]
+    \item $u = v$;
+    \item $u,v\in A$ y $f(u) = f(v)$;
+    \item $u\in A$ y $v = f(u) \in Y$ (o bien $v\in A$ y $u = f(v) \in Y$).
+\end{enumerate}
+
+\begin{nota}
+Esta relación de equivalencia a menudo se escribe simplemente como $a \sim f(a)$ para todo $a \in A$.
+\end{nota}
+
+\begin{ejemplo}
+Consideremos un espacio $Y$ al que le pegamos una $n$-celda (o bola) $D^n$ a lo largo de su frontera $A = S^{n-1}$ mediante una función continua $f \colon S^{n-1} \to Y$:
+\begin{center}
+\begin{minipage}[c]{0.30\textwidth}
+\centering
+\begin{tikzcd}[row sep=large, column sep=large]
+\mathllap{A = \;} S^{n-1} \arrow[r, "f"] \arrow[d, "i"', hook] & Y \arrow[d] \\
+D^n \arrow[r,"F"] & Y \cup_f D^n
+\end{tikzcd}
+\end{minipage}%
+\hspace{1em}%
+\begin{minipage}[c]{0.5\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.95, >=Stealth, every node/.style={font=\footnotesize}]
+    % --- Primer espacio: bola D^n con frontera S^{n-1} y punto a ---
+    \draw[thick] (0, -0.05) circle (0.8cm);
+    \node at (0, -0.05) {$D^n$};
+    \node[above left=1pt] at (-0.56, 0.52) {$S^{n-1}$};
+
+    % Punto a en la frontera S^{n-1}
+    \fill (0.65, -0.5) circle (1.3pt) node[below right=1pt] {$a$};
+
+    % --- Flecha f ---
+    \draw[->, semithick] (1.15, -0.05) -- node[above=2pt] {$f$} (2.05, -0.05);
+
+    % --- Segundo espacio: media bola D^n reposando sobre el espacio Y ---
+    % Contorno del espacio Y (envuelve por debajo y a los lados la base de la media bola)
+    \draw[thick] (3.13, 0.16)
+        .. controls (2.5, 0.12) and (2.25, -0.45) .. (2.65, -0.75)
+        .. controls (3.15, -1.02) and (4.45, -1.02) .. (4.9, -0.7)
+        .. controls (5.2, -0.45) and (5.0, 0.12) .. (4.57, 0.16);
+    \node at (2.8, -0.48) {$Y$};
+
+    % Domo superior de la media bola D^n
+    \draw[thick] (3.1, -0.05) arc (180:0:0.75cm and 0.82cm);
+    \node at (3.85, 0.42) {$D^n$};
+
+    % Base de la media bola reposando a lo largo del interior de Y
+    \draw[semithick] (3.1, -0.05) arc (180:360:0.75cm and 0.24cm);
+    \draw[semithick, densely dashed] (4.6, -0.05) arc (0:180:0.75cm and 0.24cm);
+
+    % Punto f(a) sobre el arco donde la frontera S^{n-1} se pega sobre Y
+    \fill (4.1, -0.27) circle (1.3pt) node[below=2pt] {$f(a)$};
+
+    % Etiqueta del espacio resultante (sin el signo igual)
+    \node[right=2pt] at (5.1, -0.15) {$Y \cup_f D^n$};
+\end{tikzpicture}
+\end{minipage}
+\end{center}
+\end{ejemplo}
+%%%% Clase 23 del 02/10/26 inciada el 13/11/26 terminada el 13/11/2026
+
+%%%% Clase 24 del 05/10/26 inciada el 13/11/26
+\begin{ejemplo}
+    Sea $W$ un espacio y $U,V\subseteq W$ subespacios abiertos tal que $W=U\cup V$. Tenemos el siguiente diagrama conmutativo
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1cm, row sep=1cm]
+            U\cap V\arrow["i_V",r]\arrow[d,"i_U"'] & V\arrow["j_V",d]\\
+            U \arrow["j_U",r] & W
+        \end{tikzcd}
+    \end{equation*}
+    y tiene la siguiente propiedad: sea $Z$ un espacio y $\psi:V\to Z$ y $\varphi:U\to Z$ funciones continuas tal que $\varphi\circ i_U=\psi\circ i_V$, i.e., $\varphi|_{U\cap V}=\psi_{U\cap V}$. Por el lema del pegado, existe una única función continua $\gamma:W\to Z$ tal que el siguiente diagrama conmuta.
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1cm, row sep=1cm]
+            U\cap V\arrow["i_V",r]\arrow[d,"i_U"'] & V\arrow["j_V",d]\arrow[ddr,"\psi", bend left]\\
+            U\arrow[drr,"\varphi"', bend right] \arrow["j_U",r] & W\arrow[dr,dashed,"\gamma"]\\[-0.65cm]
+            & &[-0.65cm] Z
+        \end{tikzcd}
+    \end{equation*}
+    tal que $\gamma\circ j_U=\varphi$ y $\gamma\circ j_V=\psi$. 
+
+    Consideremos ahora $p:X\sqcup Y\to Y\cup_f X$ la proyección natural, $F=p|_X$ y $\iota=p|_Y$, entonces el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[column sep =1.2cm, row sep=1.2cm]
+            A\arrow["f",r]\arrow["i",d, hook] & Y\arrow["\iota",d]\\
+            X\arrow["F",r] & Y\cup_f X
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $\iota\circ f=F\circ i$, pues 
+    $$F(a)=[a]=[f(a)]=i(f(a)).$$ Sea $Z$ un espacio y $\varphi:X\to Z$ y $\psi:Y\to Z$ funciones continuas tales que $\varphi\circ i=\psi\circ f$. Por la propiedad universal del coproducto en $\Top,$ existe una única función continua $\overline{\gamma}: X\sqcup Y\to Z$ tal que el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[row sep = 1cm]
+            X\arrow[r,"q_X"]\arrow[rd, bend right=10, "\varphi"'] & X\sqcup Y \arrow[d, dashed, "\overline{\gamma}"] & Y \arrow[l, "q_Y"'] \arrow[dl, bend left=10, "\psi"] \\
+                             & Z & 
+        \end{tikzcd}
+    \end{equation*}
+    i.e., $\overline{\gamma}\circ q_X=\varphi$ y $\overline{\gamma}\circ q_Y=\psi$. Sea $u,v\in X\sqcup Y$ tal que $p(u)=p(v).$ Si $u,v\in A$, entonces $f(u)=f(v)$
+    \begin{align*}
+        \overline{\gamma}(u)&=\varphi(u)\\
+        &=\psi(f(u))\\
+        &=\psi(f(v))\\
+        &=\varphi(v)\\
+        &= \overline{\gamma}(v).
+    \end{align*}
+    Si $u\in A$ y $f(u)=v$, entonces 
+    \begin{align*}
+        \overline{\gamma}(u)&=\varphi(u)\\
+        &=\psi(f(u))\\
+        &=\psi(v)\\
+        &=\overline{\gamma}(v).
+    \end{align*}
+    
+    Como $p$ es un cociente, por \ref{prop:producto de cocientes}, existe una única función continua $\gamma:Y\cup_f X\to Z$ tal que el diagrama conmuta
+    \begin{equation*}
+    \begin{tikzcd}[column sep=1cm, row sep=1cm]
+        X\sqcup Y \arrow[r,"\overline{\gamma}"]  \arrow[d,"p"']& Z\\
+        Y\cup_f X\arrow[ur,"\gamma"', dashed]
+    \end{tikzcd}
+    \end{equation*}
+    Entonces, tenemos el siguiente diagrama conmutativo
+     \begin{equation*}
+        \begin{tikzcd}[column sep=1cm, row sep=1cm]
+            A\arrow["f",r]\arrow[d,"i",hook] & Y\arrow["\iota",d]\arrow[ddr,"\psi", bend left]\\
+            X\arrow[drr,"\varphi"', bend right] \arrow["F",r]  & Y\cup_f X\arrow[dr,dashed,"\gamma"]\\[-0.65cm]
+            & &[-0.65cm] Z
+        \end{tikzcd}
+    \end{equation*}
+    Notemos que $p\circ q_X=p|_X=F$ y $p\circ q_Y=p|_Y=\iota$, entonces
+    \begin{align*}
+        \gamma \circ F&=\gamma\circ p\circ q_X\\
+        &=\overline{\gamma}\circ q_X\\
+        &=\varphi.
+    \end{align*}
+    De manera análoga, $\gamma\circ\iota=\psi.$
+    \end{ejemplo}
+    \begin{ejercicio}
+        Supongamos $A\subseteq X$ es cerrado. Mostrar que $\iota: Y\hookrightarrow Y\cup_f X$ tal que $\iota(y)=[y]$ es una función inyectiva y cerrada (i.e., es un encaje cerrado).
+    \end{ejercicio}
+    \begin{ejercicio}
+        Mostrar que $F|_{X-A}:X-A\to Y\cup_f X$ es una función inyectiva y abierta (i.e., es un encaje abierto).
+    \end{ejercicio}
+    \begin{definicion}[Definición recursiva de complejo CW]
+        Sea $\{C_n:n\in\N\}$ una familia de conjuntos de indices con $C_0\neq \emptyset$. Definimos una familia de espacios $X^n$, $n\in\N$ como sigue: $X^0=C_0$ con la topología discreta. Supongamos $n>0$, si $C_n=\emptyset$, entonces $X^n=X^{n-1}$.
+        
+        Si $C_n\neq \emptyset$, entonces para cada $\alpha\in C_n$ elegimos una función continua
+        \begin{equation*}
+            f_\alpha:\partial D^n_\alpha\cong S^{n-1}\to X^{n-1},
+        \end{equation*}
+        estas funciones inducen una única función continua $$f:\medsqcup_{\alpha\in C_n} S^{n-1}_\alpha\to X^{n-1}$$
+    Definimos $X^n=X^{n-1}\cup_f\bigsqcup_{\alpha\in C_n} D^n_\alpha$. Tenemos el siguiente diagrama conmutativo
+    \begin{equation*}
+        \begin{tikzcd}[column sep =0.85cm, row sep=1cm
+]
+            \displaystyle\medsqcup_{\alpha\in C_n} S^{n-1}_\alpha\arrow["f",r]\arrow["i",d, hook] & X^{n-1}\arrow["\iota",d]\\
+            \displaystyle\medsqcup_{\alpha\in C_n} D^n_\alpha\arrow["F",r] & \displaystyle X^{n-1}\cup_f \medsqcup_{\alpha\in C_n} D^n_\alpha &[-1.05cm]=X^n
+        \end{tikzcd}
+    \end{equation*}
+    De lo anterior, tenemos la familia de \textit{esqueletos}
+    \begin{equation*}
+        \begin{tikzcd}[column sep = 0.65cm]
+            X^0\arrow[r,"\iota_0",hook] & X^1\arrow[r,hook] & \cdots \arrow[r,hook] & X^{n-1}\arrow[r, "\iota_{n-1}",hook] & X^n\arrow[r, hook] & \cdots 
+        \end{tikzcd}
+    \end{equation*}
+    donde $\iota_n$ es un encaje cerrado para toda $n\in \N$. Definimos el complejo CW como la unión de sus \textit{esqueletos}, i.e., $X=\bigcup_{n\in\N}X^n$ con la topología de la unión, i.e., $U\subseteq X$ es abierto si y sólo si $U\cap X^n$ es abierto en $X^n$ para toda $n\geq 0.$
+    \end{definicion}
+    \begin{nota}
+        Se puede probar que un complejo CW es un espacio normal.
+    \end{nota}
+    \begin{definicion}
+        Definamos $\varphi_\alpha=F|_{D_\alpha^n}:D_\alpha^n\to X$. Consideremos $\varphi_\alpha(\interior(D^n_\alpha))=e^n_\alpha$ que le llamaremos la \textit{$n$-celda} "abierta", aunque no es un abierto en $X$ en general. Por otro lado, tenemos a $\varphi_\alpha(D^n_\alpha)$ que llamamos la \textit{$n$-celda} cerrada y es un cerrado en $X$, por el siguiente lema.
+    \end{definicion}
+    \begin{lema}
+        Sean $f:D^n\to X$ continua y $X$ un espacio Hausdorff. Entonces 
+        $$f(D^n)=\overline{f(\interior(D^n))}.$$
+    \end{lema}
+    %%%% Clase 24 del 05/10/26 inciada el 13/11/26 terminada el 15/11/2026
+
+%%%% Clase 25 del 07/10/26 inciada el 15/11/26
+\begin{dem}
+Tenemos que $f(D^n)$ es cerrado en $X$ porque $f$ va de un espacio compacto a un espacio Hausdorff. Como $\interior(D^n) \subset D^n$, se cumple que $\overline{f(\interior(D^n))} \subset f(D^n)$. Por otro lado, como $\interior(D^n) = D^n - \partial D^n$, tenemos que
+\[
+\overline{\interior(D^n)} = \overline{D^n - \partial D^n} = \overline{D^n - S^{n-1}} = (D^n - S^{n-1}) \cup S^{n-1} = D^n.
+\]
+Por lo tanto, como $f$ es continua,
+\[
+f(D^n) = f\left(\overline{\interior(D^n)}\right) \subset \overline{f(\interior(D^n))},
+\]
+y por lo tanto $\overline{f(\interior(D^n))} = f(D^n)$.
+\end{dem}
+
+\begin{coro}
+$\overline{e_\alpha^n} = \overline{\varphi_\alpha(\interior(D^n))} = \varphi_\alpha(D^n)$; por lo tanto, $\overline{e_\alpha^n}$ es compacto.
+\end{coro}
+
+\begin{definicion}[Definición de complejo CW como espacio filtrado]
+Un \textit{complejo CW} $X$ es un espacio topológico junto con una filtración
+\[
+X^0 \subset X^1 \subset X^2 \subset \dots \subset X^{n-1} \subset X^n \subset \dots
+\]
+que satisface las siguientes condiciones:
+\begin{enumerate}[label=\arabic*)]
+    \item Se tiene una familia de conjuntos de índices $\{C_n\}_{n \geq 0}$ con $C_0 \neq \varnothing$, tal que $X^0 = C_0$ tiene la topología discreta y $X = \medcup_{n \geq 0} X^n$. Al subespacio $X^n$ lo llamamos el \textit{$n$-esqueleto} de $X$.
+    \item Para cada $n > 0$ de manera que $C_n \neq \varnothing$, se tiene un homeomorfismo
+    \[
+    h \colon X^{n-1} \cup_f \bigsqcup_{\alpha \in C_n} D_\alpha^n \longrightarrow X^n
+    \]
+    tal que $h \circ \iota = j$, donde
+    \[
+    \begin{tikzcd}[row sep=large, column sep=0.85cm]
+    X^{n-1} \arrow[r, "i", hook] \arrow[dr, "j"', hook] & X^{n-1} \cup_f \displaystyle\medsqcup_{\alpha \in C_n} D_\alpha^n \arrow[d, "h"] \\
+    & X^n
+    \end{tikzcd}
+    \]
+    dado $f_\alpha \colon S^{n-1} \to X^{n-1}$ y $f = \bigsqcup_{\alpha \in C_n} f_\alpha$. Cuando $C_n = \varnothing$, se tiene $X^n = X^{n-1}$.
+    \item $X$ tiene la topología de la unión.
+\end{enumerate}
+\end{definicion}
+
+\begin{definicion}
+Tenemos $F = p|_{\displaystyle\medsqcup_{\alpha \in C_n} D_\alpha^n}$ en la composición
+\[
+\begin{tikzcd}
+\displaystyle X^{n-1} \sqcup \medsqcup_{\alpha \in C_n} D_\alpha^n \arrow[r, "p"] &\displaystyle X^{n-1} \cup_f \medsqcup_{\alpha \in C_n} D_\alpha^n \arrow[r, "h", "\cong"'] & X^n,
+\end{tikzcd}
+\]
+y para cada $\alpha \in C_n$,
+\[
+\begin{tikzcd}
+D_\alpha^n \arrow[r, "F_\alpha"] &\displaystyle X^{n-1} \cup_f \medsqcup_{\alpha \in C_n} D_\alpha^n \arrow[r, "h", "\cong"'] & X^n.
+\end{tikzcd}
+\]
+El subconjunto
+\[
+e_\alpha^n = h\left(F_\alpha(\interior(D_\alpha^n))\right) \subset X^n \subset X
+\]
+se llama la \textit{$n$-celda abierta}. Se tiene que
+\[
+X = \bigcup_{\substack{n \geq 0 \\ \alpha \in C_n}} e_\alpha^n
+\]
+es unión ajena, es decir, si $e_\alpha^n \cap e_\beta^m \neq \varnothing$, entonces $n = m$ y $\alpha = \beta$. Asimismo, la función
+\[
+\varphi_\alpha = h \circ F_\alpha \colon D_\alpha^n \longrightarrow X
+\]
+se llama la \textit{función característica} de cada $e_\alpha^n$.
+\end{definicion}
+
+\begin{nota}
+Para cada $n \geq 0$, se tiene 
+$$X^n = \medcup_{\substack{k \leq n \\ \alpha \in C_k}} e_\alpha^k.$$ 
+\end{nota}
+\begin{nota}
+Todo complejo CW es paracompacto, completamente normal (cualquier subespacio es normal) y localmente contraíble en el sentido estricto; es decir, dado $x \in X$ y una vecindad abierta $A$ de $x$ en $X$, existe un abierto $U$ tal que $x \in U \subset A$, donde $U$ es contraíble basado en $x$.
+\end{nota}
+
+\begin{definicion}
+Sean $X$ y $Y$ complejos CW. Decimos que una función continua $f \colon X \to Y$ es \textit{celular} si $f(X^n) \subset Y^n$ para cada $n \geq 0$.
+\end{definicion}
+
+\begin{definicion}
+Un subespacio $C \subset X$ de un complejo CW es un \textit{subcomplejo} si $C$ es la unión de celdas (abiertas) de $X$ de manera que si $e_\alpha^n \subset C$, entonces $\overline{e_\alpha^n} \subset C$. Se tiene que cualquier subcomplejo es cerrado en $X$.
+\end{definicion}
+
+\begin{teorema}[Teorema de aproximación celular]
+Sean $X$ y $Y$ complejos CW y sea $f \colon X \to Y$ continua. Entonces existe una función celular $g \colon X \to Y$ tal que $f \simeq g$. Si $C \subset X$ es un subcomplejo de $X$ y $f|_C$ es celular, entonces $f|_C = g|_C$ y $f \simeq g \mathrm{\ rel\ } C$.
+\end{teorema}
+
+\begin{prop}
+$\Pi_q(S^n, y_0) \cong 0$ si $q < n$.
+\end{prop}
+
+\begin{dem}
+Sea $[\alpha] \in \Pi_q(S^n, y_0)$, con $\alpha \colon (S^q, x_0) \to (S^n, y_0)$. Demos a $S^q$ una estructura CW que consta de una $0$-celda y una $q$-celda, y a $S^n$ una de una $0$-celda y una $n$-celda, tomando como puntos base las $0$-celdas. Como $\alpha(x_0) = y_0$, entonces $\alpha$ es celular en el subcomplejo $C = \{x_0\}$; en otras palabras, $\alpha((S^q)^0) \subset (S^n)^0$. Por el teorema anterior, existe $g \colon S^q \to S^n$ una función celular tal que $g \simeq \alpha$ como funciones basadas; entonces $[\alpha] = [g]$, pero
+\[
+g(S^q) \subset (S^n)^q = \{y_0\} \quad \text{ya que } q < n.
+\]
+Por lo tanto, $[\alpha] = [g] = [c_{y_0}]$.
+\end{dem}
+
+\begin{definicion}
+Una función continua $f \colon X \to Y$ es una \textit{equivalencia homotópica débil} si para cada $x \in X$,
+\[
+f_{\#} \colon \Pi_q(X, x) \longrightarrow \Pi_q(Y, f(x))
+\]
+es un isomorfismo para $q \geq 1$ (cuando $q = 0$ es una biyección).
+\end{definicion}
+
+\begin{teorema}[Whitehead]
+Sean $X$ y $Y$ complejos CW. Sea $f \colon X \to Y$ una equivalencia homotópica débil; entonces $f$ es una equivalencia homotópica.
+\end{teorema}
+
+\begin{teorema}[Teorema de resolución o aproximación CW]
+Sea $X$ un espacio arbitrario. Entonces existe un complejo CW, $\mathrm{CW}(X)$, y una equivalencia homotópica débil $f \colon \mathrm{CW}(X) \to X$.
+\end{teorema}
+
+\begin{prop}
+\label{prop: Pi_q(E) cong Pi_q(X)}
+Sea $p \colon (E, a_0) \to (X, x_0)$ una aplicación cubriente. Entonces
+\[
+p_{\#} \colon \Pi_q(E, a_0) \longrightarrow \Pi_q(X, x_0)
+\]
+es un isomorfismo para todo $q > 1$.
+\end{prop}
+
+\begin{dem}
+$p_{\#}$ es inyectiva: Sea $[\alpha] \in \Pi_q(E, a_0)$ y supongamos que $p_{\#}[\alpha] = [c_{x_0}]$; entonces tenemos una homotopía basada $H \colon p \circ \alpha \simeq c_{x_0}$. Consideremos el diagrama
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+S^q \arrow[r, "\alpha"] \arrow[d, "i_0"', hook] & E \arrow[d, "p"] \\
+S^q \times I \arrow[r, "H"'] \arrow[ur, "\tilde{\vspace{0.5mm}H}", dashed] & X
+\end{tikzcd}
+\]
+Como $p \circ \alpha = H(-, 0)$, existe un levantamiento $\tilde{H}$ de $H$ que hace conmutar los triángulos, ya que $p$ es una fibración, y tenemos que $\tilde{H}(s, 0) = \alpha(s)$. Además,
+\begin{equation}\label{eq:H_constante_en_1}
+H(s, 1) = x_0 \quad \text{para todo } s \in S^q.
+\end{equation}
+Entonces $p(\tilde{H}(s, 1)) = H(s, 1) = x_0$, por lo que $\tilde{H}(s, 1) \in p^{-1}(x_0)$ para todo $s \in S^q$, que es conexo (pues $q > 1$). Entonces $\tilde{H}(-, 1)$ es constante. Como la homotopía $H$ es basada, $H(s_0, t)$ es constante para todo $t$, es decir, $\tilde{H}(s_0, t)$ es constante, por lo que $\tilde{H}$ es basada; se tiene así que $\tilde{H}(-, 1)$ es constante y, por \eqref{eq:H_constante_en_1}, $\tilde{H}(s_0, 1) = a_0$. Entonces $\alpha \simeq_{\tilde{H}} c_{a_0}$ basada, y por lo tanto $p_{\#}$ es inyectiva.
+%%%% Clase 25 del 07/10/26 inciada el 15/11/26 terminada el 16/11/2026
+
+%%%% Clase 26 del 09/10/26 inciada el 16/11/26
+Para mostrar que $p_\#$ es sobreyectiva, sea $[\gamma]\in \Pi_q(X,x_0)$. Como $q>1$, entonces $\Pi_1(S^q,s_0)\cong\{0\}$, por \ref{teo:teo_levantamiento}, existe un levantamiento $\tilde{\gamma}:(S^q,s_0)\to (E,a_0)$ tal que el siguiente diagrama conmuta 
+\begin{equation*}
+    \begin{tikzcd}[column sep= 1cm, row sep=1cm]
+        & (E,a_0)\arrow[d,"p"]\\
+        (S^q,s_0)\arrow[r,"\gamma"']\arrow[ur,"\tilde{\gamma}"] & (X,x_0)
+    \end{tikzcd}
+\end{equation*}
+i.e., $\gamma=p\circ\tilde{\gamma}$. Por lo tanto, $p_\#[\tilde{\gamma}] =\gamma$.
+\end{dem}
+\begin{prop}
+    \begin{equation*}
+        \Pi_q(\R P^n,*)\cong\begin{cases}
+            \Z_2; &\text{si } q=1\\
+            \Pi_q(S^n,s_0); &\text{si } q>1.
+        \end{cases}
+    \end{equation*}
+\end{prop}
+\begin{dem}
+    Consideremos la proyección $\pi:S^n\to S^n/\Z_2\cong \R P^n$ la cuál es libre, como $\Z_2$ es finito, $\pi$ es una aplicación cubriente, por \ref{prop: Pi_q(E) cong Pi_q(X)}, 
+    \begin{equation*}
+        \begin{tikzcd}
+            \Pi_q(S^n,s_0)\arrow[r,"\pi_\#","\cong"'] & \Pi_q(\R P^n,*),
+        \end{tikzcd} \text{ siempre que } q>1.
+    \end{equation*}
+    Para $q=1$, por \ref{coro:biyeccion_fibra_cosets}, existe una biyección 
+    \begin{equation*}
+        \begin{tikzcd}[column sep=0.55cm]
+            \Pi_1(\R P^n,*)/\pi_\#\Pi_1(S^n,s_0)\arrow[r,<->] & \pi^{-1}(*)
+        \end{tikzcd}
+    \end{equation*}
+    Notemos que $|\pi^{-1}(*)|=2$ y por hipótesis $n>1$, entonces $\pi_\#\Pi_1(S^n,s_0)$ es el grupo trivial, por lo tanto, $\Pi_1(\R P^n,*)$ es un grupo de orden 2, i.e., $\Pi_1(\R P^n,*)\cong \Z_2$.
+\end{dem}
+\begin{prop}
+    $\Pi_q(S^1,*)\cong\{0\}$, si $q>1.$
+\end{prop}
+\begin{dem}
+    $\exp:\R\to S^1$ es una aplicación cubriente, por \ref{prop: Pi_q(E) cong Pi_q(X)}, $\Pi_q(\R,*)\cong\Pi_q(S^1,*)$, pero $\R$ es contraible, por lo tanto, $\Pi_q(S^1,*)\cong\{0\}$, si $q>1.$
+\end{dem}
+\begin{definicion}
+Un \textit{espacio de Eilenberg-MacLane de tipo $K(G, n)$} es un complejo CW $X$ tal que
+\[
+\Pi_q(X, x_0) \cong 
+\begin{cases} 
+G & \text{si } q = n, \\ 
+0 & \text{si } q \neq n.
+\end{cases}
+\]
+Cuando $n > 1$, $G$ tiene que ser abeliano. Estos espacios existen para todo grupo $G$.
+\end{definicion}
+
+\begin{ejemplo}
+\begin{enumerate}
+    \item[(1)] $S^1$ es un $K(\Z, 1)$.
+    \item[(2)] $\R\mathrm{P}^\infty = \bigcup_{n \geq 0} \R\mathrm{P}^n$, con $\R\mathrm{P}^n \subset \R\mathrm{P}^{n+1} \subset \dots$, es un $K(\Z_2, 1)$.
+    \item[(3)] $\mathbb{C}\mathrm{P}^\infty = \bigcup_{n \geq 0} \mathbb{C}\mathrm{P}^n$ es un $K(\Z, 2)$.
+    \item[(4)] $S^1 \times S^1\times\cdots S^1$ ($n$-veces) es un $K(\Z^n, 1)$.
+\end{enumerate}
+\end{ejemplo}
+
+\begin{definicion}
+Sea $\mathcal{C}$ una categoría. Dados morfismos $\varphi \colon A \to B$ y $\psi \colon A \to C$, el \textit{pushout} de $(\varphi, \psi)$ es una pareja de morfismos $\alpha \colon C \to P$ y $\beta \colon B \to P$ tal que $\alpha \circ \psi = \beta \circ \varphi$, y que tienen la siguiente propiedad universal: dados morfismos $\mu \colon C \to D$ y $\nu \colon B \to D$ tales que $\mu \circ \psi = \nu \circ \varphi$, entonces existe un único morfismo $\gamma \colon P \to D$ tal que $\gamma \circ \alpha = \mu$ y $\gamma \circ \beta = \nu$.
+\end{definicion}
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+A \arrow[r, "\varphi"] \arrow[d, "\psi"'] & B \arrow[d, "\beta"] \arrow[ddr, "\nu", bend left=20] &[-0.7cm] \\
+C \arrow[r, "\alpha"'] \arrow[rrd, "\mu"', bend right=20] & P \arrow[dr, dashed, "\gamma"'] & \\[-0.7cm]
+& & D
+\end{tikzcd}
+\]
+\begin{ejemplo}[Pushout en la categoría $R\text{-}\mathsf{Mod}$]\label{ej:pushout_R_modulo}
+Dados homomorfismos de $R$-módulos $f \colon A \to C$ y $g \colon A \to B$, consideremos el subconjunto
+\[
+N = \left\{ (f(a), -g(a)) \;\middle|\; a \in A \right\} \subset C \oplus B,
+\]
+el cual es un submódulo de la suma directa $C \oplus B$. Definimos el pushout como el módulo cociente
+\[
+C \underset{A}{\oplus} B = {C \oplus B}/{N}
+\]
+junto con los homomorfismos $\alpha \colon C \to C \underset{A}{\oplus} B$ y $\beta \colon B \to C \underset{A}{\oplus} B$ dados por $\alpha(c) = [c, 0]$ y $\beta(b) = [0, b]$.
+
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+A \arrow[r, "g"] \arrow[d, "f"'] & B \arrow[d, "\beta", dashed] \arrow[ddr, "\psi", bend left=20] &[-0.65cm] \\
+C \arrow[r, "\alpha"', dashed] \arrow[rrd, "\varphi"', bend right=20] & C \underset{A}{\oplus} B \arrow[dr, "\bar{\mu}"', dashed] & \\[-1cm]
+& & M
+\end{tikzcd}
+\]
+
+Para probar que tiene la propiedad universal del pushout, usamos la propiedad universal del coproducto (la suma directa $C \oplus B$): dados homomorfismos $\varphi \colon C \to M$ y $\psi \colon B \to M$ tales que $\varphi \circ f = \psi \circ g$, existe un único homomorfismo $\mu \colon C \oplus B \to M$ que hace conmutar el siguiente diagrama:
+
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+C \arrow[r, "i"] \arrow[dr, "\varphi"', bend right=10] & C \oplus B \arrow[d, "\mu", dashed] & B \arrow[l, "j"'] \arrow[dl, "\psi", bend left=10] \\
+& M &
+\end{tikzcd}
+\]
+donde $\mu(c, b) = \varphi(c) + \psi(b)$ (es decir, $\mu = \varphi \oplus \psi$). 
+
+Como para todo $a \in A$ se cumple que
+\[
+\mu(f(a), -g(a)) = \varphi(f(a)) - \psi(g(a)) = 0,
+\]
+se tiene que $N \subset \ker(\mu)$. Por lo tanto, $\mu$ pasa al cociente y define un único homomorfismo
+\[
+\bar{\mu} \colon C \underset{A}{\oplus} B \longrightarrow M
+\]
+que satisface
+\[
+(\bar{\mu} \circ \alpha)(c) = \bar{\mu}[c, 0] = \mu(c, 0) = \varphi(c) \quad \text{y} \quad (\bar{\mu} \circ \beta)(b) = \bar{\mu}[0, b] = \mu(0, b) = \psi(b).
+\]
+\end{ejemplo}
+\begin{ejemplo}
+Sean $L$ y $H$ grupos que pueden ser abelianos o no. Consideremos un grupo $G$ y el diagrama
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+L \arrow[r, "i", hook] \arrow[dr, "\gamma"', bend right=10] & L \oplus H \arrow[d, "\mu", dashed] & H \arrow[l, "j"', hook'] \arrow[dl, "\rho", bend left=10] \\
+& G &
+\end{tikzcd}
+\]
+La función $\mu$ anterior tiene que ser un homomorfismo. Por un lado, tenemos que
+\begin{align*}
+    \mu\big((l_1, h_1) + (l_2, h_2)\big) &= \mu(l_1 + l_2, h_1 + h_2) \\
+    &= \gamma(l_1 + l_2)\rho(h_1 + h_2) \\
+    &={\gamma(l_1)\gamma(l_2)\rho(h_1)\rho(h_2)},    
+\end{align*}
+
+por otro lado,
+\[
+\mu(l_1, h_1)\mu(l_2, h_2) = {\gamma(l_1)\rho(h_1)\gamma(l_2)\rho(h_2)}.
+\]
+Si $G$ no es abeliano, $\mu$ no es homomorfismo aunque $L$ y $H$ sean abelianos.
+\end{ejemplo}
+
+
+\begin{definicion}[Coproducto en la categoría de grupos]
+Sea $\{G_\alpha \mid \alpha \in \Lambda\}$ una familia ajena de grupos, es decir, si $\alpha \neq \beta$, entonces $G_\alpha \cap G_\beta = \varnothing$. Definimos su \textbf{coproducto} $\mathop{\scalebox{1.5}{$\ast$}}_{\alpha \in \Lambda} G_\alpha$ como el conjunto de palabras \underline{reducidas}, que son sucesiones finitas
+\[
+w \colon \{1, 2, \dots, n\} \longrightarrow \bigcup_{\alpha \in \Lambda} G_\alpha, \;\; \text{es decir,} \;\; w = a_1 a_2 \dots a_n,
+\]
+que satisfacen tres propiedades:
+\begin{enumerate}
+    \item Cada $a_i \in G_\alpha$ para algún $\alpha \in \Lambda$.
+    \item Ningún $a_i$ es el elemento idéntico de alguno de los grupos.
+    \item Si $a_i \in G_\alpha$, entonces $a_{i+1} \notin G_\alpha$.
+\end{enumerate}
+
+En este conjunto, el producto se define mediante la yuxtaposición de las palabras reduciendo los términos adyacentes después; es decir, dadas dos palabras reducidas $w_1 = a_1 a_2 \dots a_n$ y $w_2 = b_1 b_2 \dots b_m$, formamos
+\[
+w_1 w_2 = a_1 a_2 \dots \underline{a_n b_1} b_2 \dots b_m,
+\]
+donde si $a_n, b_1 \in G_\alpha$ para un mismo $\alpha \in \Lambda$, se toma su producto $a_n b_1 \in G_\alpha$, y si además $a_n b_1 = e \in G_\alpha$, borramos $e$ y continuamos reduciendo sucesivamente.
+
+De esta forma, dada una palabra reducida $w = a_1 a_2 \dots a_n$, su inverso está dado por $w^{-1} = a_n^{-1} a_{n-1}^{-1} \dots a_2^{-1} a_1^{-1}$, pues al efectuar su producto obtenemos
+\begin{align*}
+    w w^{-1} &= a_1 a_2 \dots {a_n a_n^{-1}} a_{n-1}^{-1} \dots a_2^{-1} a_1^{-1}\\
+    & = a_1 a_2 \dots e a_{n-1}^{-1} \dots a_2^{-1} a_1^{-1},
+\end{align*}
+de donde nos queda 
+\[
+a_1 \dots a_{n-2} \underbrace{a_{n-1} a_{n-1}^{-1}}_{e} a_{n-2}^{-1} \dots a_1^{-1},
+\]
+y continuando este proceso al final queda $a_1 a_1^{-1} = e$. Por lo tanto, $w w^{-1}$ se reduce a la palabra vacía, la cual se denota por $\varnothing$ o $1$ y funge como el elemento idéntico.
+\end{definicion}
+\begin{definicion}
+    Denotemos por $\mathcal{R}$ al conjunto de palabras reducidas y consideramos el grupo de permutaciones con la composición, el cual denotamos por
+\[
+\operatorname{Per}(\mathcal{R}) = \left\{ f \colon \mathcal{R} \to \mathcal{R} \;\middle|\; f \text{ es biyección} \right\},
+\]
+\end{definicion}
+%%%% Clase 26 del 09/10/26 inciada el 16/11/26 terminada el 17/11/2026
+
+%%%% Clase 27 del 12/10/26 inciada el 17/11/26
+\begin{definicion}
+Definimos $L \colon \mathcal{R} \to \operatorname{Per}(\mathcal{R})$ como sigue: primero, para cada $g \in G_\alpha$, definimos $L_g \colon \mathcal{R} \to \mathcal{R}$ mediante $L_g(w) = gw$; es decir, si $w = a_1 a_2 \dots a_n$, entonces
+\[
+gw = g a_1 a_2 \dots a_n,
+\]
+donde cuando $a_1 \in G_\alpha$, efectuamos el producto $g a_1$ en $G_\alpha$ (y si $g a_1 = e_\alpha$, se cancela el término). Notemos que $L_g(\varnothing) = g$.
+\end{definicion}
+
+\begin{ejercicio}
+Probar que $L_{g g'} = L_g \circ L_{g'}$ para cualesquiera $g, g' \in G_\alpha$. Concluir que se tiene un homomorfismo $G_\alpha \to \operatorname{Per}(\mathcal{R})$ dado por $g \mapsto L_g$.
+\end{ejercicio}
+
+Dada una palabra reducida $w = a_1 a_2 \dots a_n \in \mathcal{R}$, definimos
+\[
+L(a_1 a_2 \dots a_n) = L_{a_1} \circ L_{a_2} \circ \dots \circ L_{a_n}.
+\]
+Entonces $L \colon \mathcal{R} \to \operatorname{Per}(\mathcal{R})$ es un \textit{homomorfismo inyectivo}.
+
+\begin{ejercicio}
+Verificar que el producto en $G = \mathop{\scalebox{1.5}{$\ast$}}_{\alpha \in \Lambda} G_\alpha$ es \textit{asociativo}.
+\end{ejercicio}
+
+\begin{prop}
+La pareja $\left( \mathop{\scalebox{1.5}{$\ast$}}_{\alpha \in \Lambda} G_\alpha, \{i_\alpha\}_{\alpha \in \Lambda} \right)$, donde cada inclusión $i_\alpha \colon G_\alpha \to \mathop{\scalebox{1.5}{$\ast$}}_{\alpha \in \Lambda} G_\alpha$ está dada por $i_\alpha(g) = g$ vista como una palabra con una sola letra (y $i_\alpha(e_\alpha) = \varnothing$), es el \textit{coproducto en la categoría de grupos}.
+\end{prop}
+
+\begin{dem}
+Veamos que dado un grupo $K$ y una familia de homomorfismos $f_\alpha \colon G_\alpha \to K$ para cada $\alpha \in \Lambda$, existe un único homomorfismo $f \colon \mathop{\scalebox{1.5}{$\ast$}}_{\alpha \in \Lambda} G_\alpha \to K$ tal que el diagrama
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+G_\alpha \arrow[r, "i_\alpha"] \arrow[dr, "f_\alpha"'] & \mathop{\scalebox{1.5}{$\ast$}}_{\alpha \in \Lambda} G_\alpha \arrow[d, "f", dashed] \\
+& K
+\end{tikzcd}
+\]
+conmuta para todo $\alpha \in \Lambda$. En efecto, definimos $f$ como sigue: dada una palabra reducida $w = a_1 a_2 \dots a_n$, donde cada $a_i \in G_{\alpha_i}$, hacemos
+\[
+f(w) = f_{\alpha_1}(a_1) f_{\alpha_2}(a_2) \dots f_{\alpha_n}(a_n) \in K,
+\]
+y $f(\varnothing) = 1_K$. Se prueba por inducción sobre $n$ que $f$ es un homomorfismo de grupos, el cual es único por la condición $f \circ i_\alpha = f_\alpha$.
+\end{dem}
+
+\begin{definicion}
+Sea $G$ un grupo y $S \subset G$ un subconjunto. Consideremos el conjunto de conjugados
+\[
+S^G = \left\{ g^{-1} s g \;\middle|\; s \in S, \, g \in G \right\}.
+\]
+El subgrupo $N(S) = \langle S^G \rangle$ generado por $S^G$ es el \textit{subgrupo normal} de $G$ más pequeño que contiene a $S$ (llamado la \textit{clausura normal} de $S$ en $G$).
+\end{definicion}
+
+\begin{definicion}
+Dados homomorfismos de grupos $f \colon K \to L$ y $g \colon K \to H$, definimos el \textit{pushout} de $(f, g)$ como la pareja de homomorfismos $(\alpha, \beta)$ hacia el grupo cociente
+\[
+L \underset{K}{\ast} H = (L \ast H) / N(S), \; \text{ donde } \; S = \left\{ f(k) g(k)^{-1} \;\middle|\; k \in K \right\}.
+\]
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+K \arrow[r, "g"] \arrow[d, "f"'] & H \arrow[d, "\beta", dashed] \\
+L \arrow[r, "\alpha"', dashed] & L \underset{K}{\ast} H
+\end{tikzcd}
+\]
+Aquí consideramos $S \subset L \ast H$ identificando a $L$ y $H$ como subgrupos de $L \ast H$, y definimos $\alpha \colon L \to L{\ast}_{K} H$ y $\beta \colon H \to L{\ast}_K H$ mediante $\alpha(l) = [l]$ y $\beta(h) = [h]$. El cuadrado conmuta ya que $(\alpha \circ f)(k) = [f(k)]$ y $(\beta \circ g)(k) = [g(k)]$, pero en el cociente se cumple que
+\[
+1 = [ f(k) g(k)^{-1} ] = [f(k)] [g(k)]^{-1},
+\]
+por lo que $[f(k)] = [g(k)]$.
+\end{definicion}
+
+\begin{ejercicio}
+Verificar que $L{\ast}_{K} H$ junto con los morfismos $\alpha$ y $\beta$ satisface la \textit{propiedad universal del pushout} en la categoría de grupos.
+\end{ejercicio}
+
+\begin{ejemplo}
+Si tomamos el grupo trivial $\{1\}$, el pushout del diagrama
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+K \arrow[r] \arrow[d, "f"'] & \{1\} \arrow[d] \\
+L \arrow[r] & L{\ast}_{K} \{1\}&[-1.5cm] \cong L / N(f(K))
+\end{tikzcd}
+\]
+i.e., el poshout es isomorfo al cociente $L / N(f(K))$.
+\end{ejemplo}
+
+\begin{ejemplo}
+Sean $L$ y $H$ grupos abelianos no triviales; entonces $L \ast H \neq L \oplus H$. En particular, tomemos $L = \mathbb{Z}_2 = H$. Para que sean ajenos, escribamos $L = \{1_L, l\}$ y $H = \{1_H, h\}$. Entonces $lh \in \mathbb{Z}_2 \ast \mathbb{Z}_2$ y sus potencias son palabras reducidas de la forma
+\[
+lh,  lhlh,  lhlhlh,  \dots \in \mathbb{Z}_2 \ast \mathbb{Z}_2,
+\]
+por lo que $\mathbb{Z}_2 \ast \mathbb{Z}_2$ es \textit{infinito}. Además, como $ll = 1_L$ y $hh = 1_H$, el grupo $\mathbb{Z}_2 \ast \mathbb{Z}_2$ tiene \textit{torsión} y, en consecuencia, no es libre. En general, $L \ast H$ no es abeliano ni es libre.
+\end{ejemplo}
+
+\begin{prop}
+Sea $\mathcal{C}$ una categoría. Si el pushout de una pareja de morfismos $(\varphi, \psi)$ existe, entonces es \textit{único salvo un único isomorfismo} que conmuta con los morfismos $\alpha$ y $\beta$.
+\end{prop}
+
+\begin{dem}
+Consideremos los morfismos $\varphi \colon A \to C$ y $\psi \colon A \to B$, y supongamos que existen dos pushouts:
+\[
+\text{(1)} \quad
+\begin{tikzcd}[row sep=large, column sep=large]
+A \arrow[r, "\psi"] \arrow[d, "\varphi"'] & B \arrow[d, "\beta"] \\
+C \arrow[r, "\alpha"'] & P
+\end{tikzcd}
+\qquad \qquad
+\text{(2)} \quad
+\begin{tikzcd}[row sep=large, column sep=large]
+A \arrow[r, "\psi"] \arrow[d, "\varphi"'] & B \arrow[d, "\beta'"] \\
+C \arrow[r, "\alpha'"'] & P'
+\end{tikzcd}
+\]
+Como $\alpha' \circ \varphi = \beta' \circ \psi$ y (1) es un pushout, existe un único morfismo $F \colon P \to P'$ tal que $F \circ \alpha = \alpha'$ y $F \circ \beta = \beta'$. Análogamente, como $\alpha \circ \varphi = \beta \circ \psi$ y (2) es un pushout, existe un único morfismo $F' \colon P' \to P$ tal que $F' \circ \alpha' = \alpha$ y $F' \circ \beta' = \beta$:
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+A \arrow[r, "\psi"] \arrow[d, "\varphi"'] & B \arrow[d, "\beta"] \arrow[ddr, "\beta'", bend left=20] &[-0.65cm] \\
+C \arrow[r, "\alpha"'] \arrow[rrd, "\alpha'"', bend right=20] & P \arrow[dr, "F"', dashed] & \\[-1cm]
+& & P'
+\end{tikzcd}
+\qquad
+\begin{tikzcd}[row sep=large, column sep=large]
+A \arrow[r, "\psi"] \arrow[d, "\varphi"'] & B \arrow[d, "\beta'"] \arrow[ddr, "\beta", bend left=20] &[-0.65cm] \\
+C \arrow[r, "\alpha'"'] \arrow[rrd, "\alpha"', bend right=20] & P' \arrow[dr, "F'"', dashed] & \\[-1cm]
+& & P
+\end{tikzcd}
+\]
+Se verifica que $(F' \circ F) \circ \alpha = \alpha$ y $(F' \circ F) \circ \beta = \beta$, de modo que por la unicidad en la propiedad universal se concluye que $F' \circ F = 1_P$ y $F \circ F' = 1_{P'}$. Por lo tanto, $F$ es el único isomorfismo que conmuta con $\alpha$ y $\beta$.
+\end{dem}
+
+Sea $X = U \cup V$, donde $U$ y $V$ son abiertos y $x_0 \in U \cap V$. Tenemos un cuadrado conmutativo de inclusiones (el cual es un pushout en $\mathsf{Top}$):
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+U \cap V \arrow[r, "i_V", hook] \arrow[d, "i_U"', hook] & V \arrow[d, "j_V", hook] \\
+U \arrow[r, "j_U"', hook] & X
+\end{tikzcd}
+\]
+Al aplicar el funtor $\Pi_1(-, x_0)$, obtenemos el cuadrado conmutativo
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+\Pi_1(U \cap V, x_0) \arrow[r, "i_{V\#}"] \arrow[d, "i_{U\#}"'] & \Pi_1(V, x_0) \arrow[d, "j_{V\#}"] \\
+\Pi_1(U, x_0) \arrow[r, "j_{U\#}"'] & \Pi_1(X, x_0)
+\end{tikzcd}
+\]
+¿Será este un cuadrado pushout?
+
+\begin{teorema}[Seifert-Van Kampen]
+Sea $X = U \cup V$, con $U$ y $V$ abiertos tales que $U$, $V$ y $U \cap V$ son $0$-conexos y $x_0 \in U \cap V$. Entonces el cuadrado anterior es un \textit{pushout} en la categoría de grupos y, por lo anterior,
+\[
+\Pi_1(X, x_0) \cong \Pi_1(U, x_0) {\ast}_{\Pi_1(U \cap V, x_0)} \Pi_1(V, x_0).
+\]
+\end{teorema}
+
+\begin{definicion}
+Sea $X$ un espacio topológico. Definimos una categoría pequeña llamada el \textit{grupoide fundamental} de $X$, denotada por $\Pi(X)$, como sigue:
+\begin{itemize}
+    \item \textit{Objetos:} Los puntos de $X$, es decir, $\operatorname{Ob}(\Pi(X)) = X$.
+    \item \textit{Morfismos:} Dados dos objetos $x, y \in X$, los morfismos son
+    \[
+    \operatorname{Mor}_{\Pi(X)}(x, y) = \Pi(X)(x, y) = \left\{ [\sigma] \;\middle|\; \sigma \colon I \to X \text{ es una trayectoria de } x \text{ a } y \right\},
+    \]
+    es decir, las \textit{clases de homotopía relativa} a $\partial I$ de trayectorias $\sigma, \tau \colon I \to X$ tales que $\sigma(0) = \tau(0) = x$ y $\sigma(1) = \tau(1) = y$:
+    \[
+    \begin{tikzpicture}[baseline=-0.5ex]
+        \filldraw (0,0) circle (1.5pt) node[left] {$x$};
+        \filldraw (3,0) circle (1.5pt) node[right] {$y$};
+        \draw[->, thick] (0,0) .. controls (1, 1) and (2, 1) .. node[above] {$\sigma$} (3,0);
+        \draw[->, thick] (0,0) .. controls (1, -1) and (2, -1) .. node[below] {$\tau$} (3,0);
+    \end{tikzpicture}
+    \]
+    \item \textit{Composición:} Dadas clases de trayectorias $x \xrightarrow{[\sigma]} y \xrightarrow{[\tau]} z$, su composición se define como
+    \[
+    [\tau] \circ [\sigma] = [\sigma \ast \tau].
+    \]
+\end{itemize}
+Notemos que en esta categoría cada morfismo es un \textit{isomorfismo}, y por esto se le llama \textit{grupoide}, ya que para cada $[\sigma] \in \Pi(X)(x, y)$ su inverso es $[\bar{\sigma}] \in \Pi(X)(y, x)$, satisfaciendo
+\[
+[\bar{\sigma}] \circ [\sigma] = [\sigma \ast \bar{\sigma}] = [c_x] \qquad \text{y} \qquad [\sigma] \circ [\bar{\sigma}] = [\bar{\sigma} \ast \sigma] = [c_y].
+\]
+En particular, para $x \in X$ se tiene que $\operatorname{Mor}_{\Pi(X)}(x, x) = \Pi_1(X, x)$.
+\end{definicion}
+
+\begin{teorema}[R. Brown]
+Sean $A$ y $B$ subespacios de $X$ tales que $X = \mathring{A} \cup \mathring{B}$. Sean $i_A \colon A \cap B \hookrightarrow A$, $i_B \colon A \cap B \hookrightarrow B$, $j_A \colon A \hookrightarrow X$ y $j_B \colon B \hookrightarrow X$ las inclusiones. Entonces el siguiente cuadrado tiene la \textit{propiedad universal del pushout} en la categoría de \textit{grupoides pequeños}:
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+\Pi(A \cap B) \arrow[r, "\Pi(i_B)"] \arrow[d, "\Pi(i_A)"'] & \Pi(B) \arrow[d, "\Pi(j_B)"] \\
+\Pi(A) \arrow[r, "\Pi(j_A)"'] & \Pi(X)
+\end{tikzcd}
+\]
+\end{teorema}
+
+Como corolario se obtiene el teorema de Seifert-Van Kampen.
+%%%% Clase 27 del 12/10/26 inciada el 17/11/26 terminada el 17/11/2026
+
+%%%% Clase 28 del 14/10/26 inciada el 17/11/26
+\begin{definicion}
+Un \textit{grupoide} es una categoría pequeña tal que cada morfismo es un isomorfismo. La \textit{categoría de grupoides}, que denotamos por $\mathcal{G}$, tiene como objetos a los grupoides y como morfismos a los funtores entre grupoides; es decir,
+\[
+\operatorname{Mor}_{\mathcal{G}}(\mathcal{G}, \mathcal{H}) = \left\{ F \colon \mathcal{G} \to \mathcal{H} \;\middle|\; F \text{ es un funtor} \right\},
+\]
+el cual es un conjunto. En $\mathcal{G}$ existen los pushouts, pero en general son difíciles de definir.
+\end{definicion}
+
+\begin{definicion}
+El funtor $\Pi \colon \mathsf{Top} \to \mathcal{G}$ se define como sigue: a cada espacio $X$ le asociamos el grupoide $\Pi(X)$ y, si $f \colon X \to Y$ es una función continua, definimos el funtor
+\[
+\Pi(X) \xrightarrow{\;\Pi(f)\;} \Pi(Y)
+\]
+asignando a cada objeto $x \in X$ el objeto
+\[
+\Pi(f)(x) = f(x) \in \operatorname{Obj}\Pi(Y) = Y,
+\]
+mientras que en los morfismos, la función
+\[
+\operatorname{Mor}_{\Pi(X)}(x, x') \xrightarrow{\;\Pi(f)\;} \operatorname{Mor}_{\Pi(Y)}\big(f(x), f(x')\big)
+\]
+está dada por $\Pi(f)[\sigma] = [f \circ \sigma]$.
+\end{definicion}
+\begin{definicion}
+Sea $(X, x_0)$ un espacio basado y $0$-conexo. Definimos el funtor
+\[
+R \colon \Pi(X) \longrightarrow \Pi_1(X, x_0),
+\]
+observando que cualquier grupo $G$ se puede ver como una categoría —de hecho, un \textit{grupoide}— con un solo objeto $*$ y cuyos morfismos son $\operatorname{Mor}_G(*, *) = G$ con la composición $g \circ h = gh \in G$.
+
+Para cada objeto $x \in X$ definimos $R(x) = x_0$, y a cada morfismo $[\sigma] \in \operatorname{Mor}_{\Pi(X)}(x, y)$ le asociamos la clase de homotopía del lazo
+\[
+R[\sigma] = [\bar{\sigma}_x \ast \sigma \ast \sigma_y],
+\]
+donde $\sigma_x, \sigma_y \colon I \to X$ son trayectorias tales que $\sigma_x(0) = x$, $\sigma_x(1) = x_0$, $\sigma_y(0) = y$ y $\sigma_y(1) = x_0$:
+\[
+\begin{tikzpicture}[baseline=-0.5ex]
+    \filldraw (0,0) circle (1.5pt) node[left] {$x_0$};
+    \filldraw (2.5,1) circle (1.5pt) node[right] {$x$};
+    \filldraw (2.5,-1) circle (1.5pt) node[right] {$y$};
+    \draw[->, thick] (2.35,0.95) .. controls (1.5,0.8) and (0.8,0.2) .. node[above left] {$\sigma_x$} (0.15,0.06);
+    \draw[->, thick] (2.35,-0.95) .. controls (1.5,-0.8) and (0.8,-0.2) .. node[below left] {$\sigma_y$} (0.15,-0.06);
+    \draw[->, thick] (2.5,0.8) -- node[right] {$[\sigma]$} (2.5,-0.8);
+\end{tikzpicture}
+\]
+Además, eligiendo $\sigma_{x_0} = c_{x_0}$, pedimos que para $[\alpha] \in \operatorname{Mor}_{\Pi(X)}(x_0, x_0) = \Pi_1(X, x_0)$ se cumpla $R[\alpha] = [\alpha]$. De manera que se tiene
+\[
+\begin{tikzcd}[column sep=0.65cm]
+\Pi_1(X, x_0) \arrow[r, "i", hook] & \Pi(X) \arrow[r, "R"] & \Pi_1(X, x_0)
+\end{tikzcd}
+\]
+con $(R \circ i)[\alpha] = [\alpha]$. Así definido, $R$ es un \textit{funtor contravariante} y con él se prueba que el teorema de R. Brown implica el teorema de Seifert-Van Kampen.
+\end{definicion}
+\begin{definicion}
+Un subespacio $A \xhookrightarrow{i} X$ es un \textit{retracto} de $X$ si existe una función continua $r \colon X \to A$, llamada \textit{retracción}, tal que $r \circ i = \operatorname{Id}_A$.
+
+Decimos que $A$ es un \textit{retracto por deformación} de $X$ si $r \circ i = \operatorname{Id}_A$ e $i \circ r \simeq \operatorname{Id}_X$. En este caso, la homotopía $H \colon X \times I \to X$ satisface
+\[
+H(x, 0) = x, \;\; H(x, 1) = (i \circ r)(x) = r(x) \in A \\;\; \text{y} \\;\; H(a, 1) = a \;\; \text{para todo } a \in A.
+\]
+La homotopía $H$ se llama \textit{retracción por deformación} de $X$ en $A$, de manera que la existencia de esta $H$ es equivalente a la definición anterior, pues basta tomar $r(x) = H(x, 1)$.
+
+Se llama \textit{retracción fuerte por deformación} si además cumple que
+\[
+H(a, t) = a \quad \text{para todo } a \in A \text{ y todo } t \in I.
+\]
+En algunos libros, a la retracción fuerte por deformación se le llama simplemente \textit{retracto por deformación}.
+\end{definicion}
+\begin{prop}
+$\Pi_1(S^n, *) \cong \{1\}$ para $n > 1$.
+\end{prop}
+
+\begin{dem}
+Sean los abiertos
+\[
+U = \left\{ x \in S^n \;\middle|\; x_{n+1} > -\tfrac{1}{2} \right\} \qquad \text{y} \qquad V = \left\{ x \in S^n \;\middle|\; x_{n+1} < \tfrac{1}{2} \right\},
+\]
+y consideremos el ecuador $S^{n-1} = \{ x \in S^n \mid x_{n+1} = 0 \}$ con $x_0 \in S^{n-1}$. Entonces $U$, $V$ y $U \cap V$ son abiertos $0$-conexos tales que $S^n = U \cup V$. Además, la inclusión
+\[
+S^{n-1} \xhookrightarrow{\;\simeq\;} U \cap V
+\]
+es un \textit{retracto fuerte por deformación}, mientras que $U$ y $V$ son \textit{contraíbles}.
+\[
+\begin{tikzpicture}[scale=0.95, >=stealth]
+    % --- Esfera S^n ---
+    \begin{scope}[shift={(0,0)}]
+        % Sombreado suave de la franja U \cap V en la esfera
+        \fill[gray!12] (-1.732, 1) arc (180:360:1.732 and 0.38)
+            .. controls (2.05, 0.35) and (2.05, -0.35) .. (1.732, -1)
+            arc (360:180:1.732 and 0.38)
+            .. controls (-2.05, -0.35) and (-2.05, 0.35) .. (-1.732, 1);
+
+        % Contorno exterior de S^n
+        \draw[thick] (0,0) circle (2);
+
+        % Meridianos superiores (como en el pizarrón)
+        \draw[thin, gray!80] (0, 2) .. controls (-0.9, 1.4) and (-1.1, 0.5) .. (-1.1, -0.41);
+        \draw[thin, gray!80] (0, 2) .. controls (-0.3, 1.4) and (-0.35, 0.5) .. (-0.35, -0.49);
+        \draw[thin, gray!80] (0, 2) .. controls (0.3, 1.4) and (0.35, 0.5) .. (0.35, -0.49);
+        \draw[thin, gray!80] (0, 2) .. controls (0.9, 1.4) and (1.1, 0.5) .. (1.1, -0.41);
+
+        % Paralelo superior x_{n+1} = 1/2
+        \draw[densely dashed, thin] (1.732, 1) arc (0:180:1.732 and 0.38);
+        \draw[thin] (-1.732, 1) arc (180:360:1.732 and 0.38);
+
+        % Paralelo inferior x_{n+1} = -1/2
+        \draw[densely dashed, thin] (1.732, -1) arc (0:180:1.732 and 0.38);
+        \draw[thin] (-1.732, -1) arc (180:360:1.732 and 0.38);
+
+        % Ecuador S^{n-1} (x_{n+1} = 0)
+        \draw[dashed, thick] (2, 0) arc (0:180:2 and 0.5);
+        \draw[very thick] (-2, 0) arc (180:360:2 and 0.5);
+
+        % Punto base x_0 sobre el ecuador
+        \filldraw (1.15, -0.41) circle (1.5pt) node[below right] {$ x_0$};
+
+        % Etiquetas de la esfera
+        \node[left] at (-2.05, -0.1) {$S^n$};
+        \node[right] at (2.05, 0.1) {$S^{n-1}$};
+    \end{scope}
+
+    % --- Franja ecuatorial U \cap V ---
+    \begin{scope}[shift={(5.6, 0)}]
+        % Sombreado de la franja
+        \fill[gray!12] (-1.732, 0.85) arc (180:360:1.732 and 0.38)
+            .. controls (2.05, 0.3) and (2.05, -0.3) .. (1.732, -0.85)
+            arc (360:180:1.732 and 0.38)
+            .. controls (-2.05, -0.3) and (-2.05, 0.3) .. (-1.732, 0.85);
+
+        % Bordes laterales curvados de la zona esférica
+        \draw[thick] (-1.732, 0.85) .. controls (-2.06, 0.3) and (-2.06, -0.3) .. (-1.732, -0.85);
+        \draw[thick] (1.732, 0.85) .. controls (2.06, 0.3) and (2.06, -0.3) .. (1.732, -0.85);
+
+        % Bordes abiertos superior e inferior
+        \draw[densely dashed, thin] (1.732, 0.85) arc (0:180:1.732 and 0.38);
+        \draw[thin] (-1.732, 0.85) arc (180:360:1.732 and 0.38);
+        \draw[densely dashed, thin] (1.732, -0.85) arc (0:180:1.732 and 0.38);
+        \draw[thin] (-1.732, -0.85) arc (180:360:1.732 and 0.38);
+
+        % Líneas verticales de retracción por deformación hacia S^{n-1}
+        \foreach \x/\ytop/\ymid/\ybot in {
+            -1.2/0.58/-0.40/-1.12,
+            -0.4/0.48/-0.49/-1.22,
+             0.4/0.48/-0.49/-1.22,
+             1.2/0.58/-0.40/-1.12
+        } {
+            \draw[->, thin, gray!85] (\x, \ytop) -- (\x, {\ymid + 0.06});
+            \draw[->, thin, gray!85] (\x, \ybot) -- (\x, {\ymid - 0.06});
+        }
+
+        % Ecuador S^{n-1} dentro de U \cap V
+        \draw[dashed, thick] (1.98, 0) arc (0:180:1.98 and 0.5);
+        \draw[very thick] (-1.98, 0) arc (180:360:1.98 and 0.5);
+
+        % Etiquetas de U \cap V
+        \node[right] at (2.02, 0.1) {$\scriptstyle S^{n-1}$};
+        \node at (0, -1.9) {$U \cap V$};
+    \end{scope}
+\end{tikzpicture}
+\]
+Por el teorema de Seifert-Van Kampen tenemos
+\[
+\Pi_1(S^n, x_0) \cong \Pi_1(U, x_0) {\ast}_{\Pi_1(U \cap V, x_0)} \Pi_1(V, x_0) \cong \{1\}.
+\]
+\end{dem}
+
+\begin{coro}
+Si $n > 1$, entonces
+\[
+\mathsf{ACC}(S^n) = \left\{ \left[ \begin{smallmatrix} S^n \\ \downarrow \\ S^n \end{smallmatrix} \right] \right\}.
+\]
+\end{coro}
+
+\begin{prop}
+$\Pi_1(S^1 \vee S^1) \cong \mathbb{Z} \ast \mathbb{Z}$ y, por inducción,
+\[
+\Pi_1\Big( \medvee_{i=1}^n S^1 \Big) \cong {\mathbb{Z} \ast \mathbb{Z} \ast \dots \ast \mathbb{Z}}.
+\]
+\end{prop}
+
+\begin{dem}
+Consideremos la descomposición $S^1 \vee S^1 = U \cup V$ dada por los siguientes abiertos:
+\[
+\begin{tikzpicture}[scale=0.95]
+    % --- S^1 \vee S^1 ---
+    \begin{scope}[shift={(0,0)}]
+        \draw[thick] (-1,0) circle (1);
+        \draw[thick] (1,0) circle (1);
+        \filldraw (0,0) circle (1.6pt);
+        \node at (0, -1.45) {$S^1 \vee S^1$};
+    \end{scope}
+
+    % --- Abierto U ---
+    \begin{scope}[shift={(4.8,0)}]
+        \node[left] at (0,-1.45) {$U$};
+        \draw[thick] (-1,0) circle (1);
+        \draw[thick] (1,0) ++(115:1) arc (115:245:1);
+        \filldraw (0,0) circle (1.6pt);
+    \end{scope}
+
+    % --- Abierto V ---
+    \begin{scope}[shift={(7,0)}]
+        \draw[thick] (-1,0) ++(-65:1) arc (-65:65:1);
+        \draw[thick] (1,0) circle (1);
+        \filldraw (0,0) circle (1.6pt);
+        \node[right] at (0,-1.45) {$V$};
+    \end{scope}
+\end{tikzpicture}
+\]
+Las inclusiones $S^1 \hookrightarrow U$ y $S^1 \hookrightarrow V$ son \textit{retractos fuertes por deformación}, y además la intersección
+\[
+U \cap V = \;
+\begin{tikzpicture}[baseline=-0.6ex, scale=0.65]
+    \draw[thick] (-1,0) ++(-65:1) arc (-65:65:1);
+    \draw[thick] (1,0) ++(115:1) arc (115:245:1);
+    \filldraw (0,0) circle (2pt);
+\end{tikzpicture}
+\; \simeq \{x_0\}
+\]
+es contraíble. Aplicando el teorema de Seifert-Van Kampen, tenemos
+\[
+\Pi_1(S^1 \vee S^1, x_0) \cong \Pi_1(S^1, x_0) {\ast}_{\Pi_1(U \cap V, x_0)} \Pi_1(S^1, x_0) \cong \mathbb{Z} \ast \mathbb{Z}.
+\]
+\end{dem}
+
+\begin{nota}
+En general, dada una familia de espacios basados $\{(X_i, *_i)\}_{i=1}^n$ de manera que cada $*_i \in V_i \subset X_i$ tiene una vecindad abierta $V_i$ que es \textit{contraíble basada}, entonces
+\[
+\Pi_1\Big( \medvee_{i=1}^n X_i, * \Big) \cong \mathop{\scalebox{1.5}{$\ast$}}_{i=1}^n \Pi_1(X_i, *_i).
+\]
+\end{nota}
+
+\begin{nota}
+El grupo fundamental
+\[
+\Pi_1\big(\textstyle \bigvee_r S^1, * \big) \cong {\mathbb{Z} \ast \mathbb{Z} \ast \dots \ast \mathbb{Z}}
+\]
+es el \textit{grupo libre de rango $r$}. Por el teorema de clasificación de aplicaciones cubrientes conexas, se tiene la correspondencia
+\[
+\mathsf{ACC}\left(\textstyle \bigvee_r S^1 \right) \longleftrightarrow \mathsf{C.C.S.}\left( \Pi_1\left( \textstyle\bigvee_r S^1 \right) \right) = \mathsf{C.C.S.}\left( \mathop{\scalebox{1.5}{$\ast$}}_{i=1}^r \mathbb{Z} \right),
+\]
+y para las aplicaciones cubrientes conexas de $d$ hojas tenemos
+\[
+\mathsf{ACC}\left( \textstyle\bigvee_r S^1 ; d \right) \longleftrightarrow {\mathsf{C.C.S.}\left( \mathop{\scalebox{1.5}{$\ast$}}_{i=1}^r \mathbb{Z} ; d \right)} \;\text{ (de índice $d$).}
+\]
+
+\end{nota}
+\begin{ejemplo}
+Para el caso de $\mathsf{ACC}\left(\bigvee_{i=1}^5 S^1; d\right)$, es decir, aplicaciones cubrientes conexas de rango $r = 5$ con $d$ hojas, la cantidad de cubrientes crece rápidamente con $d$:
+\[
+\begin{tikzpicture}[baseline=(current bounding box.center), scale=0.95]
+    \foreach \ang in {18, 90, 162, 234, 306} {
+        \draw[very thick, rotate=\ang] (0,0) .. controls (1.55, 1.02) and (1.55, -1.02) .. (0,0);
+    }
+    \filldraw (0,0) circle (1.8pt);
+    \node[below] at (0, -1.25) {$\mathop{\medvee}\limits_{i=1}^5 S^1$};
+\end{tikzpicture}
+\qquad \qquad
+\begin{aligned}
+    \text{Si } d &= 2, & &\text{hay } 31. \\
+    \text{Si } d &= 6, & &\text{hay } 268,530,771,271. \\
+    \text{Si } d &= 7, & &\text{hay } \sim 645 \text{ billones (millones de millones)}.
+\end{aligned}
+\]
+\end{ejemplo}
+
+Respecto a los grupos de homotopía superior de la esfera $S^n$, se sabe que
+\[
+\Pi_q(S^n) \cong 0 \quad \text{para } q < n \qquad \text{y} \qquad \Pi_n(S^n) \cong \mathbb{Z},
+\]
+donde este último isomorfismo se demuestra usando el \textit{grado de una función}.
+
+\begin{teorema}[Serre]
+Para los grupos de homotopía $\Pi_q(S^n)$ con $q > n$ se tiene lo siguiente:
+\begin{itemize}
+    \item Si $n$ es \textit{impar}, entonces $\Pi_q(S^n)$ es \textit{finito abeliano} para todo $q > n$.
+    \item Si $n$ es \textit{par}, entonces $\Pi_q(S^n)$ es \textit{finito} para todo $q > n$, excepto en dimensión $q = 2n - 1$, donde
+    \[
+    \Pi_{2n-1}(S^n) \cong \mathbb{Z} \oplus G,
+    \]
+    con $G$ un \textit{grupo finito}.
+\end{itemize}
+\end{teorema}
+
+\begin{teorema}[Serre]
+Sea $X$ un espacio $1$-conexo. Entonces los grupos de homotopía $\Pi_*(X)$ son \textit{finitamente generados} en cada dimensión si y solo si los grupos de homología $H_*(X; \mathbb{Z})$ son \textit{finitamente generados} en cada dimensión.
+\end{teorema}
+
+\begin{teorema}[Serre]
+Sea $X$ un complejo CW compacto y $1$-conexo. Supongamos que existe $n > 1$ tal que $\Pi_n(X) \neq 0$; entonces existe una \textit{infinidad} de dimensiones $q$ tales que $\Pi_q(X) \neq 0$.
+\end{teorema}
+
+\begin{ejemplo}
+La esfera $S^2$ es un complejo CW compacto y $1$-conexo con $\Pi_2(S^2) \cong \mathbb{Z} \neq 0$, por lo que tiene una infinidad de dimensiones $q$ tales que $\Pi_q(S^2) \neq 0$.
+\end{ejemplo}
+
+%%%% Clase 28 del 14/10/26 inciada el 17/11/26 terminada el 17/11/2026
+
+%%%% Clase 29 del 16/10/26 inciada el 17/11/26
+
+\subsection{Complejos simplicial}
+\begin{definicion}
+Un conjunto de puntos $a_0, a_1, \dots, a_n$ en $\mathbb{R}^m$ son \textit{afín independientes} si los vectores
+\[
+a_1 - a_0, \; a_2 - a_0, \; \dots, \; a_n - a_0
+\]
+son linealmente independientes.
+\end{definicion}
+
+\begin{ejercicio}
+Verificar que $\{a_0, a_1, \dots, a_n\} \subset \mathbb{R}^m$ es \textit{afín independiente} si y solo si dados $\lambda_0, \lambda_1, \dots, \lambda_n \in \mathbb{R}$ tales que $\sum_{i=0}^n \lambda_i = 0$, se tiene que
+\[
+\sum_{i=0}^n \lambda_i a_i = 0 \implies \lambda_0 = \lambda_1 = \dots = \lambda_n = 0.
+\]
+\end{ejercicio}
+
+\begin{definicion}
+Un \textit{$n$-simplejo geométrico} en $\mathbb{R}^m$ es un conjunto $\sigma$ de la forma
+\[
+\sigma = \left\{ \sum_{i=0}^n \lambda_i a_i \;\middle|\; a_0, a_1, \dots, a_n \text{ son afín independientes}, \; \lambda_i \geq 0 \text{ y } \sum_{i=0}^n \lambda_i = 1 \right\}.
+\]
+En este caso escribimos $\sigma = \langle a_0, a_1, \dots, a_n \rangle$.
+\end{definicion}
+
+\begin{ejemplo}
+Para $n = 1, 2, 3$, los primeros simplejos geométricos corresponden a un segmento de recta, un triángulo y un tetraedro sólido, respectivamente:
+\[
+\begin{tikzpicture}[scale=1.05]
+    % --- 1-simplejo ---
+    \begin{scope}[shift={(0, 0)}]
+        \coordinate (A0) at (0, 0.35);
+        \coordinate (A1) at (2.1, 1.35);
+
+        \draw[thick] (A0) -- (A1);
+        \filldraw (A0) circle (1.5pt) node[below left] {$a_0$};
+        \filldraw (A1) circle (1.5pt) node[below right] {$a_1$};
+
+        \node at (1.05, -0.65) {\textit{$1$-simplejo} $\langle a_0, a_1 \rangle$};
+    \end{scope}
+
+    % --- 2-simplejo ---
+    \begin{scope}[shift={(4.4, 0)}]
+        \coordinate (B0) at (0, 0.1);
+        \coordinate (B1) at (2.3, 0.45);
+        \coordinate (B2) at (0.65, 1.95);
+
+        \fill[gray!15] (B0) -- (B1) -- (B2) -- cycle;
+        \draw[thick] (B0) -- (B1) -- (B2) -- cycle;
+
+        \filldraw (B0) circle (1.5pt) node[below left] {$a_0$};
+        \filldraw (B1) circle (1.5pt) node[below right] {$a_1$};
+        \filldraw (B2) circle (1.5pt) node[above] {$a_2$};
+
+        \node at (1.15, -0.65) {\textit{$2$-simplejo} $\langle a_0, a_1, a_2 \rangle$};
+    \end{scope}
+
+    % --- 3-simplejo ---
+    \begin{scope}[shift={(9.1, 0)}]
+        \coordinate (C0) at (0, 0.1);
+        \coordinate (C1) at (2.1, 0.35);
+        \coordinate (C2) at (2.65, 1.55);
+        \coordinate (C3) at (0.55, 2.25);
+
+        % Caras frontales con sombreado diferenciado para dar volumen
+        \fill[gray!12] (C0) -- (C1) -- (C3) -- cycle;
+        \fill[gray!24] (C1) -- (C2) -- (C3) -- cycle;
+
+        % Arista oculta
+        \draw[dashed, thin] (C0) -- (C2);
+
+        % Aristas visibles
+        \draw[thick] (C0) -- (C1) -- (C2) -- (C3) -- cycle;
+        \draw[thick] (C1) -- (C3);
+
+        \filldraw (C0) circle (1.5pt) node[below left] {$a_0$};
+        \filldraw (C1) circle (1.5pt) node[below right] {$a_1$};
+        \filldraw (C2) circle (1.5pt) node[right] {$a_2$};
+        \filldraw (C3) circle (1.5pt) node[above] {$a_3$};
+
+        \node at (1.3, -0.65) {\textit{$3$-simplejo} $\langle a_0, a_1, a_2, a_3 \rangle$};
+    \end{scope}
+\end{tikzpicture}
+\]
+\end{ejemplo}
+\begin{definicion}
+Una \textit{$r$-cara} de $\sigma$ es el subconjunto de $\sigma$ formado por las combinaciones convexas de un subconjunto de $r + 1$ vértices de $\sigma$.
+\end{definicion}
+
+\begin{nota}
+Un $n$-simplejo geométrico es \textit{compacto}, \textit{convexo} y \textit{cerrado} en $\mathbb{R}^m$.
+\end{nota}
+
+\begin{prop}
+Sean $\sigma = \langle a_0, a_1, \dots, a_n \rangle \subset \mathbb{R}^m$ y $\tau = \langle b_0, b_1, \dots, b_n \rangle \subset \mathbb{R}^l$ dos $n$-simplejos geométricos. Entonces $\sigma$ y $\tau$ son \textit{afínmente homeomorfos}.
+\end{prop}
+
+\begin{dem}
+Sea $f \colon \sigma \to \tau$ dada por
+\[
+f\left( \sum_{i=0}^n \lambda_i a_i \right) = \sum_{i=0}^n \lambda_i b_i,
+\]
+es decir, $f$ está determinada por los valores $f(a_i) = b_i$. Claramente $f$ es biyectiva.
+
+Como $f$ va de un compacto en un Hausdorff, $f$ es cerrada; por lo tanto, $f$ es un \textit{homeomorfismo afín}.
+\end{dem}
+\begin{ejercicio}
+Verificar que $f$ es continua.
+\end{ejercicio}
+
+\begin{definicion}
+Un \textit{complejo simplicial geométrico} es una familia $\mathcal{C}$ de simplejos geométricos en $\mathbb{R}^m$ que cumplen:
+\begin{enumerate}
+    \item Si $\sigma \in \mathcal{C}$ y $\tau \subset \sigma$ es una cara, entonces $\tau \in \mathcal{C}$.
+    \item Si $\sigma, \sigma' \in \mathcal{C}$, entonces
+    \[
+    \sigma \cap \sigma' = 
+    \begin{cases}
+        \varnothing,\\
+        \text{es una cara común de } \sigma \text{ y de } \sigma'.
+    \end{cases}
+    \]
+\end{enumerate}
+La \textit{realización geométrica} de $\mathcal{C}$ es el espacio
+\[
+|\;\mathcal{C}\;| = \{ x \in \mathbb{R}^m : x \in \sigma \text{ para algún } \sigma \in \mathcal{C} \}.
+\]
+\[
+\begin{tikzpicture}[scale=0.95]
+    % Coordenadas del complejo simplicial
+    \coordinate (A0) at (0, 0);
+    \coordinate (A1) at (0.4, 1.45);
+    \coordinate (A2) at (1.85, 1.1);
+
+    \coordinate (B0) at (3.35, 0.65);
+    \coordinate (B1) at (3.25, -0.65);
+    \coordinate (B2) at (4.7, -0.15);
+    \coordinate (B3) at (5.0, 0.7);
+
+    \coordinate (C0) at (6.15, 0.8);
+    \coordinate (C1) at (6.95, 1.3);
+    \coordinate (C2) at (7.3, 0.45);
+
+    % Sombreado del 2-simplejo izquierdo
+    \fill[gray!15] (A0) -- (A1) -- (A2) -- cycle;
+
+    % Sombreado del 3-simplejo central
+    \fill[gray!12] (B0) -- (B1) -- (B2) -- cycle;
+    \fill[gray!24] (B0) -- (B2) -- (B3) -- cycle;
+
+    % Arista oculta del 3-simplejo
+    \draw[dashed, thin] (B1) -- (B3);
+
+    % Aristas visibles
+    \draw[thick] (A0) -- (A1) -- (A2) -- cycle;
+    \draw[thick] (A2) -- (B0);
+    \draw[thick] (B0) -- (B1) -- (B2) -- (B3) -- cycle;
+    \draw[thick] (B0) -- (B2);
+    \draw[thick] (B3) -- (C0);
+    \draw[thick] (C0) -- (C1);
+    \draw[thick] (C0) -- (C2);
+
+    % Vértices
+    \foreach \p in {A0, A1, A2, B0, B1, B2, B3, C0, C1, C2} {
+        \filldraw (\p) circle (1.5pt);
+    }
+\end{tikzpicture}
+\]
+\end{definicion}
+
+\begin{definicion}
+Los \textit{simplejos geométricos estándar}, que se denotan por $\Delta^n \subset \mathbb{R}^{n+1}$, se definen como
+\[
+\Delta^n = \langle e_0, e_1, \dots, e_n \rangle,
+\]
+donde $\{e_0, e_1, \dots, e_n\}$ es la base canónica de $\mathbb{R}^{n+1}$, es decir, $e_0 = (1, 0, 0, \dots, 0)$, etc. De manera que
+\[
+\Delta^n = \Big\{ (\lambda_0, \lambda_1, \dots, \lambda_n) \in \mathbb{R}^{n+1} : \lambda_i \geq 0 \text{ y } \sum_{i=0}^n \lambda_i = 1 \Big\}.
+\]
+\[
+\begin{tikzpicture}[scale=1.05, >=stealth]
+    % --- \Delta^0 \subset \mathbb{R} ---
+    \begin{scope}[shift={(0, 0)}]
+        \draw[thin] (-1.2, 0.5) -- (1.2, 0.5);
+        \filldraw (0, 0.5) circle (1.6pt) node[above=3pt] {$1$};
+        \node at (0, -0.6) {$\Delta^0 \subset \mathbb{R}$};
+    \end{scope}
+
+    % --- \Delta^1 \subset \mathbb{R}^2 ---
+    \begin{scope}[shift={(3.7, 0)}]
+        \draw[thin] (-0.3, 0) -- (1.8, 0);
+        \draw[thin] (0, -0.3) -- (0, 1.8);
+        \draw[very thick] (0, 1.2) -- (1.2, 0);
+        \filldraw (0, 1.2) circle (1.6pt);
+        \filldraw (1.2, 0) circle (1.6pt);
+        \node at (0.65, -0.6) {$\Delta^1 \subset \mathbb{R}^2$};
+    \end{scope}
+
+    % --- \Delta^2 \subset \mathbb{R}^3 ---
+    \begin{scope}[shift={(8.4, 0.25)}]
+        \coordinate (O) at (0, 0);
+        \coordinate (E0) at (-0.65, -0.55);
+        \coordinate (E1) at (1.15, 0);
+        \coordinate (E2) at (0, 1.15);
+
+        % Sombreado de \Delta^2
+        \fill[gray!18] (E0) -- (E1) -- (E2) -- cycle;
+
+        % Ejes coordenados
+        \draw[->, thin] (O) -- (-1.05, -0.88);
+        \draw[->, thin] (O) -- (1.85, 0);
+        \draw[->, thin] (O) -- (0, 1.75);
+
+        % Aristas y vértices de \Delta^2
+        \draw[thick] (E0) -- (E1) -- (E2) -- cycle;
+        \filldraw (E0) circle (1.6pt);
+        \filldraw (E1) circle (1.6pt);
+        \filldraw (E2) circle (1.6pt);
+
+        \node at (0.3, -0.85) {$\Delta^2 \subset \mathbb{R}^3$};
+    \end{scope}
+\end{tikzpicture}
+\]
+\end{definicion}
+\begin{nota}
+Hay otra familia de simplejos que se usa a veces, considerando $\Delta^n \subset \mathbb{R}^n$, donde $\Delta^1 = I$ y estos $\Delta^n$ están dados mediante una desigualdad:
+\[
+\begin{tikzpicture}[baseline=0.45cm, scale=1.1, >=stealth]
+    \node[left] at (-0.35, 0.55) {$\Delta^2 =$};
+    % Sombreado del 2-simplejo en R^2
+    \fill[gray!18] (0,0) -- (1.2,0) -- (0,1.2) -- cycle;
+    % Ejes coordenados
+    \draw[->, thin] (-0.25, 0) -- (1.75, 0);
+    \draw[->, thin] (0, -0.25) -- (0, 1.65);
+    % Aristas del simplejo
+    \draw[thick] (0,0) -- (1.2,0) -- (0,1.2) -- cycle;
+    % Vértices
+    \filldraw (0,0) circle (1.4pt);
+    \filldraw (1.2,0) circle (1.4pt) node[below=2pt] {$\scriptstyle 1$};
+    \filldraw (0,1.2) circle (1.4pt) node[left=2pt] {$\scriptstyle 1$};
+\end{tikzpicture}
+\]
+\end{nota}
+
+\begin{definicion}
+Un \textit{complejo simplicial} es una pareja $(K, V_K)$, donde $K$ es una familia de subconjuntos finitos no vacíos de un conjunto $V_K$, cuyos elementos se llaman \textit{vértices}, y que satisfacen:
+\begin{enumerate}
+    \item Si $v \in V_K$, entonces $\{v\} \in K$.
+    \item Si $s \in K$ y $\varnothing \neq s' \subset s$, entonces $s' \in K$.
+\end{enumerate}
+A los elementos de $K$ se les llama \textit{simplejos}. Si $s = \{v_0, v_1, \dots, v_q\}$, entonces decimos que $s$ es un \textit{$q$-simplejo}. A los subconjuntos no vacíos de $s$ se les llama \textit{caras} de $s$.
+\end{definicion}
+
+\begin{definicion}
+Dado el $q$-simplejo estándar
+\[
+\Delta^q = \Big\{ (\lambda_0, \lambda_1, \dots, \lambda_q)\in\R^{q+1} : \lambda_i \geq 0, \; \sum_{i=0}^q \lambda_i = 1 \Big\},
+\]
+definimos su \textit{interior} $\mathring{\Delta}^q \subset \Delta^q$ y su \textit{frontera} $\partial \Delta^q$ como los subespacios
+\begin{align*}
+\mathring{\Delta}^q &= \left\{ (\lambda_0, \lambda_1, \dots, \lambda_q) \in \Delta^q \;\middle|\; \lambda_i > 0 \text{ para todo } i \right\}, \\[1ex]
+\partial \Delta^q &= \Delta^q - \mathring{\Delta}^q = \left\{ (\lambda_0, \lambda_1, \dots, \lambda_q) \in \Delta^q \;\middle|\; \lambda_i = 0 \text{ para alguna } 0 \leq i \leq q \right\}.
+\end{align*}
+\end{definicion}
+\begin{ejemplo}
+Consideremos el conjunto de vértices $V_K = \{v_0, v_1, v_2\}$ y la familia de simplejos
+\[
+K = \big\{ \{v_0\}, \{v_1\}, \{v_2\}, \{v_0, v_1\}, \{v_1, v_2\}, \{v_0, v_2\} \big\}.
+\]
+Identificando $\mathbb{R}^{\{v_0, v_1, v_2\}} = \mathbb{R}^3$, su representación geométrica corresponde únicamente a los vértices y aristas del triángulo (sin el interior):
+\[
+\begin{tikzpicture}[baseline=0.35cm, scale=1.15, >=stealth]
+    \coordinate (O) at (0, 0);
+    \coordinate (E0) at (-0.7, -0.6);
+    \coordinate (E1) at (1.25, 0);
+    \coordinate (E2) at (0, 1.25);
+
+    % Ejes coordenados
+    \draw[->, thin, gray!85] (O) -- (-1.1, -0.95);
+    \draw[->, thin, gray!85] (O) -- (1.9, 0);
+    \draw[->, thin, gray!85] (O) -- (0, 1.8);
+
+    % Aristas del complejo (1-esqueleto hueco)
+    \draw[very thick] (E0) -- (E1) -- (E2) -- cycle;
+
+    % Vértices y etiquetas
+    \filldraw (E0) circle (1.5pt) node[below right, xshift=-2pt, yshift=-1pt] {$\scriptstyle e_0$};
+    \filldraw (E1) circle (1.5pt) node[below=2pt] {$\scriptstyle e_1$};
+    \filldraw (E2) circle (1.5pt) node[right=2pt] {$\scriptstyle e_2$};
+
+    \node[right] at (2.8, 0.5) {$\mathbb{R}^{\{v_0, v_1, v_2\}} = \mathbb{R}^3$};
+\end{tikzpicture}
+\]
+\end{ejemplo}
+
+\begin{definicion}
+Sea $(K, V_K)$ un complejo simplicial. Su \textit{realización geométrica} $|K|$ se define como
+\[
+|K| = \Big\{ \alpha \colon V_K \to I \subset \mathbb{R} : \alpha^{-1}(0, 1] \in K \text{ y } \sum_{v \in V_K} \alpha(v) = 1 \Big\} \subset \mathbb{R}^{V_K},
+\]
+donde $\mathbb{R}^{V_K}$ es un \textit{espacio vectorial real} y se tiene que $|K| \subset \Delta^{V_K} \subset \mathbb{R}^{V_K}$.
+\end{definicion}
+
+\begin{definicion}
+Dado un simplejo $s \in K$, definimos el \textit{simplejo cerrado} $|s|$, el \textit{simplejo abierto} $\langle s \rangle$ y su \textit{frontera} $\partial(|s|)$ en $|K|$ mediante
+\begin{align*}
+|s| &= \left\{ \alpha \in |K| \;\middle|\; \alpha^{-1}(0, 1] \subset s \right\} = \left\{ \alpha \in |K| \;\middle|\; \alpha(v) = 0 \text{ si } v \notin s \right\}, \\[1ex]
+\langle s \rangle &= \left\{ \alpha \in |K| \;\middle|\; \alpha^{-1}(0, 1] = s \right\}, \\[1ex]
+\partial(|s|) &= |s| - \langle s \rangle.
+\end{align*}
+\end{definicion}
+
+\begin{definicion}
+Definimos la función $d \colon |K| \times |K| \to \mathbb{R}$ dada por
+\[
+d(\alpha, \beta) = \sqrt{\sum_{v \in V_K} \big(\alpha(v) - \beta(v)\big)^2}.
+\]
+\end{definicion}
+
+\begin{ejercicio}
+Verificar que $d$ es una \textit{métrica} en $|K|$.
+\end{ejercicio}
+\begin{lema}
+Sea $s = \{v_0, v_1, \dots, v_q\} \in K$. Entonces
+\[
+|s| \cong \Delta^q, \; \langle s \rangle \cong \mathring{\Delta}^q \; \text{ y } \; \partial|s| \cong \partial\Delta^q.
+\]
+\end{lema}
+
+\begin{dem}
+Definimos $\varphi \colon |s| \to \Delta^q$ como
+\[
+\varphi(\alpha) = \big(\alpha(v_0), \alpha(v_1), \dots, \alpha(v_q)\big) \in \Delta^q,
+\]
+y sea $\psi \colon \Delta^q \to |s|$ dada por
+\[
+\psi(\lambda_0, \lambda_1, \dots, \lambda_q)(v) = 
+\begin{cases}
+    \lambda_i, & \text{si } v = v_i, \; 0 \leq i \leq q, \\
+    0, & \text{si } v \notin s.
+\end{cases}
+\]
+Si $\alpha \in \langle s \rangle$, entonces $\alpha(v_i) > 0$ para todo $i = 0, 1, \dots, q$, por lo tanto $\varphi(\alpha) \in \mathring{\Delta}^q$. Ahora, si $(\lambda_0, \lambda_1, \dots, \lambda_q) \in \mathring{\Delta}^q$, se tiene que $\lambda_i > 0$ para todo $i$, lo cual implica que
+\[
+\psi(\lambda_0, \lambda_1, \dots, \lambda_q)(v_i) = \lambda_i > 0 \quad \text{para todo } i = 0, 1, \dots, q,
+\]
+y por consiguiente $\psi(\lambda_0, \lambda_1, \dots, \lambda_q) \in \langle s \rangle$. Claramente esto induce que $\partial|s| \xrightarrow{\;\varphi|\;} \partial\Delta^q$.
+\end{dem}
+
+\begin{ejercicio}
+Verificar que $\psi$ es la inversa de $\varphi$ y que $\varphi$ es una \textit{isometría}.
+\end{ejercicio}
+
+\begin{definicion}
+Al subespacio $|s|$ se le llama \textit{simplejo cerrado} y a $\langle s \rangle$ el \textit{simplejo ``abierto''}.
+\end{definicion}
+\begin{lema}
+Se cumple que
+\[
+|K| = \bigcup_{s \in K} \langle s \rangle,
+\]
+y si $s \neq s'$, entonces $\langle s \rangle \cap \langle s' \rangle = \varnothing$.
+\end{lema}
+
+\begin{dem}
+Sea $\alpha \in |K|$; entonces $\alpha^{-1}(0, 1] \in K$, por lo tanto $\alpha \in \big\langle \alpha^{-1}(0, 1] \big\rangle$. Por otro lado, si $\alpha \in \langle s \rangle \cap \langle s' \rangle$, entonces
+\[
+\alpha^{-1}(0, 1] = s \qquad \text{y} \qquad \alpha^{-1}(0, 1] = s',
+\]
+por lo que $s = s'$.
+\end{dem}
+
+\begin{nota}
+Para cada $n$-simplejo $s \in K$ tenemos el mapeo $\psi_s \colon \Delta^n \to |s| \subset |K|$ dado por la función $\psi$ del lema anterior, cuya restricción
+\[
+\psi_s \colon \mathring{\Delta}^n \xrightarrow{\;\cong\;} \langle s \rangle
+\]
+es un homeomorfismo, de manera que $|K|$ es un \textit{complejo CW} con las celdas abiertas $\langle s \rangle$ homeomorfas a $\mathring{\Delta}^n$. En este caso, $\psi_s \colon \Delta^n \xrightarrow{\;\cong\;} |s|$, que es la \textit{función característica} de la celda $\langle s \rangle$, también es un homeomorfismo; por esta razón decimos que $|K|$ es un \textit{CW regular}.
+\end{nota}
+
+\begin{definicion}
+A $|K|$ con la \textit{topología de la métrica} lo denotamos por $|K|_d$.
+\end{definicion}
+
+\begin{definicion}
+Definimos otra topología para $|K|$, que es la \textit{topología de la unión} en
+\[
+|K| = \medcup_{s \in K} |s|,
+\]
+donde cada $|s| \cong \Delta^q$ tiene la topología de la métrica. A $|K|$ con la topología de la unión lo denotamos por $|K|$, así que $|K|$ es un \textit{complejo CW}.
+\end{definicion}
+%%%% Clase 29 del 16/10/26 inciada el 17/11/26 terminada el 18/11/2026
+
+%%%% Clase 30 del 19/10/26 inciada el 18/11/26
+
+Tenemos a $|K|$ con la topología de la unión; por lo tanto, una función $f \colon |K| \to Y$ es continua si y solo si $f|_{|s|}$ es continua para cada $s \in K$. Notemos que considerando $\operatorname{Id} \colon |K| \to |K|_d$, tenemos que cada restricción $\operatorname{Id}|_{|s|} \colon |s| \to |K|_d$ es continua, ya que $|s|$ tiene la topología inducida por $d$ (de modo que $\operatorname{Id} \colon |K| \to |K|_d$ es continua).
+
+\begin{definicion}
+Un complejo simplicial $K$ es \textit{localmente finito} si cada vértice de $K$ pertenece solo a un número finito de simplejos.
+\end{definicion}
+
+\begin{prop}
+Las siguientes afirmaciones son equivalentes:
+\begin{enumerate}
+    \item $K$ es \textit{localmente finito}.
+    \item $|K|$ es \textit{localmente compacto}.
+    \item $\operatorname{Id} \colon |K| \to |K|_d$ es un \textit{homeomorfismo}.
+    \item $|K|$ es \textit{metrizable}.
+    \item $|K|$ satisface el \textit{primer axioma de numerabilidad}.
+\end{enumerate}
+\end{prop}
+
+\begin{definicion}
+Sean $(K, V_K)$ y $(Q, V_Q)$ complejos simpliciales. Un \textit{morfismo simplicial}
+\[
+f \colon (K, V_K) \longrightarrow (Q, V_Q)
+\]
+es una función $f \colon V_K \to V_Q$ tal que si $\{v_0, v_1, \dots, v_q\} \in K$, entonces
+\[
+\big\{ f(v_0), f(v_1), \dots, f(v_q) \big\} \in Q.
+\]
+Se tiene así la categoría con objetos los \textit{complejos simpliciales} y morfismos los \textit{morfismos simpliciales}.
+\end{definicion}
+\begin{definicion}
+Sea $f \colon (K, V_K) \to (Q, V_Q)$ un morfismo simplicial. Definimos su \textit{realización geo- métrica} $|f| \colon |K| \to |Q|$ como sigue: para cada $\alpha \in |K|$ y cada $w \in V_Q$,
+\[
+|f|(\alpha)(w) =\smashoperator[r]{\sum_{v \in f^{-1}(w)}} \alpha(v).
+\]
+\end{definicion}
+
+\begin{ejercicio}
+Verificar que $|f|(\alpha) \in |Q|$ y que $|f|$ es \textit{continua}.
+\end{ejercicio}
+
+\begin{lema}
+Sean $V_K = \{v_0, v_1, v_2\}$ y
+\[
+K = \big\{ \{v_0\}, \{v_1\}, \{v_2\}, \{v_0, v_1\}, \{v_1, v_2\}, \{v_2, v_0\} \big\}.
+\]
+Entonces $|K| \cong \partial\Delta^2 = \Delta^2 - \mathring{\Delta}^2$.
+\end{lema}
+
+\begin{dem}
+Sea $\varphi \colon |K| \to \partial\Delta^2$ dada por
+\[
+\varphi(\alpha) = \big(\alpha(v_0), \alpha(v_1), \alpha(v_2)\big).
+\]
+Notemos que algún $\alpha(v_i) = 0$, ya que si $\alpha(v_i) \neq 0$ para $i = 0, 1, 2$, entonces $\{v_0, v_1, v_2\} \in K$, lo cual es falso. 
+
+Sea ahora $\psi \colon \partial\Delta^2 \to |K|$ dada por
+\[
+\psi(\lambda_0, \lambda_1, \lambda_2)(v_i) = \lambda_i \quad \text{para } i = 0, 1, 2.
+\]
+Por el siguiente ejercio y lo hecho anteriormente, $\varphi$ es continua, biyectiva y cerrada, de modo que $\varphi$ es un \textit{homeomorfismo}.
+\end{dem}
+\begin{ejercicio}
+Verificar que $\varphi$ es continua, que $\psi(\lambda_0, \lambda_1, \lambda_2) \in |K|$ y que $\psi$ es la inversa de $\varphi$.
+\end{ejercicio}
+\begin{definicion}
+Un espacio $X$ es \textit{triangulable} si existe un complejo simplicial $K$ y un homeomorfismo $h \colon |K| \to X$.
+\end{definicion}
+
+\begin{teorema}
+Toda variedad suave es \textit{triangulable}.
+\end{teorema}
+
+\begin{teorema}[Manolescu, 2016]
+Para cada $n \geq 5$ hay una variedad topológica de dimensión $n$ que no es \textit{triangulable}.
+\end{teorema}
+
+\begin{definicion}
+Sea $R$ un anillo conmutativo con $1$ y $S$ un conjunto. El \textit{$R$-módulo libre generado por $S$} se define como
+\[
+R(S) = \left\{ \varphi \colon S \to R \;\middle|\; \varphi \text{ es una función y } \varphi(s) \neq 0 \text{ solo para un número finito de elementos de } S \right\},
+\]
+con las operaciones
+\[
+(\varphi + \psi)(s) = \varphi(s) + \psi(s), \;\; (r\varphi)(s) = r\varphi(s), \;\; r \in R.
+\]
+Dados $r \in R$ y $s \in S$, definimos $rs \in R(S)$ como
+\[
+rs(s') = 
+\begin{cases}
+    r, & \text{si } s' = s, \\
+    0, & \text{si } s' \neq s,
+\end{cases}
+\]
+es decir, $rs = r(1s)$. Denotamos ${1s \equiv s}$.
+\end{definicion}
+Supongamos que $\varphi \in R(S)$ es distinto de $0$ en $s_1, s_2, \dots, s_n$; entonces escribimos $\varphi(s_i) = r_{s_i} \in R$ para $i = 1, \dots, n$. Consideremos
+\[
+\sum_{i=1}^n r_{s_i} s_i = \varphi, \;\; \text{ya que} \;\; \Big( \sum_{i=1}^n r_{s_i} s_i \Big)(s_k) = r_{s_k} = \varphi(s_k).
+\]
+En general, escribimos
+\[
+\varphi = \sum_{s \in S} r_s s,
+\]
+lo cual indica que $\varphi(s) = r_s$, donde solo un número finito de coeficientes cumplen $r_s \neq 0$. Con esta representación, las operaciones de suma y producto por escalar en $R(S)$ se expresan como:
+\begin{align*}
+{\sum_{s \in S} r_s s} + {\sum_{s \in S} r'_s s} &= \sum_{s \in S} (r_s + r'_s)s = \varphi + \psi, \\[1.5ex]
+r\varphi &= r \sum_{s \in S} r_s s = \sum_{s \in S} (rr_s)s.
+\end{align*}
 
