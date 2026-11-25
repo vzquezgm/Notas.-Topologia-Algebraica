@@ -3,6 +3,7 @@
 \end{center}
 \subsection{Motivación}
 \begin{ejercicio}
+    % ID: 60
 Verificar que $R(S)$ tiene la \textit{propiedad universal de un $R$-módulo libre}; es decir, considerando la inclusión $\iota \colon S \hookrightarrow R(S)$ dada por $\iota(s) = 1s \equiv s$, dado cualquier $R$-módulo $M$ y una función $f \colon S \to M$, existe un único homomorfismo de $R$-módulos $\bar{f} \colon R(S) \to M$ tal que $\bar{f} \circ \iota = f$:
 \[
 \begin{tikzcd}[row sep=large, column sep=large]
@@ -96,6 +97,7 @@ Calculando los operadores frontera con coeficientes en $\mathbb{Z}_2$, tenemos:
 \end{ejemplo}
 
 \begin{ejercicio}
+    % ID: 61
 Verificar que ${\partial_{q-1} \circ \partial_q = 0}$.
 \end{ejercicio}
 \begin{ejemplo}
@@ -259,6 +261,7 @@ donde la base son los $q$-simplejos de $K$, con \textit{operador frontera} $\par
 \end{definicion}
 
 \begin{ejercicio}
+    % ID: 62
 Verificar que $\partial_q^< \circ \partial_{q+1}^< = 0$; por lo tanto, $\operatorname{Im} \partial_{q+1}^< \subset \ker \partial_q^<$.
 \end{ejercicio}
 
@@ -270,6 +273,7 @@ H_q(K; R) = \raisebox{0.2ex}{$\ker \partial_q^<$} \Big/ \raisebox{-0.2ex}{$\oper
 \end{definicion}
 
 \begin{ejercicio}
+    % ID: 63
 Sean $V_K = \{v_0, v_1, v_2\}$ y
 \[
 K = \big\{ \{v_0\}, \{v_1\}, \{v_2\}, \{v_0, v_1\}, \{v_1, v_2\}, \{v_0, v_2\} \big\},
@@ -312,6 +316,7 @@ C'_q \arrow[r, "\partial'_q"'] & C'_{q-1}
     tal que $\psi_*[z]=[\psi(z)]$. Donde $[z]$ es la cadena de homología de $q$-ciclos $z\in Z_q=\ker\partial_q$ y los $q$-frontera $B_q=\im\partial_{q+1}.$
 \end{definicion}
 \begin{ejercicio}
+    % ID: 64
     Ver que $\psi_*$ está bien definida.
 \end{ejercicio}
 \begin{ejemplo}
@@ -371,6 +376,7 @@ H_q(\mathcal{C}_*(K; R), \partial_*) \cong H_q(C_*^<(K; R), \partial_*^<).
     \end{align*}
 \end{definicion}
 \begin{ejercicio}
+    % ID: 65
     Ver que $f_\#$ es un morfismo de cadena y, por lo tanto, define un homomorfismo en homología.
 \end{ejercicio}
 
@@ -525,9 +531,11 @@ con \textit{operador frontera} $\partial_q \colon S_q(X) \to S_{q-1}(X)$ dado so
      A los elementos de $S_q(X)$ se le llama cadenas singulares con coeficientes en $R$.
  \end{nota}
  \begin{ejercicio}
+    % ID: 66
      $F_q^i\circ F_{q-1}^i=F_q^j\circ F_{q-1}^{i-1}$ para todo $j<i$.
  \end{ejercicio}
  \begin{ejercicio}
+    % ID: 67
  Ver que $\partial_q:S_q\to S_{q-1}$ satisface que $\partial_q\circ \partial_{q+1}=0$.
  \end{ejercicio}
  \begin{definicion}
@@ -768,6 +776,7 @@ C_{q-1}^\alpha \arrow[r, "j_\alpha"'] & \displaystyle\bigoplus_{\alpha \in \Lamb
 Por la propiedad universal, existe un único homomorfismo $\partial_q^\oplus$ que hace conmutar el diagrama (de modo que $\partial_q^\oplus \circ i_\alpha = j_\alpha \circ \partial_q^\alpha$ para todo $\alpha \in \Lambda$). Claramente se cumple que $\partial_{q-1}^\oplus \circ \partial_q^\oplus = 0$.
 \end{definicion}
 \begin{ejercicio}
+    % ID: 68
 Ver que se tiene un isomorfismo
 \begin{align*}
     \bigoplus_{\alpha \in \Lambda} H_q(C_*^\alpha, \partial_*^\alpha)&\xlongrightarrow[]{\cong} H_q\hspace{0.2mm}\bigg(\displaystyle\bigoplus_{\alpha \in \Lambda} C_*^\alpha, \partial_*^\oplus\bigg)\\
@@ -984,6 +993,7 @@ Si $X = \emptyset$, entonces $S_q(X) = 0$ para todo $q$.
 \end{nota}
 
 \begin{ejercicio}
+    % ID: 69
 Ver que las dos definiciones de $H_q(X, A; R)$ son isomorfas.
 \end{ejercicio}
 
@@ -1004,6 +1014,7 @@ Dada una función continua de parejas $f \colon (X, A) \to (Y, B)$, podemos desc
 \end{itemize}
 
 \begin{ejercicio}
+    % ID: 70
 Ver que $\bar{f}_\# \colon (S_*(X, A), \bar{\partial}_*) \to (S_*(Y, B), \bar{\partial}'_*)$ es un morfismo de cadenas.
 \end{ejercicio}
 
@@ -1089,6 +1100,7 @@ La inyectividad de $\coprod_{\alpha \in \Lambda} \tilde{i}_\alpha$ se deja como 
 \end{dem}
 
 \begin{ejercicio}
+    % ID: 71
 Ver que la función $\coprod_{\alpha \in \Lambda} \tilde{i}_\alpha$ de la demostración anterior es inyectiva.
 \end{ejercicio}
 
@@ -1204,6 +1216,7 @@ La verificación de la exactitud en $H_q(A; R)$ se deja como ejercicio.
 \end{dem}
 
 \begin{ejercicio}
+    % ID: 72
 Ver la exactitud de la sucesión larga en $H_q(A; R)$.
 \end{ejercicio}
 
@@ -1247,6 +1260,7 @@ Denotamos a este $q$-simplejo afín por $\sigma = \langle\!\langle w_0, w_1, \do
 \end{definicion}
 
 \begin{ejercicio}
+    % ID: 73
 Ver que, para cada $0 \leq i \leq q$, la $i$-cara de $\sigma = \langle\!\langle w_0, w_1, \dots, w_q \rangle\!\rangle$, definida como $\sigma^{(i)} \equiv \sigma \circ F_q^i$, está dada por
 \[
 \sigma^{(i)} = \langle\!\langle w_0, w_1, \dots, \hat{w}_i, \dots, w_q \rangle\!\rangle.
@@ -1735,6 +1749,7 @@ donde $P_q \in S_{q+1}(\Delta^q \times I)$, y lo extendemos por linealidad a tod
 \end{definicion}
 
 \begin{ejercicio}
+    % ID: 74
 Ver que la familia $T = \{T_q^X\}$ así definida es natural.
 \end{ejercicio}
 
@@ -1812,6 +1827,7 @@ Sean $\varphi, \psi \colon (C_*, \partial_*^C) \to (D_*, \partial_*^D)$ morfismo
 En tal caso, se tiene que $\varphi_* = \psi_* \colon H_*(C_*, \partial_*^C) \to H_*(D_*, \partial_*^D)$.
 \end{definicion}
 \begin{ejercicio}
+    % ID: 75
 Sean
 \[
 \begin{tikzcd}[column sep=2.6em]
@@ -2096,6 +2112,7 @@ Con las cadenas $\mathcal{S}_q$ ya construidas, definimos $\operatorname{sd}_q^X
 y lo extendemos por linealidad a todo $S_q(X)$.
 
 \begin{ejercicio}
+    % ID: 76
 Ver que $\operatorname{sd} = \{\operatorname{sd}_q^X\}$ es una transformación natural.
 \end{ejercicio}
 
@@ -2414,6 +2431,7 @@ de modo que $(S_+^n, S^{n-1})$ es un retracto por deformación de $(S^n - V, S_-
 \end{dem}
 
 \begin{ejercicio}
+    % ID: 77
 Consideremos el \textit{complejo de cadenas aumentado} de $X$:
 \[
 \begin{tikzcd}[column sep=1.7em]
@@ -2429,6 +2447,7 @@ Ver que esta definición es isomorfa a cualquiera de las dos anteriores (recorde
 \end{ejercicio}
 
 \begin{ejercicio}
+    % ID: 78
 Ver que para una pareja $(X, A)$ con $A \neq \emptyset$ tenemos una sucesión exacta larga en homología reducida:
 \[
 \begin{tikzcd}[column sep=2.2em, row sep=1.8em]
@@ -2558,6 +2577,7 @@ donde las inclusiones $i$ y $j$ son equivalencias homotópicas (en particular, r
 \end{dem}
 
 \begin{ejercicio}
+    % ID: 79
 Ver que la inclusión $i \colon S^{n-1} \hookrightarrow \mathbb{R}^n - \{0\}$ es un retracto por deformación.
 \end{ejercicio}
 
@@ -2731,6 +2751,7 @@ Brouwer dio la definición de grado para variedades trianguladas y luego Hopf di
 \]
 \end{nota}
 \begin{ejercicio}
+    % ID: 80
 Ver que el homomorfismo de conexión
 \[
 \hat{\partial}_q^{(X, A)} \colon H_q(X, A; R) \longrightarrow H_{q-1}(A; R)
