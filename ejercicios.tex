@@ -99,15 +99,15 @@
     % ID: 15
     Para cada espacio $(X,x_0)$, hagamos 
     \begin{align*}
-        T_{(X,x_0)}:[(I^q/\partial I^q,*),(X,x_0)]&\to[(S^q,*),(X,x_0)]\\
+        T^{(X,x_0)}:[(I^q/\partial I^q,*),(X,x_0)]&\to[(S^q,*),(X,x_0)]\\
         [\alpha]&\mapsto [\alpha\circ h],
     \end{align*}
     donde $h$ es el homeomorfismo presentado en \ref{eq:iso_In/partial_In_to_Sn}. Mostrar que $T$ es una equivalencia natural, i.e., para cualquier función continua basada $f:(X,x_0)\to(Y,y_0)$, el siguiente diagrama conmuta 
      \[
     \begin{tikzcd}[column sep=1.2cm, row sep=1.2cm] 
-        \bIq\arrow[r,"\px"] \arrow[d,"f_+"'] & \text{[}(S^q,*),(X,x_0)\text{]}
+        \bIq\arrow[r,"T^{(X,x_0)}"] \arrow[d,"f_+"'] & \text{[}(S^q,*),(X,x_0)\text{]}
         \arrow[d,"f_\#"']\\
-        \YIq\arrow[r,"\py"] &\text{[}(S^q,*),(Y,y_0){]}
+        \YIq\arrow[r,"T^{(Y,y_0)}"] &\text{[}(S^q,*),(Y,y_0){]}
 \end{tikzcd}
     \]
 \end{ejercicio}
