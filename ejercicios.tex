@@ -116,3 +116,433 @@
     % ID: 16
     Ver que $F$ es inyectiva también en el caso $q=0$.
 \end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 17
+    Mostrar que $\Phi$ es una biyección (dar la inversa).
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 18
+    Mostrar que si $Z$ es localmente compacto, entonces $ev$ es continua y, por lo tanto, $\Phi$ es una biyección.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 19
+    Mostrar que $\Phi$ es un lazo y que es biyectiva.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 20
+    Mostrar que existe un ismorfismo 
+    $$\overline{\Phi}:[(SX,*),(Y,y_0)]\to [(X,x_0),(\Omega(Y),c_{y_0})]$$
+    tal que el siguiente diagrama conmuta
+    \begin{equation*}
+    \begin{tikzcd}[column sep=1cm, row sep=1.2cm]
+        \map((SX,*),(Y,y_0)) \arrow[r, "\Phi"] \arrow[d] & \map((X,x_0),(\Omega(Y,y_0),c_{y_0})) \arrow[d] \\
+        {[(SX,*),(Y,y_0)]} \arrow[r, "\overline{\Phi}"] & {[(X,x_0),(\Omega(Y,y_0),c_{y_0})]}
+    \end{tikzcd}
+\end{equation*}
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 21
+\label{eje:SX cong S wedge S1}
+    Mostrar que $SX\cong S\wedge S^1$. Hint: Considere el siguiente diagrama
+    \begin{equation*}
+        \begin{tikzcd}
+            X\times I\arrow[r]\arrow[d] & X\times I/\partial I\arrow[d]\\
+            SX\arrow[r,dashed] & X\wedge S^1
+        \end{tikzcd}
+    \end{equation*}
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 22
+\label{eje:X wedge Y conmute}
+    Mostrar que hay un homeomorfismo canónico $X\wedge Y\cong Y\wedge X$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 23
+    Mostrar que $\mu$ y $j$ son continuas, donde $\Omega(Y,y_0)$ tiene la topología compacto abierta.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 24
+    Mostrar que se tienen los siguientes homeomorfismos
+    \begin{equation*}
+        \map((S^0,-1),(Y,y_0)\cong \map(\{1\},Y)\cong Y,
+    \end{equation*}
+    para cualquier espacio $Y$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 25
+\label{eje:f extended to CX}
+    Sea $f:(X,x_0)\to(Y,y_0)$ una función continua basada. Entonces $f\cong c_{y_0}$ si y sólo si $f$ se extiende a $C(X,x_0)$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 26
+\label{eje: dot and cat distributive}
+    Sea $(X,x_0)$ un espacio basado. Para $n\geq 2$, el conjunto $[(SS^{n-2},*),(\Omega X),c_{y_0})]$ tiene dos operaciones $\cdot$ y $\#$ que tienen neutro en común $[c_{y_0}]$. Mostrar que $\cdot$ y $\#$ se distribuyen mutuamente.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 27
+    Mostrar que $\exp:\R\to S^1$ es una aplicación cubriente.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 28
+    Mostrar que una aplicación cubriente es un homomorfismo local.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 29
+    Todo homeomorfismo local es una función abierta.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 30
+    Sea $f:X\to Y$ continua y $\sigma,\beta,\gamma:I\to X$ trayectorias de $x_0$ a $x_1$. Mostrar que
+    Mostrar que 
+    \begin{equation*}
+        f\circ(\alpha*\beta*\gamma)=f\circ\alpha*f\circ\beta*f\circ\gamma
+    \end{equation*}
+    y $f\circ\overline{\sigma}=\overline{f\circ\sigma}$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 31
+    Sea $p:E\to X$ una aplicación cubriente y $E$ conexo por trayectorías. Sea $x_0\in X$, entonces la familia
+    \begin{equation*}
+        \{p_\#(\Pi_1(E,a))\subseteq \Pi_1(X,x_0):a\in p^{-1}(x_0)\}
+    \end{equation*}
+    es una clase de conjugación completa de $\Pi_1(X,x_0).$
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 32
+   Sean $X$ un conjunto y $G$ un grupo. Demuestre que hay una biyección entre las acciones por la derecha de $G$ en $X$ y las acciones por la izquierda de $G$ en $X$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 33
+    Mostrar que $\overline{\gamma}_x$ es inyectiva.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 34
+    Sea $X$ un espacio. Mostrar que hay una acción por la derecha $\cdot: X^n\times S_n\to X^n$ tal que
+    \begin{align*}
+        (x_1,\ldots,x_n)\cdot \rho=(x_{\rho(1)},\ldots,x_{\rho(n)})
+    \end{align*}
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 35
+    Mostrar que la acción anterior esta bien definida y que es por la derecha.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 36
+Ver que esta acción es libre.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 37
+Ver que $\gamma_0$ es un homomorfismo y, por lo tanto, un isomorfismo. En particular, $[\varepsilon] = [\varepsilon^1]$ es un generador de $\Pi_1(S^1, 1)$ y $[\varepsilon^{-1}]$ también.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 38
+Ver que toda acción propiamente discontinua es libre.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 39
+    Sea $G\times X\xrightarrow{\bigdot} X$ una acción propiamente discontinua, entonces $\pi:X\to X/G$ es una aplicación cubriente.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 40
+    Sea $G\times X\xrightarrow{\bigdot} X$ una acción continua libre tal que $G$ es finito y $X$ es Hausdorff. Mostrar que la acción es propiamnete discontinua y, por lo tanto, $\pi:X\to X/G$ es una aplicación cubiente.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 41
+    Mostrar que la inclusión $\iota:S^n\hookrightarrow \R^{n+1}-\{0\}$ pasa al los cocientes y define un homeomorfismo canónico $\overline{\iota}:S^n/\Z_2\to \R P^n$ tal que el siguiente diagrama conmuta
+    \begin{equation*}
+        \begin{tikzcd}[column sep=1cm, row sep=1cm]
+            S^n\arrow[r,"\iota", hook]\arrow[d,"\pi_1"] & \R^{n+1}-\{0\}\arrow["\pi_2",d]\\
+            S^n/\Z_2\arrow["\overline{\iota}",r] & P \R^n
+        \end{tikzcd}
+    \end{equation*}
+    y que $S^1/\Z_2\cong S^1,$ por lo tanto, $\R P^1\cong S^1.$
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 42
+    Sea $p:E\to X$ una aplicación cubriente. Entonces los abiertos de $X$ cubiertos parejamente son una base de la topología de $X$ y las hojas sobre estos abiertos son una base de la topología de $E$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 43
+    Muestra la implicación de ida del teorema del levantamiento.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 44
+Sea $p \colon E \to X$ una aplicación cubriente. Ver que $E$ es localmente conexo por trayectorias si y sólo si $X$ es localmente conexo por trayectorias.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 45
+\label{eje: G cong G(p)}
+    Sea $Y$ conexo y $G\times Y\xrightarrow{\bigdot} Y$ una acción propiamiente discontinua y $p:Y\to Y/G$ la aplicación abierta. Entonces la función $\iota:G\to G(p)$ dado por $\iota(g)=\overline{g}$, es un isomorfismo donde $\overline{g}:Y\to Y$ es $\overline{g}(y)=g\cdot y.$ 
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 46
+Si existe una aplicación cubriente universal sobre $X$, entonces es única salvo isomorfismo.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 47
+Consideremos el diagrama conmutativo
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+E \arrow[r, "q"] \arrow[d, "p"'] & Y \\
+X \arrow[ur, "h"'] &
+\end{tikzcd}
+\]
+donde $p$ es una aplicación cubriente, $q$ es continua y $h$ es un homeomorfismo tal que $h \circ p = q$. Ver que $q$ es una aplicación cubriente (por lo que, en particular, $p_m$ es una aplicación cubriente).
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 48
+Consideremos ahora el diagrama conmutativo inducido en el grupo fundamental
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+\Pi_1(S^1, 1) \arrow[r, "(p_m)_{\#}"] \arrow[d, "\gamma_0"', "\cong"'{ sloped, pos=0.5, anchor=south }] & \Pi_1(S^1, 1) \arrow[d, "\gamma_0", "\cong"'{ sloped, pos=0.5, anchor=north }] \\
+\Z \arrow[r, dashed, "\cdot m"'] & \Z
+\end{tikzcd}
+\]
+Ver que el homomorfismo inducido en $\Z$ por $(p_m)_{\#}$ consiste en multiplicar por $m$. Por lo tanto, $(p_m)_{\#}\left(\Pi_1(S^1, 1)\right) = m\Z$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 49
+        Supongamos $A\subseteq X$ es cerrado. Mostrar que $\iota: Y\hookrightarrow Y\cup_f X$ tal que $\iota(y)=[y]$ es una función inyectiva y cerrada (i.e., es un encaje cerrado).
+    \end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 50
+        Mostrar que $F|_{X-A}:X-A\to Y\cup_f X$ es una función inyectiva y abierta (i.e., es un encaje abierto).
+    \end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 51
+Probar que $L_{g g'} = L_g \circ L_{g'}$ para cualesquiera $g, g' \in G_\alpha$. Concluir que se tiene un homomorfismo $G_\alpha \to \operatorname{Per}(\mathcal{R})$ dado por $g \mapsto L_g$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 52
+Verificar que el producto en $G = \mathop{\scalebox{1.5}{$\ast$}}_{\alpha \in \Lambda} G_\alpha$ es \textit{asociativo}.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 53
+Verificar que $L{\ast}_{K} H$ junto con los morfismos $\alpha$ y $\beta$ satisface la \textit{propiedad universal del pushout} en la categoría de grupos.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 54
+Verificar que $\{a_0, a_1, \dots, a_n\} \subset \mathbb{R}^m$ es \textit{afín independiente} si y solo si dados $\lambda_0, \lambda_1, \dots, \lambda_n \in \mathbb{R}$ tales que $\sum_{i=0}^n \lambda_i = 0$, se tiene que
+\[
+\sum_{i=0}^n \lambda_i a_i = 0 \implies \lambda_0 = \lambda_1 = \dots = \lambda_n = 0.
+\]
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 55
+Verificar que $f$ es continua.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 56
+Verificar que $d$ es una \textit{métrica} en $|K|$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 57
+Verificar que $\psi$ es la inversa de $\varphi$ y que $\varphi$ es una \textit{isometría}.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 58
+Verificar que $|f|(\alpha) \in |Q|$ y que $|f|$ es \textit{continua}.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 59
+Verificar que $\varphi$ es continua, que $\psi(\lambda_0, \lambda_1, \lambda_2) \in |K|$ y que $\psi$ es la inversa de $\varphi$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 60
+Verificar que $R(S)$ tiene la \textit{propiedad universal de un $R$-módulo libre}; es decir, considerando la inclusión $\iota \colon S \hookrightarrow R(S)$ dada por $\iota(s) = 1s \equiv s$, dado cualquier $R$-módulo $M$ y una función $f \colon S \to M$, existe un único homomorfismo de $R$-módulos $\bar{f} \colon R(S) \to M$ tal que $\bar{f} \circ \iota = f$:
+\[
+\begin{tikzcd}[row sep=large, column sep=large]
+S \arrow[r, "\iota", hook] \arrow[dr, "f"'] & R(S) \arrow[d, "\bar{f}", dashed] \\
+& M
+\end{tikzcd}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 61
+Verificar que ${\partial_{q-1} \circ \partial_q = 0}$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 62
+Verificar que $\partial_q^< \circ \partial_{q+1}^< = 0$; por lo tanto, $\operatorname{Im} \partial_{q+1}^< \subset \ker \partial_q^<$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 63
+Sean $V_K = \{v_0, v_1, v_2\}$ y
+\[
+K = \big\{ \{v_0\}, \{v_1\}, \{v_2\}, \{v_0, v_1\}, \{v_1, v_2\}, \{v_0, v_2\} \big\},
+\]
+de modo que $|K| \cong S^1$. Verificar que
+\[
+H_q(K; R) \cong 
+\begin{cases}
+    R, & \text{si } q = 0 \; \text{o} \; 1, \\
+    0, & \text{si } q \neq 0, 1.
+\end{cases}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 64
+    Ver que $\psi_*$ está bien definida.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 65
+    Ver que $f_\#$ es un morfismo de cadena y, por lo tanto, define un homomorfismo en homología.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 66
+     $F_q^i\circ F_{q-1}^i=F_q^j\circ F_{q-1}^{i-1}$ para todo $j<i$.
+ \end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 67
+ Ver que $\partial_q:S_q\to S_{q-1}$ satisface que $\partial_q\circ \partial_{q+1}=0$.
+ \end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 68
+Ver que se tiene un isomorfismo
+\begin{align*}
+    \bigoplus_{\alpha \in \Lambda} H_q(C_*^\alpha, \partial_*^\alpha)&\xlongrightarrow[]{\cong} H_q\hspace{0.2mm}\bigg(\displaystyle\bigoplus_{\alpha \in \Lambda} C_*^\alpha, \partial_*^\oplus\bigg)\\
+    \{[c_\alpha]\}_{\alpha \in \Lambda}&\longmapsto [\{[c_\alpha]\}_{\alpha \in \Lambda}]
+\end{align*}
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 69
+Ver que las dos definiciones de $H_q(X, A; R)$ son isomorfas.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 70
+Ver que $\bar{f}_\# \colon (S_*(X, A), \bar{\partial}_*) \to (S_*(Y, B), \bar{\partial}'_*)$ es un morfismo de cadenas.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 71
+Ver que la función $\coprod_{\alpha \in \Lambda} \tilde{i}_\alpha$ de la demostración anterior es inyectiva.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 72
+Ver la exactitud de la sucesión larga en $H_q(A; R)$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 73
+Ver que, para cada $0 \leq i \leq q$, la $i$-cara de $\sigma = \langle\!\langle w_0, w_1, \dots, w_q \rangle\!\rangle$, definida como $\sigma^{(i)} \equiv \sigma \circ F_q^i$, está dada por
+\[
+\sigma^{(i)} = \langle\!\langle w_0, w_1, \dots, \hat{w}_i, \dots, w_q \rangle\!\rangle.
+\]
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 74
+Ver que la familia $T = \{T_q^X\}$ así definida es natural.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 75
+Sean
+\[
+\begin{tikzcd}[column sep=2.6em]
+(C_*, \partial_*^C) \arrow[r, shift left=0.6ex, "\varphi"] \arrow[r, shift right=0.6ex, "\psi"'] & (D_*, \partial_*^D) \arrow[r, "\beta"] & (E_*, \partial_*^E)
+\end{tikzcd}
+\]
+morfismos de complejos de cadenas tales que $\varphi \underset{c}{\simeq} \psi$. Ver que $\beta \circ \varphi \underset{c}{\simeq} \beta \circ \psi$.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 76
+Ver que $\operatorname{sd} = \{\operatorname{sd}_q^X\}$ es una transformación natural.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 77
+Consideremos el \textit{complejo de cadenas aumentado} de $X$:
+\[
+\begin{tikzcd}[column sep=1.7em]
+\cdots \arrow[r] & S_q(X) \arrow[r] & S_{q-1}(X) \arrow[r] & \cdots \arrow[r] & S_2(X) \arrow[r, "\partial_2"] & S_1(X) \arrow[r, "\partial_1"] & S_0(X) \arrow[r, "\varepsilon"] & R \arrow[r] & 0.
+\end{tikzcd}
+\]
+Definiendo $\widetilde{H}_q(X; R)$ como la homología de este complejo de cadenas aumentado, se obtiene
+\begin{align*}
+\widetilde{H}_0(X; R) &\equiv \ker\varepsilon / \operatorname{Im}\partial_1, \\
+\widetilde{H}_q(X; R) &= H_q(X; R) \qquad \text{si } q > 0.
+\end{align*}
+Ver que esta definición es isomorfa a cualquiera de las dos anteriores (recordemos que $\operatorname{Im}\partial_1 \subset \ker\varepsilon$).
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 78
+Ver que para una pareja $(X, A)$ con $A \neq \emptyset$ tenemos una sucesión exacta larga en homología reducida:
+\[
+\begin{tikzcd}[column sep=2.2em, row sep=1.8em]
+\cdots \arrow[r] & \widetilde{H}_q(A; R) \arrow[r] & \widetilde{H}_q(X; R) \arrow[r] & H_q(X, A; R) \arrow[r] & \widetilde{H}_{q-1}(A; R) \arrow[r] & \cdots \\
+& \cdots \arrow[r] & \widetilde{H}_0(A; R) \arrow[r, "i_*"] & \widetilde{H}_0(X; R) \arrow[r, "j_*"] & H_0(X, A; R) \arrow[r] & 0.
+\end{tikzcd}
+\]
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 79
+Ver que la inclusión $i \colon S^{n-1} \hookrightarrow \mathbb{R}^n - \{0\}$ es un retracto por deformación.
+\end{ejercicio}
+
+\begin{ejercicio}
+    % ID: 80
+Ver que el homomorfismo de conexión
+\[
+\hat{\partial}_q^{(X, A)} \colon H_q(X, A; R) \longrightarrow H_{q-1}(A; R)
+\]
+es una transformación natural.
+\end{ejercicio}
